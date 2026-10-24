@@ -6,6 +6,7 @@ import android.content.*;
 import android.net.VpnService;
 import android.os.*;
 import android.widget.Toast;
+import cn.xianhua.pocketkit.R;
 import cn.xianhua.pocketkit.update.UpdateManager;
 import io.nekohasekai.libbox.*;
 import java.io.File;
@@ -345,7 +346,9 @@ public final class PocketVpnService extends VpnService {
         PendingIntent open = PendingIntent.getActivity(this, 0, new Intent(this, ProxyActivity.class), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         PendingIntent stop = PendingIntent.getService(this, 1, new Intent(this, PocketVpnService.class).setAction(ACTION_STOP), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         return new Notification.Builder(this, CHANNEL_ID).setContentTitle("拾用 · 规则代理")
-                .setContentText(text).setSmallIcon(android.R.drawable.stat_notify_sync).setContentIntent(open)
+                .setContentText(text).setSmallIcon(R.drawable.ic_stat_pocketkit)
+                .setLargeIcon(android.graphics.drawable.Icon.createWithResource(this, R.mipmap.ic_launcher))
+                .setContentIntent(open)
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel, "断开连接", stop).setOnlyAlertOnce(true).setOngoing(true).build();
     }
     private void updateNotification() {
