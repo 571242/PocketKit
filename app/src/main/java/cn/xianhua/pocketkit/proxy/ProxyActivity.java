@@ -62,7 +62,7 @@ public final class ProxyActivity extends BaseToolActivity implements ProxyState.
 
     @Override
     protected void onCreate(Bundle state) {
-        getIntent().putExtra("title", "规则代理");
+        getIntent().putExtra("title", "代理");
         super.onCreate(state);
 
         profileManager = new ProxyProfileManager(this);
@@ -93,7 +93,7 @@ public final class ProxyActivity extends BaseToolActivity implements ProxyState.
 
         LinearLayout titleCol = new LinearLayout(this);
         titleCol.setOrientation(LinearLayout.VERTICAL);
-        tvStatusTitle = text("规则代理", ink, 18, true);
+        tvStatusTitle = text(ProxyState.get().getMode().label, ink, 18, true);
         titleCol.addView(tvStatusTitle);
         tvStatusSubtitle = text("未连接 · 点击启动", muted, 13, false);
         titleCol.addView(tvStatusSubtitle);
@@ -637,7 +637,10 @@ public final class ProxyActivity extends BaseToolActivity implements ProxyState.
 
     @Override
     public void onModeChanged(ProxyState.Mode mode) {
-        handler.post(this::renderModeButtons);
+        handler.post(() -> {
+            renderModeButtons();
+            tvStatusTitle.setText(mode.label);
+        });
     }
 
     @Override

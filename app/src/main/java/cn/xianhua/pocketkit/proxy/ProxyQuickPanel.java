@@ -70,7 +70,7 @@ public final class ProxyQuickPanel extends LinearLayout implements ProxyState.St
         statusText.setTextColor(ink);
         statusText.setTextSize(15);
         statusText.setTypeface(null, Typeface.BOLD);
-        statusText.setText("规则代理 · 未连接");
+        statusText.setText(ProxyState.get().getMode().label + " · 未连接");
         titleCol.addView(statusText);
 
         ipText = new TextView(activity);
@@ -230,20 +230,20 @@ public final class ProxyQuickPanel extends LinearLayout implements ProxyState.St
             updateDot(status);
             switch (status) {
                 case CONNECTED:
-                    statusText.setText("规则代理 · 已开启 (" + ProxyState.get().getSelectedProxy() + ")");
+                    statusText.setText(ProxyState.get().getMode().label + " · 已开启 (" + ProxyState.get().getSelectedProxy() + ")");
                     toggleSwitch.setChecked(true);
                     break;
                 case CONNECTING:
-                    statusText.setText("规则代理 · 正在连接...");
+                    statusText.setText(ProxyState.get().getMode().label + " · 正在连接...");
                     toggleSwitch.setChecked(true);
                     break;
                 case DISCONNECTING:
-                    statusText.setText("规则代理 · 正在断开...");
+                    statusText.setText(ProxyState.get().getMode().label + " · 正在断开...");
                     toggleSwitch.setChecked(false);
                     break;
                 case DISCONNECTED:
                 default:
-                    statusText.setText(ProxyState.get().getLastError().isEmpty() ? "规则代理 · 未连接" : ProxyState.get().getLastError());
+                    statusText.setText(ProxyState.get().getLastError().isEmpty() ? ProxyState.get().getMode().label + " · 未连接" : ProxyState.get().getLastError());
                     toggleSwitch.setChecked(false);
                     break;
             }
@@ -272,14 +272,17 @@ public final class ProxyQuickPanel extends LinearLayout implements ProxyState.St
 
     @Override
     public void onModeChanged(ProxyState.Mode mode) {
-        handler.post(() -> updateModeButtons(mode));
+        handler.post(() -> {
+            updateModeButtons(mode);
+            onStatusChanged(ProxyState.get().getStatus());
+        });
     }
 
     @Override
     public void onSelectedProxyChanged(String proxyName) {
         handler.post(() -> {
             if (ProxyState.get().getStatus() == ProxyState.Status.CONNECTED) {
-                statusText.setText("规则代理 · 已开启 (" + proxyName + ")");
+                statusText.setText(ProxyState.get().getMode().label + " · 已开启 (" + proxyName + ")");
             }
         });
     }

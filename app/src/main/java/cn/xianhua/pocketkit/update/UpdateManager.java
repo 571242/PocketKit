@@ -54,7 +54,7 @@ public final class UpdateManager {
         }
         worker.execute(() -> {
             try {
-                JSONObject payload = new JSONObject(ProxyProfileManager.fetchHttpContent(DEFAULT_HUB_URL));
+                JSONObject payload = new ProxyRulesStore(context).fetchManifest(DEFAULT_HUB_URL);
                 boolean configSynced = syncNodes(context, payload);
                 boolean rulesSynced = syncRules(context, payload);
                 // One reload for both: nodes and rules share the same live tunnel.
@@ -65,13 +65,11 @@ public final class UpdateManager {
                         }
                     });
                 }
-                String result = "分流规则已是最新";
-                if (configSynced) result = "订阅已同步";
-                else if (hasPendingNodeSync(context, payload)) result = "订阅同步未成功，已保留原配置";
-                if (rulesSynced) result += "，分流规则已更新";
-                else if (!new ProxyRulesStore(context).getLastError().isEmpty()) {
-                    result += "；规则同步未成功，继续使用原规则";
-                }
+                String result = rulesSynced ? "分流规则已更新"
+                        : new ProxyRulesStore(context).getLastError().isEmpty()
+                        ? "本地分流规则与云端一致" : "规则同步未成功，继续使用本地规则";
+                if (configSynced) result = "订阅已同步；" + result;
+                else if (hasPendingNodeSync(context, payload)) result = "订阅同步未成功，已保留原配置；" + result;
                 String message = result;
                 main.post(() -> {
                     if (!alive(context)) return;
@@ -80,7 +78,8 @@ public final class UpdateManager {
                 });
             } catch (Exception error) {
                 // URLs and native/parser messages can contain subscription credentials.
-                report(context, manual, callback, false, "检查更新失败，请检查网络后重试");
+                new ProxyRulesStore(context).recordFailure("规则清单获取失败，继续使用本地规则");
+                report(context, manual, callback, false, "规则清单获取失败，继续使用本地规则");
             } finally { checking.set(false); }
         });
     }
@@ -93,7 +92,7 @@ public final class UpdateManager {
         if (!checking.compareAndSet(false, true)) return;
         worker.execute(() -> {
             try {
-                JSONObject payload = new JSONObject(ProxyProfileManager.fetchHttpContent(DEFAULT_HUB_URL));
+                JSONObject payload = new ProxyRulesStore(context).fetchManifest(DEFAULT_HUB_URL);
                 boolean synced = syncRules(context, payload);
                 if (synced) main.post(() -> {
                     if (ProxyState.get().getMode() == ProxyState.Mode.RULE) {
@@ -173,7 +172,7 @@ public final class UpdateManager {
             return false;
         }
         // Equal version is not proof: the on-disk bundle must still hash to it.
-        if (ProxyRules.verifyFile(store.file(), sha) != null) {
+        if (store.hasVerifiedRules(sha)) {
             store.recordFailure("");
             return false;
         }

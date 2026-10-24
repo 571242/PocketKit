@@ -42,8 +42,10 @@ public final class ManagerActivity extends BaseToolActivity {
     }
     @Override protected void onCreate(Bundle state){
         // External callers cannot control the tool selector or private paths through extras.
-        if(!getPackageName().equals(getCallingPackage()) && (Intent.ACTION_VIEW.equals(getIntent().getAction())||Intent.ACTION_SEND.equals(getIntent().getAction())||Intent.ACTION_SEND_MULTIPLE.equals(getIntent().getAction())))getIntent().removeExtra("tool_id");
-        getIntent().putExtra("title","管理器");if(!getIntent().hasExtra("tool_id"))getIntent().putExtra("tool_id","M01");
+        boolean locating=Intent.ACTION_VIEW.equals(getIntent().getAction());
+        if(!getPackageName().equals(getCallingPackage()) && (locating||Intent.ACTION_SEND.equals(getIntent().getAction())||Intent.ACTION_SEND_MULTIPLE.equals(getIntent().getAction())))getIntent().removeExtra("tool_id");
+        // VIEW only arrives through the "定位文件位置" entry, so say that instead of "管理器".
+        getIntent().putExtra("title",locating?"定位文件位置":"管理器");if(!getIntent().hasExtra("tool_id"))getIntent().putExtra("tool_id","M01");
         super.onCreate(state);store=new ManagerStore(this);
         root.removeViewAt(1);
         LinearLayout area=new LinearLayout(this);area.setOrientation(LinearLayout.VERTICAL);root.addView(area,new LinearLayout.LayoutParams(-1,0,1));
@@ -73,7 +75,7 @@ public final class ManagerActivity extends BaseToolActivity {
                 try{panes[i].dir=restoreLocation(saved);panes[i].nodes=store.list(panes[i].dir);}
                 catch(Exception e){panes[i].dir=store.local(defaultLocalDirectory());panes[i].nodes=store.list(panes[i].dir);}
             }
-        },()->{render();if(!hasLocalStorageAccess())status.setText("当前位于应用专用外部目录；要浏览共享存储，请点‘位置 → 本地共享存储’授权\n路径："+defaultLocalDirectory());handleIncoming(getIntent());if(state==null&&incoming.isEmpty())launchShortcut();});
+        },()->{render();if(!hasLocalStorageAccess())status.setText("当前位于应用专用外部目录；要浏览共享存储，请点‘位置 → 本地共享存储’授权\n路径："+defaultLocalDirectory());queueIncoming(getIntent());if(state==null&&!isIncoming(getIntent()))launchShortcut();});
     }
     private void small(LinearLayout row,String label,Runnable action){Button b=new Button(this);b.setText(label);ToolUi.text(b,accent,13);b.setAllCaps(false);b.setMinHeight(dp(48));b.setOnClickListener(v->{if(!busy)try{action.run();}catch(Exception e){error(e);}});row.addView(b);controls.add(b);}
     private void toggle(Pane p,ManagerStore.Node n){if(!p.selected.add(n.location()))p.selected.remove(n.location());render();}
@@ -91,7 +93,32 @@ public final class ManagerActivity extends BaseToolActivity {
     private void job(Work work,Runnable done){
         if(busy)return;busy=true;status.setText("正在处理…请保持管理器打开");for(Button b:controls)b.setEnabled(false);
         workers.execute(()->{Exception failure=null;try{work.run();}catch(Exception e){failure=e;}final Exception error=failure;
-            runOnUiThread(()->{if(isDestroyed()||isFinishing())return;busy=false;for(Button b:controls)b.setEnabled(true);status.setText(error==null?"就绪 · 长按多选，点路径切换窗口":"未完成 · "+ManagerAlgorithms.errorCategory(error)+"："+error.getMessage());if(error!=null)error(error);else if(done!=null)done.run();});});
+            runOnUiThread(()->{if(isDestroyed()||isFinishing())return;busy=false;for(Button b:controls)b.setEnabled(true);status.setText(error==null?"就绪 · 长按多选，点路径切换窗口":"未完成 · "+ManagerAlgorithms.errorCategory(error)+"："+error.getMessage());if(error!=null)error(error);else if(done!=null)done.run();if(deferredIncoming!=null)drainIncoming();});});
+    }
+    private Intent deferredIncoming;
+    /**
+     * A second file can be located while this window already exists; a reuse without
+     * {@code onCreate} must not swallow the request, which would look exactly like the missing
+     * "open with" entry this screen exists to restore.
+     */
+    @Override protected void onNewIntent(Intent intent){
+        super.onNewIntent(intent);setIntent(intent);queueIncoming(intent);
+    }
+    /** True for the three external hand-off actions this screen serves; anything else is a launch. */
+    private static boolean isIncoming(Intent intent){
+        if(intent==null)return false;String action=intent.getAction();
+        return Intent.ACTION_VIEW.equals(action)||Intent.ACTION_SEND.equals(action)||Intent.ACTION_SEND_MULTIPLE.equals(action);
+    }
+    private void queueIncoming(Intent intent){
+        if(!isIncoming(intent))return;
+        deferredIncoming=intent;
+        if(busy)status.setText("正在处理…下一条定位请求会在当前操作结束后开始");else drainIncoming();
+    }
+    /** Runs the queued intent once the worker is free; a callback that starts a new job re-queues. */
+    private void drainIncoming(){
+        Intent pending=deferredIncoming;
+        if(pending==null||busy||isFinishing()||isDestroyed())return;
+        deferredIncoming=null;handleIncoming(pending);
     }
     private boolean closing;
     @Override public void finish(){if(busy&&!closing){new AlertDialog.Builder(this).setTitle("操作仍在进行").setMessage("退出会中断当前操作，已完成的项目会保留。请勿在移动时同时从其他应用修改源目录。").setPositiveButton("停止并退出",(d,w)->{closing=true;super.finish();}).setNegativeButton("继续等待",null).show();}else super.finish();}
@@ -212,7 +239,12 @@ public final class ManagerActivity extends BaseToolActivity {
         new AlertDialog.Builder(this).setTitle(n.name+" · 偏移 "+offset).setView(h).setPositiveButton("下一页",(d,w)->hex(n,offset+4096)).setNegativeButton("关闭",null).setNeutralButton("跳转",(d,w)->prompt("字节偏移（十进制）",String.valueOf(offset),value->{try{hex(n,Long.parseLong(value));}catch(Exception e){error(e);}})).show();
     });}
     private void compare(ManagerStore.Node n){if(diffFirst==null){diffFirst=n;pendingMode="diff-second";pick("diff-second");return;}ManagerStore.Node first=diffFirst;String[] text={""};job(()->{try(InputStream a=store.input(first);InputStream b=store.input(n)){text[0]=ManagerAlgorithms.diff(ManagerAlgorithms.utf8(a),ManagerAlgorithms.utf8(b));}},()->{SpannableString value=new SpannableString(text[0]);int offset=0;for(String line:text[0].split("\n",-1)){if(line.startsWith("+ ")||line.startsWith("− "))value.setSpan(new ForegroundColorSpan(line.startsWith("+ ")?accent:Color.rgb(190,55,45)),offset,offset+line.length(),0);offset+=line.length()+1;}display("文本差异",value);});}
-    private void openOther(ManagerStore.Node n){Uri[] uri={null};job(()->{File file=store.stage(n,"manager-exports",ManagerStore.ARCHIVE_LIMIT);uri[0]=ManagerShareProvider.uri(this,file);},()->{try{Intent view=new Intent(Intent.ACTION_VIEW).setDataAndType(uri[0],n.mime==null?ManagerStore.mime(n.name):n.mime).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);view.setClipData(ClipData.newRawUri(n.name,uri[0]));startActivity(Intent.createChooser(view,"选择打开方式"));}catch(Exception e){error(e);}});}
+    /**
+     * Hands a staged copy to another app. Our own locate entry is excluded from the chooser: it
+     * would be handed exactly this cache copy, and pointing at the copy's folder would be a false
+     * location. The in-app "打开所在位置" entry still serves the real file.
+     */
+    private void openOther(ManagerStore.Node n){Uri[] uri={null};job(()->{File file=store.stage(n,"manager-exports",ManagerStore.ARCHIVE_LIMIT);uri[0]=ManagerShareProvider.uri(this,file);},()->{try{Intent view=new Intent(Intent.ACTION_VIEW).setDataAndType(uri[0],n.mime==null?ManagerStore.mime(n.name):n.mime).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);view.setClipData(ClipData.newRawUri(n.name,uri[0]));Intent chooser=Intent.createChooser(view,"选择打开方式");chooser.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS,new ComponentName[]{new ComponentName(this,ManagerActivity.class),new ComponentName(this,getPackageName()+".ManagerLocateActivity")});startActivity(chooser);}catch(Exception e){error(e);}});}
     private void toolsMenu(){new AlertDialog.Builder(this).setTitle("快捷工具").setItems(new String[]{"打开 ZIP / APK","应用提取（含拆分包、图标）","文本对比","Hex 查看","文件校验","导入外部收到的文件","清理临时缓存"},(d,w)->{switch(w){case 0:pick("zip");break;case 1:applications();break;case 2:diffFirst=null;pick("diff-first");break;case 3:pick("hex");break;case 4:pick("hash");break;case 5:importIncoming();break;case 6:clearCache();break;}}).show();}
     private void clearCache(){new AlertDialog.Builder(this).setTitle("清理管理器临时缓存？").setMessage("将关闭压缩包浏览，移除 ZIP 下载缓存与分享副本；不会删除原文件。其他应用正在读取的分享副本也会失效。").setPositiveButton("清理",(d,w)->job(()->{for(Pane p:panes)if(p.dir.archive!=null)p.dir=store.local(defaultLocalDirectory());diffFirst=null;incoming.removeIf(n->n.archive!=null);store.clearCache();reload();},this::render)).setNegativeButton("取消",null).show();}
     private void launchShortcut(){switch(toolId){case "M02":pick("zip");break;case "M03":applications();break;case "M04":pick("diff-first");break;case "M05":pick("hex");break;case "M06":pick("hash");break;}}
@@ -226,7 +258,7 @@ public final class ManagerActivity extends BaseToolActivity {
     }
     private void dispatchFile(ManagerStore.Node n){String mode=pendingMode;pendingMode="";switch(mode){case "hex":hex(n,0);break;case "hash":hash(n);break;case "zip":int index=active;job(()->{ManagerStore.Node dir=store.archive(n);List<ManagerStore.Node> list=store.list(dir);panes[index].dir=dir;panes[index].nodes=list;},this::render);break;case "diff-first":diffFirst=n;pick("diff-second");break;case "diff-second":compare(n);break;default:incoming.add(n);menu(n,active);}}
     private void handleIncoming(Intent intent){
-        String action=intent.getAction();if(!Intent.ACTION_VIEW.equals(action)&&!Intent.ACTION_SEND.equals(action)&&!Intent.ACTION_SEND_MULTIPLE.equals(action))return;
+        String action=intent.getAction();if(!isIncoming(intent))return;
         List<Uri> uris=new ArrayList<>();if(intent.getData()!=null)uris.add(intent.getData());
         if(Intent.ACTION_SEND.equals(action)){Uri u=intent.getParcelableExtra(Intent.EXTRA_STREAM);if(u!=null&&!uris.contains(u))uris.add(u);}
         if(Intent.ACTION_SEND_MULTIPLE.equals(action)){ArrayList<Uri> list=intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);if(list!=null)for(Uri u:list)if(u!=null&&!uris.contains(u))uris.add(u);}
@@ -236,6 +268,9 @@ public final class ManagerActivity extends BaseToolActivity {
         job(()->{incoming.clear();for(Uri u:uris){
             if("file".equals(u.getScheme())){File file=new File(u.getPath()).getCanonicalFile(),root=Environment.getExternalStorageDirectory().getCanonicalFile();if(!ManagerAlgorithms.withinRoot(root,file)||ManagerAlgorithms.androidPrivateDirectory(root,file))throw new SecurityException("外部文件只能来自可访问的共享存储，不能来自其他应用私有目录");if(!file.exists()||!file.canRead())throw new SecurityException("系统拒绝读取该外部文件");}
             else if(!"content".equals(u.getScheme())||checkUriPermission(u,android.os.Process.myPid(),android.os.Process.myUid(),Intent.FLAG_GRANT_READ_URI_PERMISSION)!=PackageManager.PERMISSION_GRANTED)throw new SecurityException("发送方未授予文件读取权限，请重新通过系统分享/打开方式发送");
+            // Our own share provider hands out cache copies; locating one would point at a staged
+            // duplicate while claiming it is the original file's folder.
+            else if((getPackageName()+".manager.share").equals(u.getAuthority()))throw new SecurityException("这是拾用为其他应用生成的临时分享副本，不是原文件的真实位置；请在管理器内对原文件使用「打开所在位置」");
             incoming.add(store.resolve(u));
         }
             if(incoming.size()==1)try{location[0]=store.locateNearestReadableParent(incoming.get(0));}catch(Exception e){limitation[0]=e.getMessage()==null?e.toString():e.getMessage();}

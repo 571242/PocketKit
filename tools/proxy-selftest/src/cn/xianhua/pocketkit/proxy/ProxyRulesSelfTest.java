@@ -53,8 +53,12 @@ public final class ProxyRulesSelfTest {
         ProxyRules defaults = ProxyRules.parse(asset);
         check(defaults.directSuffix.size() > 20, "default has CN suffixes");
         check(defaults.directSuffix.contains("baidu.com"), "default covers www and other CN .com subdomains");
-        check(defaults.directSuffix.contains("gov.cn"), "default has gov.cn suffix");
-        check(defaults.directCidr.contains("192.168.0.0/16"), "default has private CIDR");
+        check(defaults.proxySuffix.size() > 1000, "offline snapshot includes full proxy-domain rules");
+        check(defaults.directCidr.size() > 1000, "offline snapshot includes CN CIDRs");
+        check(defaults.entryCount() > 100000, "fresh installs have full routing rules without a download");
+        check(defaults.proxySuffix.contains("google.com"), "offline snapshot retains explicit proxy domains");
+        check("95ee8bb95bcf90b1e4feb2a89ce2c162b92f0b17da79ba3bbcf6946d1e0536ee".equals(
+                ProxyRules.sha256Hex(asset.getBytes(StandardCharsets.UTF_8))), "bundled snapshot matches verified cloud bytes");
         check(ProxyRules.parse(VALID).entryCount() > 0, "valid bundle not empty");
     }
 
@@ -261,6 +265,10 @@ public final class ProxyRulesSelfTest {
         check(proxySuffix > exactDirect, "exact direct exceptions precede broad proxy suffixes");
         check(chinaDomains > proxySuffix, "proxy suffix precedes direct suffix");
         check(cnCidr > chinaDomains, "CN cidr after China domains");
+        int resolve = indexOfAction(route, "resolve");
+        check(resolve > chinaDomains && resolve < cnCidr, "resolve only after explicit domain policy and before CN CIDR");
+        check("direct-dns".equals(route.getJSONObject(resolve).getString("server")), "CN fallback resolution uses direct DNS");
+        check("ipv4_only".equals(route.getJSONObject(resolve).getString("strategy")), "CN fallback resolution preserves IPv4 compatibility");
         check("proxy".equals(root.getJSONObject("route").getString("final")), "final is proxy");
 
         JSONArray proxyRule = route.getJSONObject(proxyDomains).getJSONArray("domain");

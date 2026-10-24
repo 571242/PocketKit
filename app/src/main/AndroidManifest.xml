@@ -49,16 +49,37 @@
             </intent-filter>
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started local rule proxy and VPN service; stopped explicitly by the user from notification or UI." />
         </service>
-        <!-- Deliberately not a viewer for every file: a catch-all ACTION_VIEW filter would put the
-             manager in every app's "open with" list and hijack files it cannot display. It is
-             reachable from other apps' share sheets, and the toolbar has an explicit
-             "open containing folder" entry for the files a user actually wants to locate. -->
+        <!-- The manager itself is not a viewer: this activity only receives shares, so it never
+             claims file types it cannot display. Locating a file from another app's "open with"
+             list goes through the separately labelled alias below. -->
         <activity android:name=".ManagerActivity" android:label="拾用管理器" android:exported="true" android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" /><action android:name="android.intent.action.SEND_MULTIPLE" />
                 <category android:name="android.intent.category.DEFAULT" /><data android:mimeType="*/*" />
             </intent-filter>
         </activity>
+        <!-- Locate-only entry, offered for every file type: jumps to the real parent folder of the
+             file it was handed, highlights it, and does nothing else. The Chinese label keeps it
+             honest inside the chooser; it declares no android:priority and no BROWSABLE category,
+             so it is one more option in "open with" and never installs itself as the preferred
+             handler. It never copies a file to fake a location and requests no extra permission. -->
+        <activity-alias android:name=".ManagerLocateActivity" android:targetActivity=".ManagerActivity"
+            android:label="拾用·定位文件位置" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" android:mimeType="*/*" />
+                <data android:scheme="file" android:mimeType="*/*" />
+            </intent-filter>
+            <!-- Senders that call setData without a MIME type fail the typed filter above, so the
+                 same entry also answers plain scheme intents. Still no priority, still VIEW only. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+            </intent-filter>
+        </activity-alias>
         <provider android:name=".ManagerShareProvider" android:authorities="${applicationId}.manager.share" android:exported="false" android:grantUriPermissions="true" />
         <activity android:name=".AboutActivity" android:exported="false" />
         <service android:name=".device.TicketTapService" android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" android:exported="true" android:label="@string/ticket_accessibility_label">

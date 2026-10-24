@@ -21,26 +21,38 @@
 
 ## Manifest 需求
 
-无需修改。当前 `ManagerActivity` 已导出并声明：
+定位入口是一个独立的 `activity-alias`，管理器本体的过滤器没有放宽：
 
-- `ACTION_VIEW` + `content` / `file` + `*/*`
-- `ACTION_SEND` / `ACTION_SEND_MULTIPLE` + `*/*`
+- `.ManagerActivity`（本体）：`ACTION_SEND` / `ACTION_SEND_MULTIPLE` + `*/*`。它不是任何文件类型的查看器。
+- `.ManagerLocateActivity`（别名，label「拾用·定位文件位置」，`targetActivity=".ManagerActivity"`，`exported="true"`）：
+  - 第一个过滤器：`ACTION_VIEW` + `CATEGORY_DEFAULT` + `content`/`file` + `*/*`；
+  - 第二个过滤器：`ACTION_VIEW` + `CATEGORY_DEFAULT` + `content`/`file`（无 MIME）。Android 不会拿不带 MIME 类型的 intent 去匹配声明了 `mimeType` 的过滤器，只用 `setData` 的发送方会落空，所以两个都要。
+  - 故意不加 `android:priority`，不加 `BROWSABLE`，不重复 `SEND`。这样它只是「打开方式」列表里的普通一项，系统永远不会因为本应用把它设成默认处理器。
 
-若 lead 后续收紧过滤器，必须保留上述 VIEW/SEND 覆盖和 `CATEGORY_DEFAULT`；不需要为未知扩展名逐一增加 MIME。
+0.10.1 删掉的是本体上的 catch-all `ACTION_VIEW`（那会让管理器同时出现在所有应用的打开方式里却打不开文件）。现在的做法是把「定位」单独做成有清晰中文标签的入口，不再否决用户想要的那一项。
+
+定位仍然要花一次点击：从别的应用「打开方式 → 拾用·定位文件位置」进来，或在管理器菜单里用「打开所在位置」。
+
+管理器自己菜单里的「其他应用打开」会把定位入口从选择器里排除（`EXTRA_EXCLUDE_COMPONENTS`），因为那一路径交出去的是缓存副本，指向副本目录就会是一个假位置。
 
 ## 最小验证
 
 已执行：
 
 1. 独立 JVM `ManagerAlgorithmsTest.main`：**299 assertions PASS**，新增覆盖 `primary:` documentId 正常路径、非 primary 卷回退、绝对路径/反斜杠/空段/`.`/`..` 拒绝。
-2. `ManagerOpenWithContractTest.main`：覆盖 Manifest 入口、单文件定位、高亮、授权/详情回退及不按名称猜测身份；集成复核另补重复 URI 去重与祖先目录链断言（共 7 项）。
-3. 使用 JDK 17 + SDK 36 `android.jar` 定向编译 `ToolUi`、`BaseToolActivity`、`ManagerAlgorithms`、`ManagerStore`、`ManagerShareProvider`、`ManagerActivity`：**成功，无编译错误**；仅有既有弃用 API 提示。
+2. `ManagerOpenWithContractTest.main`：**28 assertions PASS**，覆盖别名入口（label / targetActivity / VIEW+DEFAULT / content+file / 无 priority / 无 SEND / 无 BROWSABLE）、单文件定位、高亮、授权/详情回退、不按名称猜测身份、`onNewIntent` 复用与排队、VIEW 标题，以及拒绝自家分享副本、不在自己的选择器里提供定位入口。
+3. `ManagerPermissionSelfTest.main`：**25 checks PASS**；`RemotePanelContractTest`：**63 checks PASS**。
+4. `aapt2 compile` + `aapt2 link`（build-tools 36.0.0，SDK 36 `android.jar`）通过，并 `aapt2 dump xmltree` 确认别名以 `exported=true`、`targetActivity=.ManagerActivity`、两个过滤器完整进入二进制清单。
+5. 使用 JDK 17 + SDK 36 `android.jar` 定向编译 `ToolUi`、`BaseToolActivity`、`ManagerAlgorithms`、`ManagerStore`、`ManagerShareProvider`、`ManagerActivity`：**成功，无编译错误**；仅有既有弃用 API 提示。
+6. `tools/verify-manager-release.py` 端到端通过（含新的别名断言）。
 
 未运行整包 Gradle、APK、模拟器或真机，按协作约定留给 lead。真机至少验证：
 
+- 从图库/文件管理器对一张照片、一个 PDF、一个未知扩展名文件点「打开方式」，列表里能看到「拾用·定位文件位置」，且**没有**把拾用设成默认的提示。
 - `file://` 可访问共享存储文件：切到真实父目录并高亮。
 - ExternalStorageProvider `primary:` content URI，已具父目录访问能力：定位并高亮。
-- FileProvider / 云盘单文件 content URI：显示授权限制，不复制；“文件详情”仍显示原 URI 元数据。
-- 点击“授权父目录”：选对目录后定位；选错目录明确拒绝。
+- FileProvider / 云盘单文件 content URI：显示授权限制，不复制；「文件详情」仍显示原 URI 元数据。
+- 点击「授权父目录」：选对目录后定位；选错目录明确拒绝。
 - 无 `FLAG_GRANT_READ_URI_PERMISSION` 的 content URI、私有目录 file URI：拒绝。
 - 多文件分享：只出现显式导入流程。
+- 管理器已在前台时，再从别的应用「打开方式」传第二个文件：窗口复用后仍执行定位（`onNewIntent` 路径）；正在复制时传入会提示排队并在结束后执行。

@@ -258,6 +258,8 @@ public final class ProxyConfig {
                 directSuffix.add(".cn");
                 addDomainRule(routeRules, Collections.emptyList(), directSuffix, "direct");
                 if (!rules.directCidr.isEmpty()) {
+                    // Domain-only connections need an IP for CN fallback, after explicit domain policy.
+                    routeRules.add(map("action", "resolve", "server", "direct-dns", "strategy", "ipv4_only"));
                     routeRules.add(map("ip_cidr", new ArrayList<Object>(rules.directCidr),
                             "action", "route", "outbound", "direct"));
                 }
@@ -292,7 +294,8 @@ public final class ProxyConfig {
         Map<String, Object> dns = new LinkedHashMap<>();
         dns.put("servers", servers);
         dns.put("final", direct ? "direct-dns" : "proxy-dns");
-        dns.put("strategy", "prefer_ipv4");
+        // Some node exits return AAAA records but cannot complete IPv6 TLS; preference is not a filter.
+        dns.put("strategy", direct ? "prefer_ipv4" : "ipv4_only");
         if (ruleMode) {
             List<Object> dnsRules = new ArrayList<>();
             List<String> chinaSuffix = new ArrayList<>(rules.directSuffix);
@@ -322,7 +325,8 @@ public final class ProxyConfig {
 
     private static Map<String, Object> dnsServer(String tag, String address, String detour) {
         Map<String, Object> server = new LinkedHashMap<>();
-        server.put("type", "udp");
+        // Proxy nodes may support TCP only; DNS must not require UDP relay support.
+        server.put("type", "proxy".equals(detour) ? "tcp" : "udp");
         server.put("tag", tag);
         server.put("server", address);
         // A bare direct outbound cannot be used as a DNS detour in sing-box 1.14.

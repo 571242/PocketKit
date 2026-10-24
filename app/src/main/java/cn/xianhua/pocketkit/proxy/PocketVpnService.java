@@ -77,7 +77,7 @@ public final class PocketVpnService extends VpnService {
     @Override public void onCreate() {
         super.onCreate();
         serviceEpoch = SERVICE_EPOCH.incrementAndGet();
-        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "规则代理常驻通知", NotificationManager.IMPORTANCE_LOW);
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "代理常驻通知", NotificationManager.IMPORTANCE_LOW);
         channel.setShowBadge(false);
         getSystemService(NotificationManager.class).createNotificationChannel(channel);
         platform = new ProxyPlatform(this);
@@ -211,7 +211,7 @@ public final class PocketVpnService extends VpnService {
     int openTun(TunOptions options) throws Exception {
         if (stopping || destroyed) throw new java.io.IOException("VPN start cancelled");
         if (prepare(this) != null) throw new SecurityException("VPN permission revoked");
-        Builder builder = new Builder().setSession("拾用 · 规则代理").setMtu(options.getMTU());
+        Builder builder = new Builder().setSession("拾用 · " + ProxyState.get().getMode().label).setMtu(options.getMTU());
         RoutePrefixIterator addresses = options.getInet4Address();
         while (addresses.hasNext()) { RoutePrefix address = addresses.next(); builder.addAddress(address.address(), address.prefix()); }
         addresses = options.getInet6Address();
@@ -345,7 +345,7 @@ public final class PocketVpnService extends VpnService {
     private Notification notification(String text) {
         PendingIntent open = PendingIntent.getActivity(this, 0, new Intent(this, ProxyActivity.class), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         PendingIntent stop = PendingIntent.getService(this, 1, new Intent(this, PocketVpnService.class).setAction(ACTION_STOP), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        return new Notification.Builder(this, CHANNEL_ID).setContentTitle("拾用 · 规则代理")
+        return new Notification.Builder(this, CHANNEL_ID).setContentTitle("拾用 · " + ProxyState.get().getMode().label)
                 .setContentText(text).setSmallIcon(R.drawable.ic_stat_pocketkit)
                 .setContentIntent(open)
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel, "断开连接", stop).setOnlyAlertOnce(true).setOngoing(true).build();

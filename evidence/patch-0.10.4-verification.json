@@ -1,0 +1,57 @@
+{
+  "versionName": "0.10.4",
+  "versionCode": 28,
+  "apk": "dist/PocketKit-0.10.4.apk",
+  "bytes": 277356251,
+  "sha256": "26c466fa1149574b79a23ccea3a40e604eee754e3c5f82ff5fd153ffebf99260",
+  "signatureMatchesPrevious": true,
+  "apk16KiBAligned": true,
+  "abis": [
+    "arm64-v8a",
+    "armeabi-v7a"
+  ],
+  "bundledRules": {
+    "sha256": "95ee8bb95bcf90b1e4feb2a89ce2c162b92f0b17da79ba3bbcf6946d1e0536ee",
+    "entries": 147559,
+    "bytes": 2258010,
+    "identicalToVerifiedCloudSnapshot": true
+  },
+  "regressions": {
+    "ProxyConfig": 118,
+    "NodePersistence": 38,
+    "ProxyRules": 167,
+    "CloudTransport": 19,
+    "ManagerOpenWith": 28,
+    "ManagerAlgorithms": 299,
+    "ManagerPermissionWiring": 25
+  },
+  "nativeCore": "sing-box 1.14.3",
+  "twoNodeRuleTraffic": "PASS",
+  "tokyoGlobalExitAndHttps": "PASS",
+  "linuxDo": {
+    "originalTokyoIpv6Tls": "EOF",
+    "originalTokyoIpv4Tls": "PASS (Cloudflare challenge)",
+    "originalUsIpv6Tls": "PASS (Cloudflare challenge)",
+    "patchedDnsAaaa": "empty in Rule/Global",
+    "patchedIpv4Tls": "PASS (Cloudflare challenge)",
+    "completeBrowserPage": "NOT TESTED"
+  },
+  "gradle": {
+    "assembleDebug": "PASS",
+    "lintDebug": "PASS",
+    "lintSeverities": {
+      "Warning": 164
+    }
+  },
+  "compiledLocateAlias": "PASS",
+  "androidDeviceTested": false,
+  "serverDeploymentChanged": false,
+  "userSubscriptionsChanged": false,
+  "apkUpdateChannel": "GitHub only",
+  "knownLimits": [
+    "No Android TUN, upgrade or ROM chooser device test",
+    "No browser Cloudflare challenge completion test",
+    "IPv6-only destinations may be unavailable in proxy IPv4-compatibility mode"
+  ],
+  "domainOnlyCnCidrFallback": "PASS (native loopback review and host route-order regression)"
+}

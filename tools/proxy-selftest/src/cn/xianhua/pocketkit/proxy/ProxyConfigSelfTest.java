@@ -220,8 +220,11 @@ public final class ProxyConfigSelfTest {
             check("127.0.0.1:9090".equals(clashApi.getString("external_controller")), mode + ": clash api");
             check("s3cret".equals(clashApi.getString("secret")), mode + ": clash secret");
 
+            check("ipv4_only".equals(root.getJSONObject("dns").getString("strategy")),
+                    mode + ": do not give apps unreachable proxy IPv6 destinations");
             JSONArray servers = root.getJSONObject("dns").getJSONArray("servers");
-            check("udp".equals(servers.getJSONObject(0).getString("type")), mode + ": dns typed udp");
+            check("tcp".equals(servers.getJSONObject(0).getString("type")), mode + ": proxy DNS works with TCP-only nodes");
+            check("udp".equals(servers.getJSONObject(1).getString("type")), mode + ": local DNS stays direct");
             check("1.1.1.1".equals(servers.getJSONObject(0).getString("server")), mode + ": proxy dns address");
             check("proxy".equals(servers.getJSONObject(0).getString("detour")), mode + ": proxy dns detour");
             check("223.5.5.5".equals(servers.getJSONObject(1).getString("server")), mode + ": direct dns address");
@@ -248,6 +251,7 @@ public final class ProxyConfigSelfTest {
     private static void runtimeConfigDirect() throws Exception {
         JSONObject root = new JSONObject(ProxyConfig.buildRuntimeConfig(null, "Direct", null));
         check("direct".equals(root.getJSONObject("route").getString("final")), "direct: final direct");
+        check("prefer_ipv4".equals(root.getJSONObject("dns").getString("strategy")), "direct: native IPv6 remains available");
         check(root.getJSONArray("outbounds").length() == 1, "direct: no proxy outbound");
         check(root.getJSONObject("route").getJSONArray("rules").length() == 2, "direct: only sniff+hijack");
         check(root.getJSONObject("experimental").getJSONObject("clash_api").getString("secret").isEmpty(),

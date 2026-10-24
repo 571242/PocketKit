@@ -2,6 +2,9 @@ package cn.xianhua.pocketkit.proxy;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -73,6 +76,12 @@ public final class ProxyRulesStore {
         return prefs().getString(KEY_SHA, "");
     }
 
+    public boolean hasVerifiedRules(String sha) {
+        if (!ProxyRules.isSha256Hex(sha)) return false;
+        ProxyRules active = ProxyRules.verifyFile(file(), getActiveSha256());
+        return active != null ? sha.equals(active.sha256) : sha.equals(builtIn().sha256);
+    }
+
     public long getUpdatedAt() {
         return prefs().getLong(KEY_UPDATED_AT, 0);
     }
@@ -111,7 +120,10 @@ public final class ProxyRulesStore {
             byte[] buffer = new byte[8192];
             int read;
             while ((read = in.read(buffer)) != -1) out.write(buffer, 0, read);
-            return ProxyRules.parse(new String(out.toByteArray(), StandardCharsets.UTF_8));
+            byte[] bytes = out.toByteArray();
+            ProxyRules rules = ProxyRules.parse(new String(bytes, StandardCharsets.UTF_8));
+            rules.sha256 = ProxyRules.sha256Hex(bytes);
+            return rules;
         } catch (Exception error) {
             // A stripped asset must not leave the phone without any split at all.
             return ProxyRules.fallback();
@@ -173,7 +185,7 @@ public final class ProxyRulesStore {
         }
         URL hub = parseUrl(hubUrl, "更新接口地址");
 
-        byte[] data = fetch(start, hub);
+        byte[] data = fetchWithFallback(start, hub, true);
         if (declaredBytes != data.length) {
             throw new IOException("规则体积与声明不一致");
         }
@@ -184,13 +196,58 @@ public final class ProxyRulesStore {
         return new Pending(actual, data, parsed);
     }
 
+    /** Public cloud metadata uses the same network path as the rule payload, not an unhealthy TUN. */
+    public JSONObject fetchManifest(String hubUrl) throws IOException {
+        URL hub = parseUrl(hubUrl, "更新接口地址");
+        if (!"https".equals(hub.getProtocol()) || hub.getUserInfo() != null) {
+            throw new IOException("更新接口必须使用无凭据的 HTTPS 地址");
+        }
+        byte[] bytes = fetchWithFallback(hubUrl, hub, false);
+        try {
+            return new JSONObject(new String(bytes, StandardCharsets.UTF_8));
+        } catch (Exception malformed) {
+            throw new IOException("云端清单不是合法 JSON");
+        }
+    }
+
+    private byte[] fetchWithFallback(String start, URL hub, boolean ruleBundle) throws IOException {
+        try {
+            return fetch(start, hub, ruleBundle, true);
+        } catch (java.net.SocketException | java.net.SocketTimeoutException | javax.net.ssl.SSLException transientFailure) {
+            // One fresh connection via the active network if the physical route was reset/blocked.
+            return fetch(start, hub, ruleBundle, false);
+        }
+    }
+
+    private HttpURLConnection openConnection(URL url, boolean physicalFirst) throws IOException {
+        if (physicalFirst) {
+            ConnectivityManager manager = context.getSystemService(ConnectivityManager.class);
+            if (manager != null) {
+                Network active = manager.getActiveNetwork();
+                NetworkCapabilities caps = active == null ? null : manager.getNetworkCapabilities(active);
+                if (caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                        && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+                    return (HttpURLConnection) active.openConnection(url);
+                }
+                for (Network network : manager.getAllNetworks()) {
+                    caps = manager.getNetworkCapabilities(network);
+                    if (caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                            && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+                        return (HttpURLConnection) network.openConnection(url);
+                    }
+                }
+            }
+        }
+        return (HttpURLConnection) url.openConnection();
+    }
+
     /** Bounded fetch; identity encoding so the hash covers exactly the bytes the server served. */
-    private static byte[] fetch(String start, URL hub) throws IOException {
+    private byte[] fetch(String start, URL hub, boolean ruleBundle, boolean physicalFirst) throws IOException {
         String current = start;
         for (int hop = 0; hop <= MAX_REDIRECTS; hop++) {
             HttpURLConnection conn = null;
             try {
-                conn = (HttpURLConnection) new URL(current).openConnection();
+                conn = openConnection(new URL(current), physicalFirst);
                 conn.setInstanceFollowRedirects(false);
                 conn.setRequestProperty("Accept", "*/*");
                 conn.setRequestProperty("Accept-Encoding", "identity");
@@ -205,7 +262,7 @@ public final class ProxyRulesStore {
                             || !sameOrigin(hub, next)) {
                         throw new IOException("拒绝跨源跳转");
                     }
-                    current = sameOriginRulesUrl(hub.toString(), next.toString());
+                    current = ruleBundle ? sameOriginRulesUrl(hub.toString(), next.toString()) : next.toString();
                     if (!new URL(start).getPath().equals(next.getPath())) throw new IOException("跳转规则版本不一致");
                     continue;
                 }
@@ -320,7 +377,7 @@ public final class ProxyRulesStore {
         String upstream = prefs().getString(KEY_UPSTREAM, "");
         String suffix = (error.isEmpty() ? "" : " · 最近失败：" + error)
                 + (upstream.isEmpty() ? "" : "\n" + upstream);
-        if (!ProxyRules.isSha256Hex(sha) || !file().isFile()) return "云规则：内置默认（" + builtIn().entryCount() + " 条）" + suffix;
+        if (!ProxyRules.isSha256Hex(sha) || !file().isFile()) return "分流规则：随包快照（" + builtIn().entryCount() + " 条）" + suffix;
         String updated = getUpdatedAt() > 0
                 ? new SimpleDateFormat("MM-dd HH:mm", Locale.getDefault()).format(new Date(getUpdatedAt()))
                 : "";

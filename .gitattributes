@@ -1,0 +1,2 @@
+# The bundled rule snapshot is verified against its exact cloud SHA-256.
+app/src/main/assets/proxy-rules-default.json -text
