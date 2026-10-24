@@ -1,0 +1,3 @@
+Independent final parent verification.
+ExitCode=0
+VisionRegexSelfTest PASS checks=5; no regex worker left running

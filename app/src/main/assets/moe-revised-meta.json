@@ -1,0 +1,19 @@
+{
+  "source_commit": "a6dc997417507eb510fc29822bc514de2c92728c",
+  "source_git_blob": "4f457b60ff75dc8813ce87d68ee41fbc49f21b4a",
+  "source_url": "https://raw.githubusercontent.com/g0v/moedict-data/a6dc997417507eb510fc29822bc514de2c92728c/dict-revised.json.xz",
+  "source_compressed_sha256": "5cc4ec0efd7e549621edf9b46d261989230c1729d9dc2c8e2056f4b21c8a93da",
+  "source_json_sha256": "ad43e8e2d30341f2c2458e04fb05a3fc1b1cd486fb52eb8708d89bcfbe46530f",
+  "source_json_bytes": 80300977,
+  "entries": 161194,
+  "sqlite_sha256": "52bdde7e1015ccfada09822edb0fcfa90f65474a66019895c47e3159093cd5dc",
+  "sqlite_bytes": 73863168,
+  "asset_gzip_sha256": "86cdddd0b27cd18b60f8389ac22c796d0edafc92f4f3a58f4e94cd5112d56ed8",
+  "asset_gzip_bytes": 24955673,
+  "builder_sqlite_version": "3.53.1",
+  "declared_edition": "中華民國110年11月臺灣學術網路第六版（鏡像README自述；不是官方最新下载版）",
+  "body_license": "CC BY-ND 3.0 Taiwan",
+  "format_editor": "kcwu / CC0",
+  "text_changed": false,
+  "record_equality_verified": 161194
+}

@@ -1,0 +1,3 @@
+Independent final parent verification.
+ExitCode=0
+AutomationUiContractTest PASS: save-reload/export/SAF/tree/picker/overlay/runtime

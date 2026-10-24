@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="automation_title">连点器</string>
+    <string name="automation_empty">还没有脚本，从模板或新建开始。</string>
+    <string name="automation_new">新建脚本</string>
+    <string name="automation_template_taps">模板 · 连点</string>
+    <string name="automation_template_text">模板 · 识字后点</string>
+    <string name="automation_template_image">模板 · 图片出现点</string>
+    <string name="automation_template_loop">模板 · 条件循环</string>
+    <string name="automation_save">保存脚本</string>
+    <string name="automation_import">导入脚本</string>
+    <string name="automation_export">导出脚本</string>
+    <string name="automation_delete">删除脚本</string>
+    <string name="automation_copy">复制脚本</string>
+    <string name="automation_rename">重命名</string>
+    <string name="automation_start">启动</string>
+    <string name="automation_pause">暂停</string>
+    <string name="automation_resume">恢复</string>
+    <string name="automation_stop">急停</string>
+    <string name="automation_log">运行日志</string>
+    <string name="automation_permissions">权限与采集说明</string>
+    <string name="automation_add_step">添加动作</string>
+    <string name="automation_add_child">添加条件动作</string>
+    <string name="automation_add_else">添加 otherwise 动作</string>
+    <string name="automation_pick_point">取点</string>
+    <string name="automation_pick_swipe">拖动取点</string>
+    <string name="automation_pick_region">框选区域</string>
+    <string name="automation_pick_template">截图取模板</string>
+</resources>

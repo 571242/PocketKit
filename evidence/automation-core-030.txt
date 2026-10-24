@@ -1,0 +1,3 @@
+Independent parent verification. Not Android runtime.
+ExitCode=0
+AutomationCoreSelfTest PASS: appointment budget, IF lastMatch, cancellation gate, mapping, loop interval, comparisons, strict validation

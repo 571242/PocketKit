@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
+    <!-- Core personal file-manager feature: user-selected export of installed base/split APKs, including apps without launchers. No inventory leaves the device. -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission" />
+    <uses-feature android:name="android.hardware.sensor.compass" android:required="false" />
+    <queries>
+        <intent><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent>
+        <intent><action android:name="android.intent.action.TTS_SERVICE" /></intent>
+        <package android:name="com.tencent.mobileqq" />
+    </queries>
+    <application android:label="拾用" android:theme="@style/AppTheme" android:allowBackup="false" android:fullBackupContent="false" android:dataExtractionRules="@xml/data_extraction_rules" android:supportsRtl="true" android:requestLegacyExternalStorage="true" android:usesCleartextTraffic="true" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
+        <!-- Initialize ML Kit only when a model tool is used, never before the launcher. -->
+        <provider android:name="com.google.mlkit.common.internal.MlKitInitProvider" tools:node="remove" />
+        <activity android:name=".MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize">
+            <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+        </activity>
+        <activity android:name=".LocalToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".MediaToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".VoiceToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".AiVoiceToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".VoiceOverlayActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <service android:name=".voiceoverlay.VoiceOverlayService" android:exported="false" android:foregroundServiceType="microphone|mediaPlayback" />
+        <activity android:name=".AdSkipToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".DeviceToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".AutomationToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".proxy.ProxyActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <service android:name=".proxy.PocketVpnService"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started local rule proxy and VPN service; stopped explicitly by the user from notification or UI." />
+        </service>
+        <!-- Deliberately not a viewer for every file: a catch-all ACTION_VIEW filter would put the
+             manager in every app's "open with" list and hijack files it cannot display. It is
+             reachable from other apps' share sheets, and the toolbar has an explicit
+             "open containing folder" entry for the files a user actually wants to locate. -->
+        <activity android:name=".ManagerActivity" android:label="拾用管理器" android:exported="true" android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" /><action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" /><data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+        <provider android:name=".ManagerShareProvider" android:authorities="${applicationId}.manager.share" android:exported="false" android:grantUriPermissions="true" />
+        <activity android:name=".AboutActivity" android:exported="false" />
+        <service android:name=".device.TicketTapService" android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" android:exported="true" android:label="@string/ticket_accessibility_label">
+            <intent-filter><action android:name="android.accessibilityservice.AccessibilityService" /></intent-filter>
+            <meta-data android:name="android.accessibilityservice" android:resource="@xml/ticket_accessibility" />
+        </service>
+        <service android:name=".device.TicketRecorderService" android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started overlay editor for selecting and saving click positions, explicitly stopped when recording is saved or cancelled." />
+        </service>
+        <service android:name=".device.TicketOverlayService" android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started floating countdown clock and vibration reminders while switching to another app; stopped explicitly or shortly after the target time." />
+        </service>
+        <service android:name=".automation.AutomationOverlayService" android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started automation control overlay with pause, resume and emergency stop; never hidden from the user." />
+        </service>
+        <service android:name=".automation.AutomationPickerService" android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started automation point, swipe, template and region picker; stopped when the selection is saved or cancelled." />
+        </service>
+        <service android:name=".automation.AutomationRecorderService" android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started single-finger gesture recording with a visible floating pause, undo, save and cancel controller. Gestures are replayed only following the user's touch; recording ends explicitly." />
+        </service>
+        <service android:name=".automation.ProjectionCaptureService" android:exported="false" android:foregroundServiceType="mediaProjection" />
+    </application>
+</manifest>

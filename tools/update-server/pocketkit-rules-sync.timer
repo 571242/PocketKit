@@ -1,0 +1,11 @@
+[Unit]
+Description=Check PocketKit trusted rules every hour
+
+[Timer]
+OnCalendar=hourly
+RandomizedDelaySec=5min
+Persistent=true
+Unit=pocketkit-rules-sync.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,151 @@
+Additional third-party source/data notices
+
+GeoNames CN postal-code data (105)
+Attribution: GeoNames https://www.geonames.org/
+https://download.geonames.org/export/zip/CN.zip
+https://download.geonames.org/export/zip/readme.txt
+Creative Commons Attribution 4.0 https://creativecommons.org/licenses/by/4.0/
+GeoNames About confirms CC BY 4.0: https://www.geonames.org/about.html
+Original readme retained as geonames-postal-readme.txt; it includes an outdated BY3.0 link.
+CN.txt is redistributed byte-for-byte, no added or translated postal records.
+Downloaded 2026-10-13; original data SHA256 ad935b4c99b73a4969313e9c10b28c76735b042414bd6b9ab4e4effe67495127
+2352 source rows, not necessarily 2352 unique postal codes; China only coarse codes ending in 00.
+Names are original romanized labels; auxiliary input transliteration does not change data.
+No guarantee of accuracy, timeliness or completeness; not precise delivery/street addresses.
+No automatic network update, no automatic zero-padding inference.
+
+教育部辞典离线原文库（094 / 104）
+原文署名：中華民國教育部（Ministry of Education, R.O.C.）。《重編國語辭典修訂本》。
+原文版权仍归教育部；CC BY-ND 3.0 Taiwan。
+https://dict.revised.moe.edu.tw/
+https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/index.html
+https://creativecommons.org/licenses/by-nd/3.0/tw/
+https://creativecommons.org/licenses/by-nd/3.0/tw/legalcode.zh-hant
+离线原文镜像：g0v/moedict-data，固定commit a6dc997417507eb510fc29822bc514de2c92728c
+未翻译原文件dict-revised.json.xz；Git blob 4f457b60ff75dc8813ce87d68ee41fbc49f21b4a
+镜像README声明中華民國110年11月臺灣學術網路第六版，不当成官方最新版或大陆规范字典。
+161194条原记录转换SQLite索引，全条目逐条反解析比较一致；只改存储格式，不改文字。
+原JSON SHA256 ad43e8e2d30341f2c2458e04fb05a3fc1b1cd486fb52eb8708d89bcfbe46530f
+首次查询解压约70.45MiB至私有目录，不联网，不自动更新。
+格式转换/编排来源g0v/moedict-data，kcwu相关编辑版权以CC0释出；不覆盖教育部正文。
+https://github.com/g0v/moedict-data
+本项目不改原文字词；所有原记录字段完整保存，不导入外语扩展。
+简体转繁体仅用于你输入的查询词，展示原文不转简体。
+保留原义组词性、释义、音读、书证、例句、参见及synonyms/antonyms原字段。
+缺词明确未收录，缺近反义字段不推断；损坏/空间不足明确失败，无网络fallback。
+原镜像README署名全文另随包保存并于本页附列。
+
+Shanghai garbage-classification reference (098)
+Project-authored names, aliases and advice based on public classification facts.
+Scope: Shanghai, official 2024 guideline; not a national or automatically updated database.
+Source: Shanghai Municipal Administration of Landscaping and City Appearance,
+Shanghai Green Appearance [2024] No. 278, administrative guideline, published 2024-08-02.
+https://lhsr.sh.gov.cn/srgl/20240806/40b9feaa-53db-472f-8a6b-2c3cf0465def.html
+Clarifications supplied by the same administration, published by Putuo District:
+https://www.shpt.gov.cn/kpyd-xxcx/20210421/587289.html
+No commercial classification dataset, government artwork or icons copied.
+Unknown items are not guessed. Local special collection and current rules take precedence.
+
+Chinese traditional colors
+Source: https://github.com/zerosoul/chinese-colors
+MIT License
+Copyright (c) 2019 Tristan Yang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Japanese traditional colors
+Source: https://github.com/syaning/nippon-colors
+The MIT License (MIT)
+Copyright (c) 2016 Alex Sun
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+GIF encoding source
+Source artifact: com.madgag:animated-gif-lib:1.4 (Apache V2 as declared in official POM)
+Source: https://github.com/rtyley/animated-gif-lib-for-java
+Source JAR: https://repo.maven.apache.org/maven2/com/madgag/animated-gif-lib/1.4/animated-gif-lib-1.4-sources.jar
+Source JAR SHA-256: 2c39b676cc289fa389ab31b0622996aa8eb0f87d17e4d1a73ddea9324fcee72d
+Only LZWEncoder.java and NeuQuant.java reused. Android package names changed; LZWEncoder made public. Algorithms unchanged. GIF container writer/reader independently implemented. Apache-2.0 full license is included with the runtime dependency notices.
+
+NeuQuant separate license (retained in addition to artifact POM license)
+Copyright (c) 1994 Anthony Dekker
+
+NEUQUANT Neural-Net quantization algorithm by Anthony Dekker, 1994.
+See "Kohonen neural networks for optimal colour quantization"
+in "Network: Computation in Neural Systems" Vol. 5 (1994) pp 351-367.
+for a discussion of the algorithm.
+
+Any party obtaining a copy of these files from the author, directly or
+indirectly, is granted, free of charge, a full and unrestricted irrevocable,
+world-wide, paid up, royalty-free, nonexclusive right and license to deal
+in this software and documentation files (the "Software"), including without
+limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons who receive
+copies from any such party to do so, with the only requirement being
+that this copyright notice remain intact.
+
+Ported to Java 12/00 K Weiner
+
+sing-box / libbox 1.14.3 (Android VPN core)
+Copyright (C) 2022 by nekohasekai <contact-sagernet@sekai.icu>
+Upstream source: https://github.com/SagerNet/sing-box/tree/v1.14.3
+Android AAR distributor/build: https://github.com/singbox-android/libbox/releases/tag/1.14.3
+License: GNU General Public License, version 3 or later; full GPL text retained in GPL-3.0.txt.
+No association with the upstream application is implied. PocketKit is an independent personal tool.
+The core is distributed WITHOUT ANY WARRANTY, without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. Public redistribution must comply
+with GPLv3 and the notices/licenses of all included upstream dependencies.
+AAR SHA256: 6f1f295b1d988d4875546a48cb90a90e2b5f70ca10432f1a8d95e757a76f01d9
+
+SnakeYAML 2.0 (safe YAML subscription parser)
+https://bitbucket.org/snakeyaml/snakeyaml/ — Apache License 2.0
+Copyright (c) 2008-2023 SnakeYAML. License retained in dependency META-INF notices.
+JAR SHA256: 880c9d896e4b74a06c549c15ca496450165d6909fa15d7e662bee8f6a66d7afa
+
+ONNX Runtime Android 1.22.0
+https://github.com/microsoft/onnxruntime/tree/v1.22.0 — MIT License
+Copyright (c) Microsoft Corporation. All rights reserved.
+Replaces 1.20.0 to support 16 KB pages in the ARM64 JNI library.
+License retained in dependency META-INF notices.
+AAR SHA256: 04a4617a9c797cf49225595e45b5546081cb34c86ac817581141577d3b7dbfe2
+
+Cloud routing data (optional runtime download, not bundled full database)
+Source: Loyalsoldier/clash-rules — https://github.com/Loyalsoldier/clash-rules
+GPL-3.0: https://raw.githubusercontent.com/Loyalsoldier/clash-rules/master/LICENSE
+Only direct/proxy domains and CN CIDRs are converted into a data-only JSON bundle.
+The cloud manifest includes the immutable upstream commit, original snapshot URLs,
+SHA-256 hashes and the preserved license; each original snapshot is also served.
+No FlClash/mihomo code or new native protocol is downloaded or executed by this feature.
+The small offline fallback is project-authored common routing data, not this full dataset.

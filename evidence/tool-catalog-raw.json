@@ -1,0 +1,3614 @@
+{
+  "producer": "aapt2 resources + custom standard-library DEX instruction decoder (not JADX/REA Android output)",
+  "tool_resource_count": 125,
+  "unique_names": 124,
+  "methods_scanned": 15392,
+  "partial_methods": [],
+  "tools": [
+    {
+      "resource_id": "0x7f1305ef",
+      "key": "tool_acrostic_poem_generate",
+      "name": "藏头诗生成",
+      "resource_line": 34717,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 7
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 486
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305f0",
+      "key": "tool_ai_detect",
+      "name": "AI图片识别",
+      "resource_line": 34725,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 51
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 205
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 249
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 444
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 179
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305f1",
+      "key": "tool_apk_clean",
+      "name": "安装包清理",
+      "resource_line": 34733,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 971
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34383,
+          "method": "Lcom/One/WoodenLetter/routers/a;->i",
+          "code_file_offset": 3614484,
+          "instruction_offset_units": 33
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 392
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305f2",
+      "key": "tool_app_linux_man",
+      "name": "Linux 指令手册",
+      "resource_line": 34741,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 350
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305f3",
+      "key": "tool_app_manager",
+      "name": "应用管理",
+      "resource_line": 34749,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 35
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 876
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 304
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 164
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 371
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 138
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305f4",
+      "key": "tool_article_abstract_generate",
+      "name": "文章摘要生成",
+      "resource_line": 34757,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 723
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34569,
+          "method": "Lcom/One/WoodenLetter/routers/n;->y",
+          "code_file_offset": 3622680,
+          "instruction_offset_units": 757
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 119
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305f5",
+      "key": "tool_attribution_query",
+      "name": "归属地查询",
+      "resource_line": 34765,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 197
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 321
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 33451,
+          "method": "Lcom/One/WoodenLetter/program/query/a;->onViewCreated",
+          "code_file_offset": 3560464,
+          "instruction_offset_units": 8
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305f6",
+      "key": "tool_base_convert",
+      "name": "进制转换",
+      "resource_line": 34773,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 457
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 332
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305f7",
+      "key": "tool_big_file_clean",
+      "name": "大文件清理",
+      "resource_line": 34781,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 944
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34383,
+          "method": "Lcom/One/WoodenLetter/routers/a;->i",
+          "code_file_offset": 3614484,
+          "instruction_offset_units": 3
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 359
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 206
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 28826,
+          "method": "Lcom/One/WoodenLetter/program/devicetools/BigFileActivity$f;->a",
+          "code_file_offset": 3258248,
+          "instruction_offset_units": 15
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 28827,
+          "method": "Lcom/One/WoodenLetter/program/devicetools/BigFileActivity$f;->c",
+          "code_file_offset": 3258388,
+          "instruction_offset_units": 0
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 28828,
+          "method": "Lcom/One/WoodenLetter/program/devicetools/BigFileActivity$f;->d",
+          "code_file_offset": 3258552,
+          "instruction_offset_units": 15
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 28881,
+          "method": "Lcom/One/WoodenLetter/program/devicetools/BigFileActivity;->onPrepareOptionsMenu",
+          "code_file_offset": 3261456,
+          "instruction_offset_units": 8
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305f8",
+      "key": "tool_bilicoverget",
+      "name": "B站封面获取",
+      "resource_line": 34789,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 1061
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34380,
+          "method": "Lcom/One/WoodenLetter/routers/a;->f",
+          "code_file_offset": 3613524,
+          "instruction_offset_units": 44
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 425
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 500
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305f9",
+      "key": "tool_bing_wallpaper",
+      "name": "必应壁纸",
+      "resource_line": 34797,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 252
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 480
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305fa",
+      "key": "tool_bmi_calculator",
+      "name": "身体质量计算器",
+      "resource_line": 34805,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 263
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 430
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 327
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305fb",
+      "key": "tool_bv2av",
+      "name": "BV号转av号",
+      "resource_line": 34813,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 1052
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34692,
+          "method": "Lcom/One/WoodenLetter/routers/z;->g",
+          "code_file_offset": 3629184,
+          "instruction_offset_units": 5
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305fc",
+      "key": "tool_calculator",
+      "name": "计算器",
+      "resource_line": 34821,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 374
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305fd",
+      "key": "tool_capitalize_the_amount",
+      "name": "数字转中文",
+      "resource_line": 34829,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 239
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 759
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 33977,
+          "method": "Lcom/One/WoodenLetter/program/textutils/g;->onViewCreated",
+          "code_file_offset": 3583436,
+          "instruction_offset_units": 11
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305fe",
+      "key": "tool_chinese_dictionary",
+      "name": "汉语字典",
+      "resource_line": 34836,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 741
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 360
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f1305ff",
+      "key": "tool_chinese_to_pinyin",
+      "name": "中文转拼音",
+      "resource_line": 34844,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 787
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 33942,
+          "method": "Lcom/One/WoodenLetter/program/textutils/d;->onViewCreated",
+          "code_file_offset": 3580908,
+          "instruction_offset_units": 11
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130600",
+      "key": "tool_color_convert",
+      "name": "颜色码转换",
+      "resource_line": 34852,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 155
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 448
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 272
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130601",
+      "key": "tool_color_helper",
+      "name": "配色助手",
+      "resource_line": 34859,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 493
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 203
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34379,
+          "method": "Lcom/One/WoodenLetter/routers/a;->e",
+          "code_file_offset": 3613296,
+          "instruction_offset_units": 55
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 404
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 354
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130602",
+      "key": "tool_color_picker",
+      "name": "取色器",
+      "resource_line": 34867,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 133
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 551
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 74
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 74
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 318
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 217
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 273
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130603",
+      "key": "tool_compass",
+      "name": "指南针",
+      "resource_line": 34875,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 831
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 108
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130604",
+      "key": "tool_currency_convert",
+      "name": "汇率换算",
+      "resource_line": 34883,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 392
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 346
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 25680,
+          "method": "Lcom/One/WoodenLetter/program/calculator/currency/CurrencyConvertActivity;->onCreate",
+          "code_file_offset": 3041020,
+          "instruction_offset_units": 43
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130605",
+      "key": "tool_daily_news",
+      "name": "每日60s看世界",
+      "resource_line": 34891,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 1070
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34380,
+          "method": "Lcom/One/WoodenLetter/routers/a;->f",
+          "code_file_offset": 3613524,
+          "instruction_offset_units": 120
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130606",
+      "key": "tool_date_calculator",
+      "name": "日期计算器",
+      "resource_line": 34899,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 419
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130607",
+      "key": "tool_device_details",
+      "name": "查看设备详细信息",
+      "resource_line": 34907,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 867
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130608",
+      "key": "tool_domain_query",
+      "name": "域名信息查询",
+      "resource_line": 34915,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 341
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 33530,
+          "method": "Lcom/One/WoodenLetter/program/query/domainquery/a;->onCreateView",
+          "code_file_offset": 3562800,
+          "instruction_offset_units": 9
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130609",
+      "key": "tool_drawing_board",
+      "name": "画板",
+      "resource_line": 34923,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 451
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 167
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 304
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 469
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 472
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13060a",
+      "key": "tool_duilian_generate",
+      "name": "对联生成",
+      "resource_line": 34931,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34380,
+          "method": "Lcom/One/WoodenLetter/routers/a;->f",
+          "code_file_offset": 3613524,
+          "instruction_offset_units": 104
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34409,
+          "method": "Lcom/One/WoodenLetter/routers/c0;->e",
+          "code_file_offset": 3630308,
+          "instruction_offset_units": 10
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13060b",
+      "key": "tool_empty_dir_clean",
+      "name": "空文件夹清理",
+      "resource_line": 34939,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 962
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34383,
+          "method": "Lcom/One/WoodenLetter/routers/a;->i",
+          "code_file_offset": 3614484,
+          "instruction_offset_units": 13
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 381
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 147
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 150
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13060c",
+      "key": "tool_empty_file_clean",
+      "name": "空文件清理",
+      "resource_line": 34947,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 953
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34383,
+          "method": "Lcom/One/WoodenLetter/routers/a;->i",
+          "code_file_offset": 3614484,
+          "instruction_offset_units": 23
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 370
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 197
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 320
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13060d",
+      "key": "tool_encoding_conversion",
+      "name": "Base64编码转换",
+      "resource_line": 34955,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 805
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13060e",
+      "key": "tool_express_lite_query",
+      "name": "快递查询",
+      "resource_line": 34963,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 332
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 27137,
+          "method": "Lcom/One/WoodenLetter/program/dailyutils/express/q;->onCreate",
+          "code_file_offset": 3145404,
+          "instruction_offset_units": 26
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13060f",
+      "key": "tool_express_query",
+      "name": "快递查询",
+      "resource_line": 34971,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34380,
+          "method": "Lcom/One/WoodenLetter/routers/a;->f",
+          "code_file_offset": 3613524,
+          "instruction_offset_units": 74
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130610",
+      "key": "tool_extract_audio_form_video",
+      "name": "视频提取音频",
+      "resource_line": 34978,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 935
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 282
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 348
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 337
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130611",
+      "key": "tool_face_merge",
+      "name": "人脸融合",
+      "resource_line": 34986,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 92
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 702
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 194
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 238
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 134
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 30461,
+          "method": "Lcom/One/WoodenLetter/program/imageutils/facemerge/g;->onViewCreated",
+          "code_file_offset": 3359868,
+          "instruction_offset_units": 28
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130612",
+      "key": "tool_ftp_share",
+      "name": "FTP局域网文件共享",
+      "resource_line": 34994,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 926
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 293
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 458
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 584
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130613",
+      "key": "tool_garbage_category_query",
+      "name": "垃圾分类查询",
+      "resource_line": 35002,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 303
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 26610,
+          "method": "Lcom/One/WoodenLetter/program/dailyutils/categorygarbage/a;->onCreateView",
+          "code_file_offset": 3105284,
+          "instruction_offset_units": 9
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130614",
+      "key": "tool_get_current_wallpaper",
+      "name": "获取当前壁纸",
+      "resource_line": 35010,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 885
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 315
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130615",
+      "key": "tool_gif_synthesis_decomposition",
+      "name": "GIF合成分解",
+      "resource_line": 35018,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 580
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 95
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 95
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 248
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 349
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130616",
+      "key": "tool_gradient_image",
+      "name": "渐变图制作",
+      "resource_line": 35026,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 369
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 560
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 106
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 514
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 338
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130617",
+      "key": "tool_handheld_danmaku",
+      "name": "手持弹幕",
+      "resource_line": 35034,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 177
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 409
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 149
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34379,
+          "method": "Lcom/One/WoodenLetter/routers/a;->e",
+          "code_file_offset": 3613296,
+          "instruction_offset_units": 5
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 239
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 225
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130618",
+      "key": "tool_hungbao",
+      "name": "领取红包得彩蛋",
+      "resource_line": 35042,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 1043
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34380,
+          "method": "Lcom/One/WoodenLetter/routers/a;->f",
+          "code_file_offset": 3613524,
+          "instruction_offset_units": 64
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130619",
+      "key": "tool_hydrogen_wallpaper",
+      "name": "氢壁纸",
+      "resource_line": 35050,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 895
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 238
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 326
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 304
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13061a",
+      "key": "tool_idiom_query",
+      "name": "成语查询",
+      "resource_line": 35058,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 294
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34380,
+          "method": "Lcom/One/WoodenLetter/routers/a;->f",
+          "code_file_offset": 3613524,
+          "instruction_offset_units": 84
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 27306,
+          "method": "Lcom/One/WoodenLetter/program/dailyutils/idiomquery/f;->onViewCreated",
+          "code_file_offset": 3152960,
+          "instruction_offset_units": 12
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13061b",
+      "key": "tool_idiom_solitaire",
+      "name": "成语接龙",
+      "resource_line": 35066,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f13061c",
+      "key": "tool_image_bed",
+      "name": "图片转链接",
+      "resource_line": 35074,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 646
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 139
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 172
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34619,
+          "method": "Lcom/One/WoodenLetter/routers/s0;->n",
+          "code_file_offset": 3635888,
+          "instruction_offset_units": 7
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13061d",
+      "key": "tool_image_colorize",
+      "name": "黑白图片上色",
+      "resource_line": 35082,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 61
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 216
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 260
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 104
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 29618,
+          "method": "Lcom/One/WoodenLetter/program/imageutils/aiphoto/AiPhotoActivity;->m1",
+          "code_file_offset": 3312360,
+          "instruction_offset_units": 146
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13061e",
+      "key": "tool_image_compress",
+      "name": "图片压缩",
+      "resource_line": 35090,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 533
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 54
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 54
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 30774,
+          "method": "Lcom/One/WoodenLetter/program/imageutils/imagecompress/h;->onViewCreated",
+          "code_file_offset": 3384516,
+          "instruction_offset_units": 11
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 228
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 283
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13061f",
+      "key": "tool_image_definition_enhance",
+      "name": "图片清晰度增强",
+      "resource_line": 35098,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 21
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 14
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 14
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 301
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 29618,
+          "method": "Lcom/One/WoodenLetter/program/imageutils/aiphoto/AiPhotoActivity;->m1",
+          "code_file_offset": 3312360,
+          "instruction_offset_units": 82
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130620",
+      "key": "tool_image_deformation_repair",
+      "name": "拉伸图片修复",
+      "resource_line": 35106,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 81
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 183
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 227
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 59
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 29618,
+          "method": "Lcom/One/WoodenLetter/program/imageutils/aiphoto/AiPhotoActivity;->m1",
+          "code_file_offset": 3312360,
+          "instruction_offset_units": 50
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130621",
+      "key": "tool_image_exif_editor",
+      "name": "照片信息编辑器",
+      "resource_line": 35114,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 569
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 84
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 84
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 66
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130622",
+      "key": "tool_image_splice",
+      "name": "图片拼接",
+      "resource_line": 35121,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 325
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 542
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 64
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 64
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 276
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 177
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 135
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130623",
+      "key": "tool_image_table_rec",
+      "name": "图片表格识别",
+      "resource_line": 35129,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 103
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 492
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 271
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 447
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 89
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130624",
+      "key": "tool_image_to_base64",
+      "name": "图片转Base64",
+      "resource_line": 35137,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 679
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 172
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 216
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 262
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130625",
+      "key": "tool_image_water_mark",
+      "name": "图片水印",
+      "resource_line": 35145,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 285
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 523
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 44
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 44
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 94
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 187
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 147
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130626",
+      "key": "tool_image_zoom",
+      "name": "图片分辨率提升",
+      "resource_line": 35152,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 71
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 24
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 24
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 262
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 29618,
+          "method": "Lcom/One/WoodenLetter/program/imageutils/aiphoto/AiPhotoActivity;->m1",
+          "code_file_offset": 3312360,
+          "instruction_offset_units": 114
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130627",
+      "key": "tool_instagram_photo_download",
+      "name": "Ins免登录下载",
+      "resource_line": 35160,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 11
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 403
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 164
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130628",
+      "key": "tool_ip_query",
+      "name": "全球IP查询",
+      "resource_line": 35168,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 312
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 32997,
+          "method": "Lcom/One/WoodenLetter/program/otherutils/ip/b;->onCreateView",
+          "code_file_offset": 3532940,
+          "instruction_offset_units": 11
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130629",
+      "key": "tool_jd_coupon_query",
+      "name": "京东优惠券查询",
+      "resource_line": 35176,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f13062a",
+      "key": "tool_jikipedia",
+      "name": "网络热词查询-小鸡词典",
+      "resource_line": 35184,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 261
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13062b",
+      "key": "tool_job_score",
+      "name": "工作性价比计算器",
+      "resource_line": 35192,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 365
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34379,
+          "method": "Lcom/One/WoodenLetter/routers/a;->e",
+          "code_file_offset": 3613296,
+          "instruction_offset_units": 15
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13062c",
+      "key": "tool_js_interpreter",
+      "name": "JavaScript 解释器",
+      "resource_line": 35196,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 1079
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 33052,
+          "method": "Lcom/One/WoodenLetter/program/otherutils/jsinterpreter/d;->onViewCreated",
+          "code_file_offset": 3537736,
+          "instruction_offset_units": 11
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13062d",
+      "key": "tool_level_measurement",
+      "name": "水平仪",
+      "resource_line": 35204,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 840
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 528
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13062e",
+      "key": "tool_lite_text_editor",
+      "name": "文本编辑器",
+      "resource_line": 35212,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 732
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 293
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34569,
+          "method": "Lcom/One/WoodenLetter/routers/n;->y",
+          "code_file_offset": 3622680,
+          "instruction_offset_units": 474
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13062f",
+      "key": "tool_location",
+      "name": "地址信息查询",
+      "resource_line": 35220,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 74
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130630",
+      "key": "tool_logistics_inquiry",
+      "name": "快递收藏夹",
+      "resource_line": 35228,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f130631",
+      "key": "tool_make_decision",
+      "name": "做个决定",
+      "resource_line": 35236,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 513
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 221
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 570
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 149
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 26682,
+          "method": "Lcom/One/WoodenLetter/program/dailyutils/decisions/DecisionFragment;->N",
+          "code_file_offset": 3114940,
+          "instruction_offset_units": 21
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 294
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130632",
+      "key": "tool_md5",
+      "name": "MD5摘要",
+      "resource_line": 35244,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 466
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 32912,
+          "method": "Lcom/One/WoodenLetter/program/otherutils/common/ExchangeActivity;->onCreate",
+          "code_file_offset": 3532276,
+          "instruction_offset_units": 70
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130633",
+      "key": "tool_member_help",
+      "name": "会员帮助",
+      "resource_line": 35252,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 35683,
+          "method": "Lcom/One/WoodenLetter/ui/member/c;->onViewCreated",
+          "code_file_offset": 3721756,
+          "instruction_offset_units": 11
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130634",
+      "key": "tool_memorial_day",
+      "name": "纪念日",
+      "resource_line": 35260,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 212
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 234
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 283
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130635",
+      "key": "tool_metal_detect",
+      "name": "金属探测仪",
+      "resource_line": 35268,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 913
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 556
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130636",
+      "key": "tool_mini_english",
+      "name": "迷你英文生成",
+      "resource_line": 35276,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 750
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34420,
+          "method": "Lcom/One/WoodenLetter/routers/c1;->h",
+          "code_file_offset": 3637612,
+          "instruction_offset_units": 5
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130637",
+      "key": "tool_miragetank",
+      "name": "幻影坦克隐藏图",
+      "resource_line": 35284,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 505
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34379,
+          "method": "Lcom/One/WoodenLetter/routers/a;->e",
+          "code_file_offset": 3613296,
+          "instruction_offset_units": 45
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 150
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 183
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130638",
+      "key": "tool_model_change",
+      "name": "修改设备名称",
+      "resource_line": 35292,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f130639",
+      "key": "tool_morse_code",
+      "name": "摩斯电码",
+      "resource_line": 35300,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 778
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34557,
+          "method": "Lcom/One/WoodenLetter/routers/n;->m",
+          "code_file_offset": 3621952,
+          "instruction_offset_units": 13
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 360
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13063a",
+      "key": "tool_mortgage_calculator",
+      "name": "房贷计算器",
+      "resource_line": 35308,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 401
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13063b",
+      "key": "tool_native_hydrogen_wallpaper",
+      "name": "原生氢壁纸",
+      "resource_line": 35316,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 904
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 249
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 337
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 290
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13063c",
+      "key": "tool_near_antonym_search",
+      "name": "近反义词查询",
+      "resource_line": 35324,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 285
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34380,
+          "method": "Lcom/One/WoodenLetter/routers/a;->f",
+          "code_file_offset": 3613524,
+          "instruction_offset_units": 94
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 28804,
+          "method": "Lcom/One/WoodenLetter/program/dailyutils/wordquery/c;->onViewCreated",
+          "code_file_offset": 3256364,
+          "instruction_offset_units": 31
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13063d",
+      "key": "tool_network_test",
+      "name": "网速测试",
+      "resource_line": 35332,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 150
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13063e",
+      "key": "tool_nine_grid_image",
+      "name": "九格切图",
+      "resource_line": 35340,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 305
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 591
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 106
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 117
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 458
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 263
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13063f",
+      "key": "tool_noise_measurement",
+      "name": "噪音测量",
+      "resource_line": 35347,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 849
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 52
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 393
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130640",
+      "key": "tool_notify_self",
+      "name": "通知自己",
+      "resource_line": 35355,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 995
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34379,
+          "method": "Lcom/One/WoodenLetter/routers/a;->e",
+          "code_file_offset": 3613296,
+          "instruction_offset_units": 95
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130641",
+      "key": "tool_number_script",
+      "name": "数字转上下标",
+      "resource_line": 35358,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 769
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130642",
+      "key": "tool_object_count_detection",
+      "name": "拍照计数",
+      "resource_line": 35366,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 114
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 613
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 315
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 288
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130643",
+      "key": "tool_ocr",
+      "name": "OCR图片文字识别",
+      "resource_line": 35370,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 109
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 41
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 227
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 271
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 374
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 209
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 153
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 31351,
+          "method": "Lcom/One/WoodenLetter/program/imageutils/ocr/OCRActivity;->g2",
+          "code_file_offset": 3428176,
+          "instruction_offset_units": 27
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 31351,
+          "method": "Lcom/One/WoodenLetter/program/imageutils/ocr/OCRActivity;->g2",
+          "code_file_offset": 3428176,
+          "instruction_offset_units": 30
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130644",
+      "key": "tool_phone_dpi_change",
+      "name": "DPI修改",
+      "resource_line": 35378,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f130645",
+      "key": "tool_pixel_word",
+      "name": "图片文字化",
+      "resource_line": 35386,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 668
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 161
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 205
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 234
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130646",
+      "key": "tool_postal_code_query",
+      "name": "邮编查询",
+      "resource_line": 35394,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 267
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 33799,
+          "method": "Lcom/One/WoodenLetter/program/query/postalcodequery/h;->onViewCreated",
+          "code_file_offset": 3573976,
+          "instruction_offset_units": 33
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130647",
+      "key": "tool_power_calibration",
+      "name": "电量校准",
+      "resource_line": 35401,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f130648",
+      "key": "tool_power_camouflage",
+      "name": "电量伪装",
+      "resource_line": 35409,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f130649",
+      "key": "tool_qq_conversation",
+      "name": "QQ强制会话",
+      "resource_line": 35417,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34569,
+          "method": "Lcom/One/WoodenLetter/routers/n;->y",
+          "code_file_offset": 3622680,
+          "instruction_offset_units": 345
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13064a",
+      "key": "tool_qrcode",
+      "name": "二维码工具",
+      "resource_line": 35425,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 483
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34379,
+          "method": "Lcom/One/WoodenLetter/routers/a;->e",
+          "code_file_offset": 3613296,
+          "instruction_offset_units": 65
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 128
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 220
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13064b",
+      "key": "tool_random_number",
+      "name": "随机数生成",
+      "resource_line": 35433,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 1024
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 24
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13064c",
+      "key": "tool_rc4",
+      "name": "RC4加解密",
+      "resource_line": 35441,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 816
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 38
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34557,
+          "method": "Lcom/One/WoodenLetter/routers/n;->m",
+          "code_file_offset": 3621952,
+          "instruction_offset_units": 25
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13064d",
+      "key": "tool_reaction_test",
+      "name": "反应力测试",
+      "resource_line": 35449,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 986
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 33087,
+          "method": "Lcom/One/WoodenLetter/program/otherutils/l$c;->n",
+          "code_file_offset": 3516488,
+          "instruction_offset_units": 62
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13064e",
+      "key": "tool_reboot",
+      "name": "高级重启",
+      "resource_line": 35453,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f13064f",
+      "key": "tool_relatives_name_query",
+      "name": "亲戚称呼换算",
+      "resource_line": 35461,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 439
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 430
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130650",
+      "key": "tool_ruler",
+      "name": "尺子",
+      "resource_line": 35469,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 471
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 176
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 80
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 316
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130651",
+      "key": "tool_score_board",
+      "name": "记分牌",
+      "resource_line": 35477,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 185
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34379,
+          "method": "Lcom/One/WoodenLetter/routers/a;->e",
+          "code_file_offset": 3613296,
+          "instruction_offset_units": 75
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 612
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130652",
+      "key": "tool_screen_time",
+      "name": "时间屏幕",
+      "resource_line": 35480,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 87
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 140
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34379,
+          "method": "Lcom/One/WoodenLetter/routers/a;->e",
+          "code_file_offset": 3613296,
+          "instruction_offset_units": 85
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 388
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 167
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 310
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130653",
+      "key": "tool_screener",
+      "name": "带壳截图",
+      "resource_line": 35488,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 514
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 34
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 34
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 250
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130654",
+      "key": "tool_search_by_image",
+      "name": "以图搜图",
+      "resource_line": 35496,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 635
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 128
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 161
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 136
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130655",
+      "key": "tool_simple_image_editor",
+      "name": "简易图片编辑",
+      "resource_line": 35504,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 624
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 117
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 150
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130656",
+      "key": "tool_split_word_selection",
+      "name": "拆分选词",
+      "resource_line": 35512,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 796
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34542,
+          "method": "Lcom/One/WoodenLetter/routers/n;->D",
+          "code_file_offset": 3625028,
+          "instruction_offset_units": 7
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34556,
+          "method": "Lcom/One/WoodenLetter/routers/n;->l",
+          "code_file_offset": 3621860,
+          "instruction_offset_units": 7
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130657",
+      "key": "tool_sticker_maker",
+      "name": "表情制作",
+      "resource_line": 35520,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 602
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 139
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 122
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 141
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130658",
+      "key": "tool_system_animation_speed_adjustment",
+      "name": "系统动画速度调控",
+      "resource_line": 35528,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f130659",
+      "key": "tool_tb_coupon_query",
+      "name": "淘宝优惠券获取",
+      "resource_line": 35536,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 389
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 131
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 157
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 174
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13065a",
+      "key": "tool_text_process",
+      "name": "文字处理",
+      "resource_line": 35543,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f13065b",
+      "key": "tool_text_to_image",
+      "name": "文字转图",
+      "resource_line": 35551,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 657
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 194
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 178
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13065c",
+      "key": "tool_text_to_speech",
+      "name": "文字转语音",
+      "resource_line": 35559,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 347
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 31
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 282
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 194
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13065d",
+      "key": "tool_time_calculator",
+      "name": "时间计算器",
+      "resource_line": 35567,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 410
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13065e",
+      "key": "tool_timer",
+      "name": "计时器",
+      "resource_line": 35575,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 219
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 543
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 194
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 542
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f13065f",
+      "key": "tool_today_in_history",
+      "name": "历史上的今天",
+      "resource_line": 35583,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 241
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34379,
+          "method": "Lcom/One/WoodenLetter/routers/a;->e",
+          "code_file_offset": 3613296,
+          "instruction_offset_units": 25
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 416
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 32743,
+          "method": "Lcom/One/WoodenLetter/program/otherutils/TodayInHistoryActivity$c;->n",
+          "code_file_offset": 3519944,
+          "instruction_offset_units": 53
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 382
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130660",
+      "key": "tool_tomato_clock",
+      "name": "番茄时钟",
+      "resource_line": 35591,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 230
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34379,
+          "method": "Lcom/One/WoodenLetter/routers/a;->e",
+          "code_file_offset": 3613296,
+          "instruction_offset_units": 35
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 598
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130661",
+      "key": "tool_translate",
+      "name": "翻译",
+      "resource_line": 35599,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 429
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 158
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 10
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 144
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 28626,
+          "method": "Lcom/One/WoodenLetter/program/dailyutils/tran/TranslateActivity;->onCreate",
+          "code_file_offset": 3245340,
+          "instruction_offset_units": 25
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130662",
+      "key": "tool_unit_convert",
+      "name": "全能单位换算",
+      "resource_line": 35607,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 383
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 192
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 22592,
+          "method": "Lcom/One/WoodenLetter/activitys/user/membersub/MemberSubActivity$d;->d",
+          "code_file_offset": 2858868,
+          "instruction_offset_units": 275
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130663",
+      "key": "tool_url_shortener",
+      "name": "短链接生成与还原",
+      "resource_line": 35615,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 1004
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 305
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 186
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130664",
+      "key": "tool_vibrator",
+      "name": "震动器",
+      "resource_line": 35623,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 858
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34391,
+          "method": "Lcom/One/WoodenLetter/routers/b;-><init>",
+          "code_file_offset": 3618028,
+          "instruction_offset_units": 402
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130665",
+      "key": "tool_web_source_view",
+      "name": "网页源码获取",
+      "resource_line": 35631,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 1033
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34544,
+          "method": "Lcom/One/WoodenLetter/routers/n;->F",
+          "code_file_offset": 3626192,
+          "instruction_offset_units": 7
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130666",
+      "key": "tool_web_to_app",
+      "name": "网页转应用",
+      "resource_line": 35639,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 1015
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 260
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 414
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 33416,
+          "method": "Lcom/One/WoodenLetter/program/otherutils/webtoapp/h;->onViewCreated",
+          "code_file_offset": 3559444,
+          "instruction_offset_units": 11
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 21720,
+          "method": "Lcom/One/WoodenLetter/activitys/ToolsActivity;->onCreate",
+          "code_file_offset": 2796012,
+          "instruction_offset_units": 300
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130667",
+      "key": "tool_what_anime",
+      "name": "以图搜番",
+      "resource_line": 35647,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 22037,
+          "method": "Lcom/One/WoodenLetter/activitys/search/j;->b",
+          "code_file_offset": 2815956,
+          "instruction_offset_units": 57
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34373,
+          "method": "Lcom/One/WoodenLetter/routers/a;-><clinit>",
+          "code_file_offset": 3615604,
+          "instruction_offset_units": 276
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34382,
+          "method": "Lcom/One/WoodenLetter/routers/a;->h",
+          "code_file_offset": 3613804,
+          "instruction_offset_units": 4
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 4
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 35589,
+          "method": "Lcom/One/WoodenLetter/ui/categories/m;->r",
+          "code_file_offset": 3714632,
+          "instruction_offset_units": 207
+        }
+      ]
+    },
+    {
+      "resource_id": "0x7f130668",
+      "key": "tool_wifi_password_viewer",
+      "name": "WIFI密码查看",
+      "resource_line": 35655,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f130669",
+      "key": "tool_youtube_cover_get",
+      "name": "YouTube封面获取",
+      "resource_line": 35663,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f13066a",
+      "key": "tool_yunsou",
+      "name": "云搜索",
+      "resource_line": 35671,
+      "references": []
+    },
+    {
+      "resource_id": "0x7f13066b",
+      "key": "tool_zhihu_video_get",
+      "name": "Zhi站视频扩展",
+      "resource_line": 35678,
+      "references": [
+        {
+          "dex": "classes.dex",
+          "method_id": 34380,
+          "method": "Lcom/One/WoodenLetter/routers/a;->f",
+          "code_file_offset": 3613524,
+          "instruction_offset_units": 54
+        },
+        {
+          "dex": "classes.dex",
+          "method_id": 34384,
+          "method": "Lcom/One/WoodenLetter/routers/a;->j",
+          "code_file_offset": 3614596,
+          "instruction_offset_units": 436
+        }
+      ]
+    }
+  ]
+}

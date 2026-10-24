@@ -1,0 +1,6 @@
+gradle.beforeProject { project ->
+    project.pluginManager.withPlugin('com.android.application') {
+        project.android.defaultConfig.testInstrumentationRunner = 'cn.xianhua.pocketkit.ManagerPermissionInstrumentation'
+        project.android.sourceSets.androidTest.java.srcDir(new File(project.rootDir, 'tools/manager-permission-selftest'))
+    }
+}

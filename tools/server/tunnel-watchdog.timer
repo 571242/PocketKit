@@ -1,0 +1,11 @@
+[Unit]
+Description=Periodic health gate for the InstaBox-01 quick tunnel
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=5min
+AccuracySec=30s
+Unit=instabox-tunnel-watchdog.service
+
+[Install]
+WantedBy=timers.target

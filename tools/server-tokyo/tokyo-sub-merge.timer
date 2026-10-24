@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh the merged subscription every 10 minutes
+
+[Timer]
+OnBootSec=60s
+OnUnitActiveSec=10min
+AccuracySec=30s
+Persistent=false
+
+[Install]
+WantedBy=timers.target

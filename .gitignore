@@ -1,0 +1,26 @@
+# Build output
+build/
+app/build/
+.gradle/
+local.properties
+
+# Scratch and probe directories used during development; never part of a release.
+.scratch/
+.dsh-ops/
+.dsh-ops-*.lock
+*.lock
+
+# Release artifacts: APKs are several hundred MB and are published as GitHub Releases,
+# not committed. The small checksum files are kept so a download can be verified.
+dist/*.apk
+dist/*.zip
+
+# The sing-box proxy core AAR is 112 MB, over GitHub's 100 MB per-file limit, and Git LFS
+# rejects uploads from this account. It is published as a Release asset instead; see
+# docs/build-environment.md for how to fetch it into app/libs/ before building.
+app/libs/libbox-1.14.3.aar
+
+# IDE
+.idea/
+*.iml
+.DS_Store

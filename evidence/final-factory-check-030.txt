@@ -1,0 +1,3 @@
+Independent final parent verification.
+ExitCode=0
+PASS: TicketScriptFactory checks=13 old recipe shape preserved

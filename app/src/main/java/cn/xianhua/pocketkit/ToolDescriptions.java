@@ -1,0 +1,124 @@
+package cn.xianhua.pocketkit;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/** Verified one-line user descriptions; limitations stay inside tools. */
+public final class ToolDescriptions {
+    private static final Map<String, String> COPY = new HashMap<>();
+    static {
+        COPY.put("V03", "悬浮录音与变声，拖到侧边收起，点击小球展开");
+        COPY.put("C02", "本机识别开屏跳过按钮，支持排除应用");
+        COPY.put("V01", "文字配音、录音与导入音频，共用音色试听导出");
+        COPY.put("V02", "导入音频，在本机转换音效并导出新文件");
+        COPY.put("M01", "双窗口管理本地、云盘与 Termux 授权目录");
+        COPY.put("M02", "浏览压缩包目录并按需提取文件");
+        COPY.put("M03", "导出应用安装包、拆分包、图标与版本信息");
+        COPY.put("M04", "逐行对比 UTF-8 文本，高亮增删差异");
+        COPY.put("M05", "分页查看文件字节并跳转指定偏移");
+        COPY.put("M06", "计算文件 MD5、SHA-1 和 SHA-256");
+        COPY.put("104", "查询词语的近义词和反义词");
+        COPY.put("105", "查询地区邮政编码");
+        COPY.put("106", "查询历史上的当天事件");
+        COPY.put("110", "查询京东优惠券信息");
+        COPY.put("111", "打开 QQ 指定会话");
+        COPY.put("112", "查询淘宝优惠券信息");
+        COPY.put("113", "使用图片搜索番剧信息");
+        COPY.put("002", "转换 HEX、RGB 等常见颜色格式");
+        COPY.put("003", "根据基础颜色生成配色方案");
+        COPY.put("004", "从图片中选取颜色并查看色值");
+        COPY.put("005", "在画布上自由绘图");
+        COPY.put("007", "合成 GIF 或拆分动画帧");
+        COPY.put("008", "生成渐变效果图片");
+        COPY.put("009", "生成手机壁纸图片");
+        COPY.put("010", "将图片上传并生成链接");
+        COPY.put("011", "调整图片尺寸或压缩质量");
+        COPY.put("012", "查看照片 EXIF 信息并清除隐私元数据");
+        COPY.put("013", "将多张图片拼接成一张长图");
+        COPY.put("014", "在图片和 Base64 文本间转换");
+        COPY.put("015", "给图片添加文字水印");
+        COPY.put("018", "将图片切分为九宫格");
+        COPY.put("019", "把图片转换为像素化文字效果");
+        COPY.put("020", "生成二维码或读取二维码内容");
+        COPY.put("022", "使用图片搜索相似内容");
+        COPY.put("023", "裁剪、旋转和调整图片");
+        COPY.put("024", "制作简单的表情图片");
+        COPY.put("025", "把文字排版生成图片");
+        COPY.put("026", "识别图片中的内容");
+        COPY.put("027", "将两张人脸图片融合");
+        COPY.put("029", "增强图片细节和清晰度");
+        COPY.put("030", "将拉伸变形的图片还原");
+        COPY.put("031", "识别图片中的表格内容");
+        COPY.put("032", "提升图片输出分辨率");
+        COPY.put("033", "从照片中统计物体数量");
+        COPY.put("034", "识别图片文字并导出结果");
+        COPY.put("035", "提取文章的重点摘要");
+        COPY.put("036", "在不同进制间转换数字");
+        COPY.put("037", "将数字转换为中文读法");
+        COPY.put("038", "将中文转换为拼音");
+        COPY.put("039", "编码或解码 Base64 文本");
+        COPY.put("040", "编辑纯文本内容");
+        COPY.put("042", "将字符转换为迷你英文样式");
+        COPY.put("043", "在文字与摩斯电码间转换");
+        COPY.put("044", "将数字转换为上下标字符");
+        COPY.put("046", "拆分文本并辅助选词");
+        COPY.put("048", "使用系统语音朗读文字");
+        COPY.put("050", "根据身高体重计算 BMI");
+        COPY.put("051", "进行基础数学计算");
+        COPY.put("052", "换算不同货币汇率");
+        COPY.put("053", "计算两个日期之间的时间");
+        COPY.put("054", "制作横向滚动的手持弹幕");
+        COPY.put("056", "用随机结果帮助做决定");
+        COPY.put("057", "记录并查看纪念日");
+        COPY.put("059", "生成指定范围内的随机数");
+        COPY.put("060", "换算亲属关系称呼");
+        COPY.put("061", "记录并计算比赛分数");
+        COPY.put("062", "以全屏方式显示时间");
+        COPY.put("063", "换算时分秒等时间长度");
+        COPY.put("064", "设置倒计时提醒");
+        COPY.put("065", "使用番茄工作法安排专注时间");
+        COPY.put("066", "换算长度、面积等常用单位");
+        COPY.put("067", "显示设备方向和指南针读数");
+        COPY.put("068", "显示设备水平倾斜角度");
+        COPY.put("069", "读取磁场强度变化");
+        COPY.put("070", "读取环境声音分贝变化");
+        COPY.put("071", "保留定时录制入口并生成通用自动化脚本");
+        COPY.put("C01", "编辑、保存并执行本地自动化脚本");
+        COPY.put("072", "贴边立尺、游标卡尺测距与屏幕测量校准");
+        COPY.put("073", "让设备按指定模式振动");
+        COPY.put("074", "扫描并清理安装包文件");
+        COPY.put("075", "查看和管理已安装应用");
+        COPY.put("076", "查找指定范围内的大文件");
+        COPY.put("077", "查看设备硬件和系统信息");
+        COPY.put("078", "查找空文件夹并清理");
+        COPY.put("079", "查找空文件并清理");
+        COPY.put("080", "从视频文件中提取音频");
+        COPY.put("081", "在局域网共享手机文件");
+        COPY.put("083", "查询域名注册和解析信息");
+        COPY.put("084", "查询当前公网 IP 信息");
+        COPY.put("086", "测试当前网络连接速度");
+        COPY.put("087", "在本机创建一条通知提醒");
+        COPY.put("088", "生成短链接或还原短链接");
+        COPY.put("089", "获取网页源代码文本");
+        COPY.put("093", "按号码查询归属地区");
+        COPY.put("094", "查询汉字读音和释义");
+        COPY.put("095", "查看每日世界资讯摘要");
+        COPY.put("096", "生成一副对联");
+        COPY.put("097", "查询快递物流信息");
+        COPY.put("098", "按名称查询垃圾分类");
+        COPY.put("099", "查询成语释义和用法");
+        COPY.put("A01", "合并、拆分、旋转或删除 PDF 页面");
+        COPY.put("A02", "在图片与 PDF 页面之间转换");
+        COPY.put("A03", "扫描文档并校正边缘和阴影");
+        COPY.put("A04", "识别人脸和敏感文本并自动打码");
+        COPY.put("A08", "压缩视频并裁剪片段");
+        COPY.put("B02", "按单位价格比较商品成本");
+        COPY.put("B05", "记录账目、收据报销和周期付款");
+    }
+    private ToolDescriptions() {}
+    public static String get(ToolRegistry.Entry entry) {
+        String value = COPY.get(entry.id);
+        return value == null ? entry.name : value;
+    }
+}
+

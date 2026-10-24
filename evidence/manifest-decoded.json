@@ -1,0 +1,1743 @@
+[
+  {
+    "tag": "manifest",
+    "attrs": {
+      "versionCode": 20250826,
+      "versionName": "7.17.20-normal",
+      "compileSdkVersion": 33,
+      "compileSdkVersionCodename": "13",
+      "package": "com.One.WoodenLetter",
+      "platformBuildVersionCode": 33,
+      "platformBuildVersionName": 13
+    }
+  },
+  {
+    "tag": "uses-sdk",
+    "attrs": {
+      "minSdkVersion": 23,
+      "targetSdkVersion": 30
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.ACCESS_NETWORK_STATE"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.ACCESS_WIFI_STATE"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.INTERNET"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.SET_WALLPAPER"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.READ_EXTERNAL_STORAGE"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.WRITE_EXTERNAL_STORAGE"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.MANAGE_EXTERNAL_STORAGE"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.RECORD_AUDIO"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.REQUEST_INSTALL_PACKAGES"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.REQUEST_DELETE_PACKAGES"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "com.android.launcher.permission.WRITE_SETTINGS"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "com.android.launcher.permission.INSTALL_SHORTCUT"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "com.android.launcher.permission.UNINSTALL_SHORTCUT"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "com.bbk.launcher2.permission.READ_SETTINGS"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "com.huawei.easygo.permission.READ_PERMISSION"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.VIBRATE"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.KILL_BACKGROUND_PROCESSES"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.FOREGROUND_SERVICE"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.CAMERA"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "com.android.permission.GET_INSTALLED_APPS"
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "android.permission.QUERY_ALL_PACKAGES"
+    }
+  },
+  {
+    "tag": "uses-feature",
+    "attrs": {
+      "name": "android.hardware.camera",
+      "required": 0
+    }
+  },
+  {
+    "tag": "queries",
+    "attrs": {}
+  },
+  {
+    "tag": "package",
+    "attrs": {
+      "name": "com.tencent.mm"
+    }
+  },
+  {
+    "tag": "intent",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "*"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "scheme": "tbopen"
+    }
+  },
+  {
+    "tag": "package",
+    "attrs": {
+      "name": "com.eg.android.AlipayGphone"
+    }
+  },
+  {
+    "tag": "package",
+    "attrs": {
+      "name": "com.eg.android.AlipayGphoneRC"
+    }
+  },
+  {
+    "tag": "package",
+    "attrs": {
+      "name": "hk.alipay.wallet"
+    }
+  },
+  {
+    "tag": "queries",
+    "attrs": {}
+  },
+  {
+    "tag": "intent",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.TTS_SERVICE"
+    }
+  },
+  {
+    "tag": "supports-screens",
+    "attrs": {
+      "anyDensity": 4294967295,
+      "smallScreens": 4294967295,
+      "normalScreens": 4294967295,
+      "largeScreens": 4294967295,
+      "resizeable": 4294967295
+    }
+  },
+  {
+    "tag": "permission",
+    "attrs": {
+      "name": "com.One.WoodenLetter.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+      "protectionLevel": 2
+    }
+  },
+  {
+    "tag": "uses-permission",
+    "attrs": {
+      "name": "com.One.WoodenLetter.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    }
+  },
+  {
+    "tag": "application",
+    "attrs": {
+      "theme": "@7f140338",
+      "label": "@7f130044",
+      "icon": "@7f0f0000",
+      "name": "com.One.WoodenLetter.WoodApplication",
+      "allowBackup": 0,
+      "largeHeap": 4294967295,
+      "supportsRtl": 4294967295,
+      "extractNativeLibs": 0,
+      "fullBackupContent": 4294967295,
+      "usesCleartextTraffic": 4294967295,
+      "networkSecurityConfig": "@7f160003",
+      "appComponentFactory": "androidx.core.app.CoreComponentFactory",
+      "requestLegacyExternalStorage": 4294967295
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "ScopedStorage",
+      "value": 4294967295
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f140338",
+      "label": "@7f13065f",
+      "name": "com.One.WoodenLetter.program.otherutils.TodayInHistoryDetailsActivity",
+      "exported": 4294967295,
+      "windowSoftInputMode": 35
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f140338",
+      "label": "@7f130660",
+      "name": "com.One.WoodenLetter.program.dailyutils.tomatoclock.TomatoClockWorkActivity",
+      "exported": 4294967295,
+      "configChanges": 1200,
+      "windowSoftInputMode": 35
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f140338",
+      "label": "@7f130660",
+      "name": "com.One.WoodenLetter.program.dailyutils.tomatoclock.TomatoClockActivity",
+      "exported": 4294967295,
+      "windowSoftInputMode": 35
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f140338",
+      "label": "@7f1304e9",
+      "name": "com.One.WoodenLetter.program.filetools.FtpShareActivity",
+      "exported": 0
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.ui.ContainerActivity",
+      "exported": 0,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.decisions.DecisionsEditActivity",
+      "exported": 0,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.decisions.DecisionsActivity",
+      "exported": 0,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.express.CourierFavoritesActivity",
+      "exported": 0,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.user.membersub.MemberSubActivity",
+      "exported": 4294967295,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.user.accountmanage.AccountManageActivity",
+      "exported": 4294967295,
+      "launchMode": 2,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.user.LoginActivity",
+      "exported": 4294967295,
+      "launchMode": 2,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.SplashActivity",
+      "exported": 4294967295,
+      "configChanges": 1696
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.LetterActivity",
+      "exported": 4294967295,
+      "configChanges": 1696
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.MAIN"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.LAUNCHER"
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "android.app.shortcuts",
+      "resource": "@7f160006"
+    }
+  },
+  {
+    "tag": "activity-alias",
+    "attrs": {
+      "label": "@7f1300e4",
+      "icon": "@7f0801d4",
+      "name": "com.One.WoodenLetter.LauncherIconV6",
+      "enabled": 0,
+      "exported": 4294967295,
+      "launchMode": 2,
+      "targetActivity": "com.One.WoodenLetter.LetterActivity"
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.MAIN"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.LAUNCHER"
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "android.app.shortcuts",
+      "resource": "@7f160006"
+    }
+  },
+  {
+    "tag": "activity-alias",
+    "attrs": {
+      "label": "@7f1300e4",
+      "icon": "@7f0801d3",
+      "name": "com.One.WoodenLetter.LauncherIconV5",
+      "enabled": 0,
+      "exported": 4294967295,
+      "launchMode": 2,
+      "targetActivity": "com.One.WoodenLetter.LetterActivity"
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.MAIN"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.LAUNCHER"
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "android.app.shortcuts",
+      "resource": "@7f160006"
+    }
+  },
+  {
+    "tag": "activity-alias",
+    "attrs": {
+      "label": "@7f1300e4",
+      "icon": "@7f0801d2",
+      "name": "com.One.WoodenLetter.LauncherIconV2",
+      "enabled": 0,
+      "exported": 4294967295,
+      "launchMode": 2,
+      "targetActivity": "com.One.WoodenLetter.LetterActivity"
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.MAIN"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.LAUNCHER"
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "android.app.shortcuts",
+      "resource": "@7f160006"
+    }
+  },
+  {
+    "tag": "activity-alias",
+    "attrs": {
+      "label": "@7f1300e4",
+      "icon": "@7f0801d0",
+      "name": "com.One.WoodenLetter.LauncherIconOLDV7",
+      "enabled": 0,
+      "exported": 4294967295,
+      "launchMode": 2,
+      "targetActivity": "com.One.WoodenLetter.LetterActivity"
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.MAIN"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.LAUNCHER"
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "android.app.shortcuts",
+      "resource": "@7f160006"
+    }
+  },
+  {
+    "tag": "activity-alias",
+    "attrs": {
+      "label": "@7f1300e4",
+      "icon": "@7f0801d1",
+      "name": "com.One.WoodenLetter.LauncherIconV1",
+      "enabled": 0,
+      "exported": 4294967295,
+      "launchMode": 2,
+      "targetActivity": "com.One.WoodenLetter.LetterActivity"
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.MAIN"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.LAUNCHER"
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "android.app.shortcuts",
+      "resource": "@7f160006"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.MainActivity",
+      "exported": 4294967295,
+      "configChanges": 1696,
+      "windowSoftInputMode": 32
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.CountdownActivity",
+      "exported": 4294967295,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "receiver",
+    "attrs": {
+      "name": "com.One.WoodenLetter.app.widget.VerseAppWidget",
+      "exported": 4294967295
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.appwidget.action.APPWIDGET_UPDATE"
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "android.appwidget.provider",
+      "resource": "@7f160007"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.VerseAppWidgetConfigureActivity",
+      "exported": 0
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.appwidget.action.APPWIDGET_CONFIGURE"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.networkspeed.NetworkSpeedTestActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.ui.MaterialContainerActivity",
+      "configChanges": 1696,
+      "windowSoftInputMode": 35
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.QueryActivity",
+      "exported": 4294967295,
+      "configChanges": 1696,
+      "windowSoftInputMode": 36
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "label": "@7f130621",
+      "name": "com.One.WoodenLetter.program.imageutils.exif.ExifActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "label": "@7f130635",
+      "name": "com.One.WoodenLetter.program.devicetools.MetalDetectActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.watermark.WaterMarkActivity",
+      "configChanges": 1200,
+      "windowSoftInputMode": 18
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.transcodeutils.convert.ConvertActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "label": "@7f1304ea",
+      "name": "com.One.WoodenLetter.activitys.settings.SettingsActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.user.IDUpdateActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.tencent.tauth.AuthActivity",
+      "exported": 4294967295,
+      "launchMode": 2,
+      "noHistory": 4294967295
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.VIEW"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.DEFAULT"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.BROWSABLE"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "scheme": "tencent101870912"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@01030010",
+      "name": "com.tencent.connect.common.AssistActivity",
+      "screenOrientation": 3,
+      "configChanges": 160
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "label": "@7f130616",
+      "name": "com.One.WoodenLetter.program.imageutils.gradientimage.GradientActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "label": "@7f1305f8",
+      "name": "com.One.WoodenLetter.program.thirdpartyutils.blibli.BiliBiliCoverActivity",
+      "exported": 4294967295,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.SEND"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.DEFAULT"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "mimeType": "text/plain"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.otherutils.cangtou.CangtouPoetryActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.sketchpad.SketchpadActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.ThemeManageActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.ninegrid.NineGridActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.aiphoto.detect.GeneralResultActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.aiphoto.detect.DetectActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f140354",
+      "label": "WXEntryActivity",
+      "name": "com.One.WoodenLetter.wxapi.WXEntryActivity",
+      "exported": 4294967295
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f140354",
+      "label": "@7f1300e4",
+      "name": "com.One.WoodenLetter.wxapi.WXPayEntryActivity",
+      "exported": 4294967295
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.VIEW"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.DEFAULT"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "scheme": "wxb369349b391be83f"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f140354",
+      "label": "@7f13066b",
+      "name": "com.One.WoodenLetter.program.thirdpartyutils.ZhihuVideoActivity",
+      "enabled": 0,
+      "exported": 0
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.SEND"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.DEFAULT"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "mimeType": "text/plain"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f140354",
+      "label": "@7f130116",
+      "name": "com.One.WoodenLetter.program.otherutils.FastCopyActivity",
+      "exported": 4294967295
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.SEND"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.DEFAULT"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "mimeType": "text/plain"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f140050",
+      "name": "com.theartofdev.edmodo.cropper.CropImageActivity"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.relative.RelationshipActivity",
+      "configChanges": 1184,
+      "windowSoftInputMode": 18
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.FavoritesSyncActivity"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.aiphoto.AiPhotoActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.otherutils.TodayInHistoryActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.user.ForgetPasswordActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.devicetools.VibratorActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.screentime.ScreenTimeActivity",
+      "keepScreenOn": 4294967295
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.user.RegisterActivity",
+      "exported": 4294967295,
+      "launchMode": 2,
+      "configChanges": 1184,
+      "windowSoftInputMode": 36
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.unitconverter.UnitConverterActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "label": "@7f130643",
+      "name": "com.One.WoodenLetter.program.imageutils.ocr.OCRActivity",
+      "exported": 4294967295,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.SEND"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.DEFAULT"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "mimeType": "image/*"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.ocr.OCRBatchActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.ocr.HistoryActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "label": "@7f130661",
+      "name": "com.One.WoodenLetter.program.dailyutils.tran.TranslateActivity",
+      "exported": 4294967295,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.PROCESS_TEXT"
+    }
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.DEFAULT"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "mimeType": "text/plain"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.tran.LangSelectActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.tran.TranslateFavoritesActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.otherutils.common.ExchangeActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.otherutils.random.RandomNumberActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.scoreboard.ScoreBoardActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.transcodeutils.Rc4Activity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.devicetools.NoiseActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.ruler.RulerActivity",
+      "screenOrientation": 0
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f14000d",
+      "name": "com.One.WoodenLetter.program.dailyutils.ruler.ProtractorActivity",
+      "screenOrientation": 0
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.ruler.RulerSelectActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.ruler.MeasureActivity",
+      "screenOrientation": 0
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.sticker.StickerActivity"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.sticker.StickerMakerActivity",
+      "exported": 4294967295,
+      "configChanges": 1696,
+      "windowSoftInputMode": 36
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.compass.CompassActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.ToolsActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.devicetools.appmanager.AppManagerActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.devicetools.BigFileActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.DictionaryActivity",
+      "configChanges": 1184,
+      "windowSoftInputMode": 36
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.textutils.TextImageActivity",
+      "configChanges": 1184,
+      "windowSoftInputMode": 36,
+      "hardwareAccelerated": 0,
+      "largeHeap": 4294967295
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.TextPictureActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.searchbyimage.SearchByImageActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "label": "@7f13062e",
+      "name": "com.One.WoodenLetter.activitys.TextBrowseActivity",
+      "exported": 4294967295,
+      "configChanges": 1184,
+      "windowSoftInputMode": 16
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "category",
+    "attrs": {
+      "name": "android.intent.category.DEFAULT"
+    }
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.VIEW"
+    }
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.intent.action.EDIT"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "scheme": "file"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "scheme": "content"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "mimeType": "text/*"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "pathPattern": ".*.txt"
+    }
+  },
+  {
+    "tag": "data",
+    "attrs": {
+      "host": "*"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.gif.GifActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.ImageBase64Activity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.search.SearchActivity",
+      "exported": 4294967295,
+      "configChanges": 1696,
+      "windowSoftInputMode": 36
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.stitch.ImageSpliceActivity",
+      "configChanges": 1184,
+      "hardwareAccelerated": 4294967295
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.about.AboutActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.WebActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.MarkdownWebActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.about.OpenLicenseActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "label": "@7f1304e6",
+      "name": "com.One.WoodenLetter.program.imageutils.colorpicker.ColorPickerActivity",
+      "exported": 4294967295,
+      "configChanges": 1696,
+      "windowSoftInputMode": 35,
+      "hardwareAccelerated": 4294967295
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.argon.NativeWallpaperActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.argon.ArgonWallpaperActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "label": "@7f1305f6",
+      "name": "com.One.WoodenLetter.program.transcodeutils.HexConvertActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.calculator.currency.CurrencyConvertActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.devicetools.SpiritLevelActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.activitys.user.CaptchaActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.qrcode.QRCodeActivity",
+      "windowSoftInputMode": 35
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.qrcode.QRCodeScanActivity",
+      "exported": 4294967295,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.objectcount.ObjectCountDetectionActivity",
+      "exported": 4294967295,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f14000c",
+      "name": "com.One.WoodenLetter.program.calculator.mortgagecalculator.MortGageCalculatorActivity",
+      "exported": 4294967295,
+      "screenOrientation": 10,
+      "windowSoftInputMode": 34
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.calculator.mortgagecalculator.Activity_Result",
+      "screenOrientation": 1
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.calculator.mortgagecalculator.Activity_Result_Combination",
+      "screenOrientation": 1
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f140338",
+      "name": "com.yalantis.ucrop.UCropActivity",
+      "screenOrientation": 1
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.dailyutils.screentime.ThemeSelectActivity",
+      "exported": 4294967295,
+      "screenOrientation": 3,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.imageutils.objectcount.ObjectCountDetectionResultActivity",
+      "exported": 4294967295,
+      "screenOrientation": 3,
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "android.vendor.full_screen",
+      "value": 4294967295
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "android.max_aspect",
+      "value": 1074161254
+    }
+  },
+  {
+    "tag": "provider",
+    "attrs": {
+      "name": "androidx.core.content.FileProvider",
+      "exported": 0,
+      "authorities": "com.One.WoodenLetter.fileprovider",
+      "grantUriPermissions": 4294967295
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "android.support.FILE_PROVIDER_PATHS",
+      "resource": "@7f160004"
+    }
+  },
+  {
+    "tag": "uses-library",
+    "attrs": {
+      "name": "org.apache.http.legacy",
+      "required": 0
+    }
+  },
+  {
+    "tag": "service",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.filetools.services.FtpService",
+      "exported": 4294967295
+    }
+  },
+  {
+    "tag": "service",
+    "attrs": {
+      "label": "@7f130612",
+      "icon": "@7f080338",
+      "name": "com.One.WoodenLetter.program.filetools.services.MyTileService",
+      "permission": "android.permission.BIND_QUICK_SETTINGS_TILE",
+      "exported": 4294967295
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "android.service.quicksettings.action.QS_TILE"
+    }
+  },
+  {
+    "tag": "receiver",
+    "attrs": {
+      "name": "com.One.WoodenLetter.program.filetools.services.FtpService$StopServiceReceiver",
+      "exported": 4294967295
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "com.One.WoodenLetter:stop_ftp_service"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@01030006",
+      "name": "com.alipay.sdk.app.H5PayActivity",
+      "exported": 0,
+      "configChanges": 1073757684
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@01030006",
+      "name": "com.alipay.sdk.app.H5AuthActivity",
+      "exported": 0,
+      "configChanges": 1073757684
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@01030010",
+      "name": "com.alipay.sdk.app.PayResultActivity",
+      "exported": 4294967295,
+      "launchMode": 3,
+      "configChanges": 1073757684
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@01030010",
+      "name": "com.alipay.sdk.app.AlipayResultActivity",
+      "exported": 4294967295,
+      "launchMode": 2,
+      "configChanges": 1073757684
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.alipay.sdk.app.H5OpenAuthActivity",
+      "exported": 0,
+      "screenOrientation": 3,
+      "configChanges": 1073757684,
+      "windowSoftInputMode": 18
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@01030010",
+      "name": "com.alipay.sdk.app.APayEntranceActivity",
+      "exported": 0,
+      "configChanges": 1073757684
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "cn.woobx.webapp.WebAppMainActivity",
+      "configChanges": 1184
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.zhihu.matisse.ui.MatisseActivity"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "theme": "@7f14014f",
+      "name": "com.zhihu.matisse.ui.CaptureDelegateActivity"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.zhihu.matisse.internal.ui.AlbumPreviewActivity"
+    }
+  },
+  {
+    "tag": "activity",
+    "attrs": {
+      "name": "com.zhihu.matisse.internal.ui.SelectedPreviewActivity"
+    }
+  },
+  {
+    "tag": "provider",
+    "attrs": {
+      "name": "androidx.startup.InitializationProvider",
+      "exported": 0,
+      "authorities": "com.One.WoodenLetter.androidx-startup"
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "androidx.emoji2.text.EmojiCompatInitializer",
+      "value": "androidx.startup"
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "androidx.lifecycle.ProcessLifecycleInitializer",
+      "value": "androidx.startup"
+    }
+  },
+  {
+    "tag": "meta-data",
+    "attrs": {
+      "name": "androidx.profileinstaller.ProfileInstallerInitializer",
+      "value": "androidx.startup"
+    }
+  },
+  {
+    "tag": "uses-library",
+    "attrs": {
+      "name": "androidx.window.extensions",
+      "required": 0
+    }
+  },
+  {
+    "tag": "uses-library",
+    "attrs": {
+      "name": "androidx.window.sidecar",
+      "required": 0
+    }
+  },
+  {
+    "tag": "receiver",
+    "attrs": {
+      "name": "androidx.profileinstaller.ProfileInstallReceiver",
+      "permission": "android.permission.DUMP",
+      "enabled": 4294967295,
+      "exported": 4294967295,
+      "directBootAware": 0
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "androidx.profileinstaller.action.INSTALL_PROFILE"
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "androidx.profileinstaller.action.SKIP_FILE"
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "androidx.profileinstaller.action.SAVE_PROFILE"
+    }
+  },
+  {
+    "tag": "intent-filter",
+    "attrs": {}
+  },
+  {
+    "tag": "action",
+    "attrs": {
+      "name": "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+    }
+  }
+]

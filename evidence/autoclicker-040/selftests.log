@@ -1,0 +1,5 @@
+AutomationCoreSelfTest PASS: appointment budget, IF lastMatch, cancellation gate, mapping, loop interval, comparisons, strict validation
+RecordingSessionSelfTest PASS: tap/hold/curved-path, timing, pause, atomic undo, cancel isolation, bounds, deep copy, runner path mapping
+ScriptCodecSelfTest PASS: recorded path/duration roundtrip, legacy import/export, recoverable drafts, strict malformed/path-bound rejection
+AutomationUiContractTest PASS: save-reload/export/SAF/tree/picker/overlay/runtime
+AutoclickerUiContractTest PASS: home module / workbench / recorder poll / picker / quick click / editor

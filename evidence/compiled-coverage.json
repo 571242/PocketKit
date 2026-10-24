@@ -1,0 +1,871 @@
+{
+  "entries": [
+    {
+      "limitation": "支持 HEX ↔ RGB ↔ HSL ↔ HSV ↔ CMYK 与明暗文字建议。不做屏幕取色（那需要另一套权限与界面），也不做 ICC 色彩管理，因此 CMYK 是按 sRGB 直接换算的近似值，仅供屏幕参考，不能当作印刷分色。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "颜色码转换",
+      "implemented_entry": true,
+      "id": "002",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "传统色数据来自公开的 MIT 许可数据集（见 PaletteData 注释），不是从商业应用提取的素材。配色方案由输入色按 HSL 推导；最接近的传统色名是按加权 RGB 距离匹配的近似结果，不代表该色就是那个传统色。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "配色助手",
+      "implemented_entry": true,
+      "id": "003",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：打开图片后点击取色，显示 HEX / RGB / HSL；也可输入坐标取色。点击位置会按显示矩阵逆变换回原图像素，缩放下不会取错。相机实时取色未实现。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "取色器",
+      "implemented_entry": true,
+      "id": "004",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：手绘、调色、调笔粗、撤销一笔、清空、导出 PNG。笔画按矢量保存，撤销是真的移除。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "画板",
+      "implemented_entry": true,
+      "id": "005",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：多图合成 GIF（每帧单独量化、局部调色板、延迟与循环可设、尺寸不一可居中或裁满）与 GIF 逐帧真分解（还原透明、disposal 0/1/2/3、交错、局部调色板与每帧延迟；可选导出全部帧或仅第 1 帧并明确标注）。编码核心取自 com.madgag:animated-gif-lib:1.4 官方 source JAR 的 NeuQuant/LZWEncoder（Apache V2，见 source header 与 docs/media-implementation.md 的 SHA-256 与修改说明），帧处理因 Android 无 AWT 而自行重写；未引入 AWT，未使用 JitPack。GIF 仅 256 色，照片类内容会有色带（格式限制）。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "GIF合成分解",
+      "implemented_entry": true,
+      "id": "007",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：自由尺寸渐变图（线性按角度 / 径向 / 扫描 / 四角对称），2~6 色自定义，可选叠加形状（同心圆 / 细网格 / 斜线 / 色块）与颗粒，输出 PNG 或 JPEG。本机 Canvas 绘制，不联网、不下载素材。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "渐变图制作",
+      "implemented_entry": true,
+      "id": "008",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：本机用 Canvas 生成渐变壁纸（7 套配色 / 线性对角 / 线性纵向 / 径向 / 可调角度 / 可选噪点 / 4 种尺寸 / 支持自定义 #RRGGBB 颜色）。不下载任何图片、不联网、不使用他人素材。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "氢壁纸",
+      "implemented_entry": true,
+      "id": "009",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：上传到 0x0.st 或 catbox.moe 获取公开图片链接，可设 0x0.st 的保留时长与难猜链接，链接可导出为 TXT。**这是会把文件发到外部服务器的功能**：上传前必须读并确认逐次弹出的说明（服务名、发送内容、公开可见与无法删除的后果），确认后才发请求；仅 HTTPS；文件名会做防路径穿越处理。服务为第三方运营，其可用性与保留策略不由本应用控制。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "图片转链接",
+      "implemented_entry": true,
+      "id": "010",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：按最长边像素、按总像素、按目标文件大小三种压缩；PNG 为无损，无法按目标大小压缩。未在真机验证。",
+      "enhancements": ["图片压缩：指定像素或目标文件大小"],
+      "module": "MediaToolsActivity",
+      "name": "图片压缩",
+      "implemented_entry": true,
+      "id": "011",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：查看 EXIF 与一键清除定位、设备、时间等隐私标签（保留方向标签以免照片转向）。未在真机验证。",
+      "enhancements": ["一键清除EXIF隐私信息"],
+      "module": "MediaToolsActivity",
+      "name": "照片信息编辑器",
+      "implemented_entry": true,
+      "id": "012",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：纵向 / 横向 / 网格拼接，可设间距与底色；统一宽度或高度后等比缩放，不拉伸变形。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "图片拼接",
+      "implemented_entry": true,
+      "id": "013",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：图片 → Base64（可选 data URI 前缀，结果存 TXT 以免界面卡顿）、Base64 → 图片（支持 data URI、URL-safe 字母表，写入前先校验确实是图片）。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "图片转Base64",
+      "implemented_entry": true,
+      "id": "014",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：文字水印，可调位置（四角 / 正中）、不透明度、颜色、字号（按图片宽度比例）、整图斜向平铺；白字自动加黑描边以免在浅色照片上看不见。水印烤进像素，不能分离。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "图片水印",
+      "implemented_entry": true,
+      "id": "015",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：切 3×3 九格，可选「先居中裁成正方形再切」，导出 9 个 PNG。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "九格切图",
+      "implemented_entry": true,
+      "id": "018",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：像素化（每格取平均色，横向格数可调，可选黑白 / 四阶灰度），放大时不做插值以保留方块边缘。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "图片文字化",
+      "implemented_entry": true,
+      "id": "019",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：生成文本 / Wi-Fi / 电话 / 短信 / 邮件 / 名片二维码，识别图片中的二维码与一维条码。识别使用 Google ML Kit 闭源 SDK，本机推理但可能收集诊断数据。未在真机验证。",
+      "enhancements": ["二维码增强：条码识别、Wi-Fi二维码生成"],
+      "module": "MediaToolsActivity",
+      "name": "二维码工具",
+      "implemented_entry": true,
+      "id": "020",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：两种方式。默认「分享给其他应用」走系统分享面板交给 Google Lens 等应用，本应用不上传任何数据；另一种是上传到 0x0.st / catbox.moe 取得公开链接后，用浏览器打开 Yandex 或 Bing 的按链接搜图页（上传前有逐次确认说明）。本工具不抓取也不显示搜索结果\u2014\u2014那既违反搜索引擎条款，也会随页面改版失效。Google Lens 与 TinEye 未列入：其按链接入口依赖浏览器会话，构造 URL 不可靠。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "以图搜图",
+      "implemented_entry": true,
+      "id": "022",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：JPEG / PNG / WebP 之间的格式转换与像素缩放；绘图、涂鸦等编辑功能未实现。未在真机验证。",
+      "enhancements": ["图片编辑：增加JPEG/PNG/WebP等格式转换"],
+      "module": "MediaToolsActivity",
+      "name": "简易图片编辑",
+      "implemented_entry": true,
+      "id": "023",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：表情图制作，含轮廓白边（对透明区做边缘膨胀，贴着主体轮廓而非套方框）、底部/顶部文字带描边、圆形或圆角裁剪、方图居中裁切、透明/白/黑背景，PNG 或 JPEG 输出。JPEG 选透明背景会被拒绝并说明原因。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "表情制作",
+      "implemented_entry": true,
+      "id": "024",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：文字渲染成图片（4 种画布 / 5 档字号 / 3 套配色 / 居中和左对齐 / 可选标题）。中文按字断行、英文按空格断行；文字放不下时会明确报错而不是静默截断。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "文字转图",
+      "implemented_entry": true,
+      "id": "025",
+      "category": "图片与设计"
+    },
+    {
+      "limitation": "已实现：ML Kit 图片标签本机推理（com.google.mlkit:image-labeling:17.0.9，闭源 SDK，可能收集诊断数据）。给出英文标签 + 置信度 + 常见项中文对照，并逐条解释置信度含义。范围明确：只给大致类别，不给位置框、不计数、不认人、不读字；标签集约 400 类，不在其中则如实报告「没有达到置信度的标签」，不编造结果。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "AI图片识别",
+      "implemented_entry": true,
+      "id": "026",
+      "category": "AI识别与增强"
+    },
+    {
+      "limitation": "已实现（非 AI 合成）：用 ML Kit 人脸检测取眼睛关键点做对齐（按眼睛间距缩放比按边框更稳），再通过羽化椭圆掩膜做交叉渐变。可调混合强度与羽化宽度，并可导出检测标注图。明确不是生成式换脸：不改变姿态与光照，也不会生成五官；两张脸角度差太大时会重影。人脸检测为闭源 SDK。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "人脸融合",
+      "implemented_entry": true,
+      "id": "027",
+      "category": "AI识别与增强"
+    },
+    {
+      "limitation": "已实现（非 AI）：USM 反差蒙版锐化，可调强度、半径与平坦区域保护阈值（阈值避免放大皮肤天空噪点），输出 PNG 或 JPEG。诚实说明：它提升已有边缘的对比度，不恢复已丢失的细节，也不能把模糊人脸变清楚\u2014\u2014那需要超分模型，本工具不提供也不做假效果。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "图片清晰度增强",
+      "implemented_entry": true,
+      "id": "029",
+      "category": "AI识别与增强"
+    },
+    {
+      "limitation": "已实现（非 AI，几何还原）：按倍数沿横向或纵向还原被线性拉伸的图片（Lanczos-3 重采样），内置 4:3↔16:9、1:1→16:9、3:2→16:9 常用比例，也可手动填倍数或按目标比例估算。只对「线性拉伸」有效：裁切、透视变形或内容被扭曲的情况无法修复，界面如实说明。输出尺寸有 4000 万像素上限。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "拉伸图片修复",
+      "implemented_entry": true,
+      "id": "030",
+      "category": "AI识别与增强"
+    },
+    {
+      "limitation": "已实现：离线 OCR 识别文字后，按文字框位置推断表格结构（按垂直重叠分组成行、按水平间距分列），可调列分隔敏感度，导出 TSV / CSV / 纯文本（UTF-8 含 BOM），导出前先给出预览。诚实说明：这是按版面的几何推断，不是理解表格语义，合并单元格、无空白分隔的相邻列、斜着拍的照片会不准。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "图片表格识别",
+      "implemented_entry": true,
+      "id": "031",
+      "category": "AI识别与增强"
+    },
+    {
+      "limitation": "已实现（非 AI）：Lanczos-3 高质量重采样放大，支持 2/3/4/6 倍或指定长边像素，输出 PNG 或 JPEG，放大后总像素上限 6400 万（超限会明确拒并说明）。诚实说明：这是插值放大，像素变多、边缘变顺滑，但不增加真实细节，不是 AI 超分。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "图片分辨率提升",
+      "implemented_entry": true,
+      "id": "032",
+      "category": "AI识别与增强"
+    },
+    {
+      "limitation": "已实现（非 AI，连通区域计数）：在对比明显的背景上数独立物体（药片、硬币、零件、圆点），Otsu 自动判定亮/暗物体极性，自动忽略过小的噪点斑块，可导出标注结果图与逐块面积明细表。诚实说明：这不是目标检测，不知道在数什么；物体互相接触会合并成一个、背景杂乱或反光时会数错。结果图上会标出每个被计数的物体供核对，并对「粘连」这种典型失败给出提示。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "拍照计数",
+      "implemented_entry": true,
+      "id": "033",
+      "category": "AI识别与增强"
+    },
+    {
+      "limitation": "已实现：中文 / 英文离线 OCR 与导出 TXT（UTF-8 含 BOM）。竖排与手写体识别率低。模型随包内置，SDK 闭源。未在真机验证。",
+      "enhancements": ["本地离线OCR、导出TXT"],
+      "module": "MediaToolsActivity",
+      "name": "OCR图片文字识别",
+      "implemented_entry": true,
+      "id": "034",
+      "category": "AI识别与增强"
+    },
+    {
+      "limitation": "本摘要由本地抽取算法从原文挑句组成，未改写、未生成，不是生成式 AI 的产物。 抽取式摘要无法表达原文没有的句子，也不做改写与缩写；长文的分段结构可能被拉平。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "文章摘要生成",
+      "implemented_entry": true,
+      "id": "035",
+      "category": "文字与编码"
+    },
+    {
+      "limitation": "支持 2\u201336 进制与大整数（BigInteger）。负数各进制读数带符号且可反解析；补码视图按 64 位给出，超出 long 范围时不给。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "进制转换",
+      "implemented_entry": true,
+      "id": "036",
+      "category": "文字与编码"
+    },
+    {
+      "limitation": "整数最多 20 位（到「亿亿」段）；金额大写最多 16 位整数。超过范围会明确报错，不会输出错误读法。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "数字转中文",
+      "implemented_entry": true,
+      "id": "037",
+      "category": "文字与编码"
+    },
+    {
+      "limitation": "拼音来自打包在应用内的 ICU4J 规则，完全离线。多音字按通用读音处理，脱离语境的孤立多音字（如「行」「重」）不保证是你想要的那个读音。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "中文转拼音",
+      "implemented_entry": true,
+      "id": "038",
+      "category": "文字与编码"
+    },
+    {
+      "limitation": "Base64 严格解码：非法字符会指出位置，非 UTF-8 内容会明确标记而不是假装解出文本。缺 padding 的合法编码可以正常解码。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "Base64编码转换",
+      "implemented_entry": true,
+      "id": "039",
+      "category": "文字与编码"
+    },
+    {
+      "limitation": "文本编辑器是本地文本处理：去空行、去重、去首尾空白、查找替换、统计。不做富文本、不做语法高亮、不回写原文件。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "文本编辑器",
+      "implemented_entry": true,
+      "id": "040",
+      "category": "文字与编码"
+    },
+    {
+      "limitation": "纯本地的字形替换（h3ll0 这类玩法），不是翻译，不改变原意。替换后有 $、| 等符号，部分字体下可读性会下降，这是这类玩法的固有代价。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "迷你英文生成",
+      "implemented_entry": true,
+      "id": "042",
+      "category": "文字与编码"
+    },
+    {
+      "limitation": "国际摩斯码只覆盖 A\u2013Z、0\u20139 与常用标点，没有汉字。中文电报四位数字码本工具不提供（那份表只在特定电报系统内才有意义）。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "摩斯电码",
+      "implemented_entry": true,
+      "id": "043",
+      "category": "文字与编码"
+    },
+    {
+      "limitation": "上标、下标受 Unicode 编码限制：q、ç 等没有对应字形，会原样保留并在结果里列出，不悄悄跳过。带圈数字 10\u201320 用独立码点。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "数字转上下标",
+      "implemented_entry": true,
+      "id": "044",
+      "category": "文字与编码"
+    },
+    {
+      "limitation": "拆分选词按分隔符与列表位置拆分，纯本地。不做中文分词（那需要词典与模型）。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "拆分选词",
+      "implemented_entry": true,
+      "id": "046",
+      "category": "文字与编码"
+    },
+    {
+      "limitation": "使用系统文字转语音引擎，不内置、不下载语音包。没装中文语音时会明确提示去系统设置安装，不会假装朗读成功。纯离线取决于你的系统引擎，部分引擎需要联网合成。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "文字转语音",
+      "implemented_entry": true,
+      "id": "048",
+      "category": "文字与编码"
+    },
+    {
+      "limitation": "已实现。默认走 ML Kit 端上翻译：**翻译在设备上完成，不会把你要翻译的文本发给第三方翻译服务**，也不需要密钥。首次使用某对语言需联网下载约 30 MB 的模型，之后离线可用。隐私说明（据 Google ML Kit 数据披露页）：该 SDK 会收集**配置的源语言与目标语言**用于诊断与用量分析，并使用 Firebase remote config / installations；它不收集你的文本内容，也不把收集的数据转给第三方。所以这不是「零通信」组件，如实写明。模型质量低于大型云端模型，长句、成语与专业术语会明显更差；语言对受 ML Kit 支持的 59 种限制（本工具列出 30 种常用语言）。也可选 MyMemory 在线引擎，但那会把文本发送给第三方、有每日额度限制，且其官方限额页明确不欢迎「只取不还」的客户端，因此必须由你手动勾选同意，绝不默认启用。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "翻译",
+      "implemented_entry": true,
+      "id": "049",
+      "category": "文字与编码"
+    },
+    {
+      "limitation": "BMI 用国际成人标准（WHO）分级，仅作参考：不分年龄性别、不适用于孕妇、运动员、儿童与青少年。结果不能作为医学诊断。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "身体质量计算器",
+      "implemented_entry": true,
+      "id": "050",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "表达式求值走手写解析器，绝不用任何脚本引擎（Android 上没有 evalJavaScript，也不该为算 1+1 引入 JS 引擎）。支持 + - * / % ^、括号、一元正负号、sqrt/abs/round/floor/ceil 与常量 pi e。全程 BigDecimal。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "计算器",
+      "implemented_entry": true,
+      "id": "051",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "已实现，使用 Frankfurter（https://frankfurter.dev ，MIT 开源，无需密钥）的真实 HTTPS 请求。只有你点「获取汇率并换算」时才会联网，应用不做自动请求、不做后台刷新。汇率是各国央行公布的参考汇率，不是实时价：周末与节假日不更新，可能延迟、缺失或被修订，不能用于税务、会计或法律用途 \u2014\u2014 结果里会同时显示汇率日期与来源。失败时明确报错，绝不显示缓存或猜测的数字。界面列出的常用币种是逐个对照服务实际支持的 165 个币种筛过的；其余币种可直接填 ISO 代码查询（该接口实测可查 CNH、TWD、RUB 等）。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "汇率换算",
+      "implemented_entry": true,
+      "id": "052",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "日期计算只算自然日，不含法定节假日与调休日历；不联网校时，用的是设备本地日期。支持 2026-10-13、2026/10/13、2026年3月9日 等写法。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "日期计算器",
+      "implemented_entry": true,
+      "id": "053",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "手持弹幕是全屏大字显示，用常亮窗口实现，点一下屏幕退出。不请求任何权限，不修改系统亮度设置（只提高这个窗口的亮度）。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "手持弹幕",
+      "implemented_entry": true,
+      "id": "054",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "做个决定是本地随机抽取（SecureRandom）。随机结果没有倾向性，也不能替代需要真实信息的决策。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "做个决定",
+      "implemented_entry": true,
+      "id": "056",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "纪念日只做本机记录与天数计算：不申请通知权限、不做后台提醒、不联网。只有打开这个工具时才看得到剩余天数。每年重复的纪念日按最近的一次算，2 月 29 日在非闰年落到 2 月 28 日。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "纪念日",
+      "implemented_entry": true,
+      "id": "057",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "随机数用 SecureRandom 与拒绝采样，避免取模偏差。这是随机数，不是密码生成器。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "随机数生成",
+      "implemented_entry": true,
+      "id": "059",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "亲戚称呼表收录 98 条常用关系，最多 4 步（四代以内）。超出范围的组合明确返回「未收录」，不会猜一个称呼给你。各地方言称谓差别很大（姥姥/外婆、姥爷/外公等），本表给普通话通用写法并并列列出。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "亲戚称呼换算",
+      "implemented_entry": true,
+      "id": "060",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "记分牌存在本机，支持多队伍加减分与撤销上一次操作。不做多人同步、不上传分数、不联网。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "记分牌",
+      "implemented_entry": true,
+      "id": "061",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "全屏大字时钟，用设备当前时间。不做世界时钟（那需要时区数据库与联网校时）。不修改系统亮度，只提高这个窗口的亮度。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "时间屏幕",
+      "implemented_entry": true,
+      "id": "062",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "时间计算做时长加减与换算。跨时区、跨夏令时的日期运算不在此工具范围内。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "时间计算器",
+      "implemented_entry": true,
+      "id": "063",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "计时基准是单调时钟（elapsedRealtime），锁屏、切后台、改系统时间都不会漂移。只在应用处于前台时提醒：不申请通知权限、不做后台提醒，这是刻意取舍。离开页面会重置计时（不做状态持久化）。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "计时器",
+      "implemented_entry": true,
+      "id": "064",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "番茄时钟同样是前台计时，默认 25 分钟专注 + 5 分钟休息，可自行调整。不做后台运行、不做跨天统计报表。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "番茄时钟",
+      "implemented_entry": true,
+      "id": "065",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "14 个类别与样本的 measure_type 对齐，单位覆盖到常用与市制。温度含摄氏/华氏/开尔文/列氏/兰氏。所有的换算都是比例或仿射换算，用 BigDecimal 收敛到 12 位有效数字。不做货币换算（那是 052 的范围）。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "全能单位换算",
+      "implemented_entry": true,
+      "id": "066",
+      "category": "计算与生活"
+    },
+    {
+      "limitation": "未知工具编号：067",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "指南针",
+      "implemented_entry": true,
+      "id": "067",
+      "category": "传感器与测量"
+    },
+    {
+      "limitation": "未知工具编号：068",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "水平仪",
+      "implemented_entry": true,
+      "id": "068",
+      "category": "传感器与测量"
+    },
+    {
+      "limitation": "未知工具编号：069",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "金属探测仪",
+      "implemented_entry": true,
+      "id": "069",
+      "category": "传感器与测量"
+    },
+    {
+      "limitation": "未知工具编号：070",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "噪音测量",
+      "implemented_entry": true,
+      "id": "070",
+      "category": "传感器与测量"
+    },
+    {
+      "limitation": "未知工具编号：072",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "尺子",
+      "implemented_entry": true,
+      "id": "072",
+      "category": "传感器与测量"
+    },
+    {
+      "limitation": "未知工具编号：073",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "震动器",
+      "implemented_entry": true,
+      "id": "073",
+      "category": "传感器与测量"
+    },
+    {
+      "limitation": "未知工具编号：074",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "安装包清理",
+      "implemented_entry": true,
+      "id": "074",
+      "category": "文件与设备"
+    },
+    {
+      "limitation": "未知工具编号：075",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "应用管理",
+      "implemented_entry": true,
+      "id": "075",
+      "category": "文件与设备"
+    },
+    {
+      "limitation": "未知工具编号：076",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "大文件清理",
+      "implemented_entry": true,
+      "id": "076",
+      "category": "文件与设备"
+    },
+    {
+      "limitation": "未知工具编号：077",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "查看设备详细信息",
+      "implemented_entry": true,
+      "id": "077",
+      "category": "文件与设备"
+    },
+    {
+      "limitation": "未知工具编号：078",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "空文件夹清理",
+      "implemented_entry": true,
+      "id": "078",
+      "category": "文件与设备"
+    },
+    {
+      "limitation": "未知工具编号：079",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "空文件清理",
+      "implemented_entry": true,
+      "id": "079",
+      "category": "文件与设备"
+    },
+    {
+      "limitation": "已实现：从视频无损提取音轨（MediaExtractor + MediaMuxer 直接复制样本，不重编码），输出格式跟随源音轨（AAC/M4A、MP3、Opus、Vorbis）；无音轨会明确告知。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "视频提取音频",
+      "implemented_entry": true,
+      "id": "080",
+      "category": "文件与设备"
+    },
+    {
+      "limitation": "未知工具编号：081",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "FTP局域网文件共享",
+      "implemented_entry": true,
+      "id": "081",
+      "category": "文件与设备"
+    },
+    {
+      "limitation": "使用 RDAP（注册数据访问协议）公开接口查询域名注册信息。RDAP 由各注册局提供，不支持的国家/地区后缀可能查不到。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "域名信息查询",
+      "implemented_entry": true,
+      "id": "083",
+      "category": "网络与开发"
+    },
+    {
+      "limitation": "使用 ipwho.is 公开接口查询 IP 的归属与 ISP。数据来自第三方数据库，不代表精确定位；只显示数据库登记的位置，不能用于追踪具体个人。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "全球IP查询",
+      "implemented_entry": true,
+      "id": "084",
+      "category": "网络与开发"
+    },
+    {
+      "limitation": "使用 Cloudflare 的公开测速端点测量下载速度。结果受 Wi-Fi 质量、运营商与对端服务器影响，单次结果只代表当时状况；本工具不测上传（需要更长连接且各家实现差异大）。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "网速测试",
+      "implemented_entry": true,
+      "id": "086",
+      "category": "网络与开发"
+    },
+    {
+      "limitation": "需要通知权限（Android 13 及以上）；若系统或用户关闭了本应用的通知，通知不会出现。通知只在本机生成，不联网。部分系统对通知有额外限制（例如省电模式下延迟）。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "通知自己",
+      "implemented_entry": true,
+      "id": "087",
+      "category": "网络与开发"
+    },
+    {
+      "limitation": "使用 TinyURL 与 v.gd 的公开接口生成短链，还原通过跟随重定向实现。短链服务是第三方，链接的有效期与可用性由它们决定；不要把含隐私参数的链接交给第三方服务。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "短链接生成与还原",
+      "implemented_entry": true,
+      "id": "088",
+      "category": "网络与开发"
+    },
+    {
+      "limitation": "直接以 GET 方式取回目标网页的原始响应。会按原样显示，不执行页面里的脚本，也不渲染页面。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "网页源码获取",
+      "implemented_entry": true,
+      "id": "089",
+      "category": "网络与开发"
+    },
+    {
+      "limitation": "手机号归属地需要运营商号段数据。已核实的公开接口（api.vvhan.com）已下线，聚合类接口需要密钥，m.ip138.com 只返回脚本页、需逆向其内部接口（不稳定来源，不做）。候选：运营商官方或具备资质的合规数据服务（需申请）。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "归属地查询",
+      "implemented_entry": false,
+      "id": "093",
+      "category": "查询与内容"
+    },
+    {
+      "limitation": "本地只读查询教育部《重編國語辭典修訂本》161194条镜像原记录。镜像声明民国110年11月台湾学术网络第六版，非最新官方版、非大陆规范字典。首次解压约70.45 MiB私有存储，需额外安装临时空间；不联网、不自动更新。简体仅辅助查询，正文繁体原样保留，多义简繁需核对。近反义只显示原义组明确synonyms/antonyms，没字段表示未收录、不推断。原文CC BY-ND 3.0台湾，按署名分发。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "汉语字典",
+      "implemented_entry": true,
+      "id": "094",
+      "category": "查询与内容"
+    },
+    {
+      "limitation": "读取新闻网站的官方 RSS 列表，只显示标题、来源与发布时间，点开链接由浏览器访问原文。本工具不抓取正文、不做摘要、不生成「每日一段话」，因此不会出现编造的内容。RSS 可用性由各新闻网站决定，结构变化时可能失败并会明确报错。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "每日60s看世界",
+      "implemented_entry": true,
+      "id": "095",
+      "category": "查询与内容"
+    },
+    {
+      "limitation": "本地规则引擎生成，不是 AI 大模型：生成方式是把上联按内置对偶词表（本项目自行整理的常见对偶常识对，如 天/地、山/水、春风/秋雨）做最长匹配，逐词换成对偶词，再按平仄规则排序给出候选。只保证字面对偶与平仄形式，不保证语义通顺与意境。词表覆盖有限，**上联里只要有词查不到对偶词就会明确失败并指出是哪个词**，不会硬凑。平仄用 ICU 常用读音判断，多音字可能取错声调。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "对联生成",
+      "implemented_entry": true,
+      "id": "096",
+      "category": "查询与内容"
+    },
+    {
+      "limitation": "使用快递100的公开查询页面接口。多数快递公司需要正确的运单号与承运商；未填承运商时会先尝试自动识别。该接口不是官方开放平台 API，可能限流或变更。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "快递查询",
+      "implemented_entry": true,
+      "id": "097",
+      "category": "查询与内容"
+    },
+    {
+      "limitation": "离线查询本项目按上海2024版官方分类指引独立整理的常见物品参考目录。仅上海口径，不是全国分类库、不识别照片、不自动更新；未收录物品明确返回未收录。名称、材质和污染情况会影响分类，相关条目不能代替精确匹配；专项回收与最新执行规定以当地管理部门为准。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "垃圾分类查询",
+      "implemented_entry": true,
+      "id": "098",
+      "category": "查询与内容"
+    },
+    {
+      "limitation": "成语查询。同 094：不接受抓自商业字典的成语数据；维基词典接口实测不可达。候选：以 CC BY-SA 发布的开放词典/成语数据，采用时按许可署名。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "成语查询",
+      "implemented_entry": false,
+      "id": "099",
+      "category": "查询与内容"
+    },
+    {
+      "limitation": "本地只读查询教育部《重編國語辭典修訂本》161194条镜像原记录。镜像声明民国110年11月台湾学术网络第六版，非最新官方版、非大陆规范字典。首次解压约70.45 MiB私有存储，需额外安装临时空间；不联网、不自动更新。简体仅辅助查询，正文繁体原样保留，多义简繁需核对。近反义只显示原义组明确synonyms/antonyms，没字段表示未收录、不推断。原文CC BY-ND 3.0台湾，按署名分发。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "近反义词查询",
+      "implemented_entry": true,
+      "id": "104",
+      "category": "查询与内容"
+    },
+    {
+      "limitation": "离线查询GeoNames中国地区粗粒度邮编（仅以00结尾），不是全国街道级完整邮编，不可直接当作具体收件地址的精确编码。原始地名主要为拼音/拉丁写法；中文仅辅助转拼音，音译与多音字可能不匹配，优先用原拼音或已知邮编。源可能遗漏、过时、不准确；不自动更新。不补零猜测未收录精细邮编。CC BY 4.0署名GeoNames。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "邮编查询",
+      "implemented_entry": true,
+      "id": "105",
+      "category": "查询与内容"
+    },
+    {
+      "limitation": "106 历史上的今天：代码已实现（走维基百科 OnThisDay 接口），但该接口在开发环境不可达，未能验证真实响应，因此暂列为不可用。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "历史上的今天",
+      "implemented_entry": false,
+      "id": "106",
+      "category": "查询与内容"
+    },
+    {
+      "limitation": "京东优惠券查询需要京东联盟开放平台的 appkey 与密钥，且属于需要资质审核的收费/授权接口。本应用不向用户索取密钥，也不会伪造优惠券数据，因此不实现。候选：用户自行申请京东联盟权限后接入。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "京东优惠券查询",
+      "implemented_entry": false,
+      "id": "110",
+      "category": "平台相关"
+    },
+    {
+      "limitation": "只是用正规 intent 打开 QQ 聊天界面，不读取聊天记录、不代发消息、不做任何越权绕过。需要设备上已安装 QQ；是否可用以及会话打开后的行为由 QQ 自身决定，未安装时会明确提示。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "QQ强制会话",
+      "implemented_entry": true,
+      "id": "111",
+      "category": "平台相关"
+    },
+    {
+      "limitation": "淘宝优惠券获取需要淘宝开放平台（阿里妈妈）的 appid 与密钥，属需要资质审核的授权接口。本应用不索取密钥、不伪造数据，因此不实现。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "淘宝优惠券获取",
+      "implemented_entry": false,
+      "id": "112",
+      "category": "平台相关"
+    },
+    {
+      "limitation": "使用 trace.moe 的公开接口，图片只在用户逐次确认后上传（不做任何自动上传）。该服务每天匿名配额约 100 次，用尽后会失败；识别范围以日本动画截图为主，真人照片、非动画截图或模糊画面通常匹配不到。结果由第三方数据库提供，不代表本应用的判断。",
+      "enhancements": [],
+      "module": "DeviceToolsActivity",
+      "name": "以图搜番",
+      "implemented_entry": true,
+      "id": "113",
+      "category": "平台相关"
+    },
+    {
+      "limitation": "已实现：PDF 合并（多选）、按每 N 页或页码范围拆分、旋转指定页或全部页、按页码删除页面。结果另存为新文件，不改原文件。加密 PDF 需已解密（受密码保护的会明确报错）。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "PDF页面工具：合并、拆分、旋转、删页",
+      "implemented_entry": true,
+      "id": "A01",
+      "category": "文档与隐私"
+    },
+    {
+      "limitation": "已实现：多张图片合成 PDF（可按图片尺寸或 A4 纵向/横向排页）、PDF 按页导出 PNG。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "图片转PDF、PDF页面转图片",
+      "implemented_entry": true,
+      "id": "A02",
+      "category": "文档与隐私"
+    },
+    {
+      "limitation": "已实现：自动找边、透视校正、去阴影、对比度增强、灰度/黑白二值，输出 JPG 或 PNG；找边失败或去阴影不理想时可改用「手动指定四角」兜底（填四角百分比）。找边在合成测试图上四角误差约 2 像素，这是合成图的验证结果，不代表真实照片的精度；复杂背景、深阴影、纸张与背景亮度接近时会检出失败，界面会如实说明。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "文档扫描：自动找边、透视校正、去阴影",
+      "implemented_entry": true,
+      "id": "A03",
+      "category": "文档与隐私"
+    },
+    {
+      "limitation": "已实现：文本脱敏（电话 / 邮箱 / 卡号，正则定位）与图片打码（对识别到的文字区域涂黑），人脸打码使用 ML Kit 人脸检测（闭源 SDK）。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "自动打码与文本脱敏：人脸、电话、邮箱、卡号",
+      "implemented_entry": true,
+      "id": "A04",
+      "category": "文档与隐私"
+    },
+    {
+      "limitation": "已实现：视频压缩（可选分辨率与码率，可只压一段；音轨原样复制不重编码）与按时间裁剪（整段不重编码，快速无损）。重编码依赖设备自带的 H.264 编码器，个别机型可能不支持所选分辨率（会明确报错）。未在真机验证。",
+      "enhancements": [],
+      "module": "MediaToolsActivity",
+      "name": "视频压缩与裁剪",
+      "implemented_entry": true,
+      "id": "A08",
+      "category": "文档与隐私"
+    },
+    {
+      "limitation": "只做同一货币下的单位价格比较。单位不同会直接拒绝比较，因为「每 100g」和「每片」放在一起没有意义。金额全部用 BigDecimal 且保留两位小数，不用 double 算钱。不做汇率换算（那是 052 的范围）。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "单位价格比价",
+      "implemented_entry": true,
+      "id": "B02",
+      "category": "生活与记录"
+    },
+    {
+      "limitation": "数据只存在本机（SharedPreferences），不上传、不联网、不需要账号。支持记账增删改查、报销状态与收据备注、按周期记录付款。周期付款只做「还有几天到期」的记录与计算：不会在后台提醒、不会自动扣款、不发起任何网络请求。CSV 导出做了公式注入防护（以 = + - @ 开头的内容会被加上单引号）。删除必须先确认，且会先提示影响。",
+      "enhancements": [],
+      "module": "LocalToolsActivity",
+      "name": "极简记账、收据报销、周期付款记录",
+      "implemented_entry": true,
+      "id": "B05",
+      "category": "生活与记录"
+    }
+  ],
+  "selected_entries": 96,
+  "implemented_entries": 91,
+  "device_runtime_verified": false
+}

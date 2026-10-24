@@ -1,0 +1,70 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'cn.xianhua.pocketkit'
+    compileSdk 36
+    buildFeatures { buildConfig true }
+    defaultConfig {
+        applicationId 'cn.xianhua.pocketkit'
+        minSdk 26
+        targetSdk 36
+        versionCode 25
+        versionName '0.10.1'
+        testInstrumentationRunner 'cn.xianhua.pocketkit.PocketKitRegressionInstrumentation'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    // Keep phone ABIs for the proxy core; x86 is opt-in for emulator testing.
+    defaultConfig { ndk {
+        abiFilters 'arm64-v8a', 'armeabi-v7a'
+        if (project.hasProperty('testX86')) abiFilters 'x86_64'
+    } }
+    packaging { resources {
+        excludes += ['META-INF/DEPENDENCIES']
+        merges += ['META-INF/LICENSE', 'META-INF/NOTICE', 'META-INF/LICENSE.txt', 'META-INF/NOTICE.txt']
+    } }
+}
+
+dependencies {
+    implementation files('libs/libbox-1.14.3.aar', 'libs/snakeyaml-2.0.jar')
+    // Remote file protocols. Bundled as jars because they are not on Google's Maven mirror:
+    // SFTP (jsch), SMB2/3 (smbj + mbassador + asn-one + bcprov), and slf4j-api which smbj logs to.
+    // bcprov is deliberately NOT bundled here: pdfbox-android already brings
+    // org.bouncycastle:bcprov-jdk15to18 transitively, and two copies of the same classes fail
+    // the duplicate-class check. smbj's crypto goes through whichever one is on the path.
+    implementation files('libs/jsch-0.2.20.jar', 'libs/smbj-0.13.0.jar',
+            'libs/mbassador-1.3.0.jar', 'libs/asn-one-0.6.0.jar',
+            'libs/slf4j-api-2.0.13.jar')
+    // WebDAV needs PROPFIND / MKCOL / MOVE. Android's HttpURLConnection keeps a method whitelist
+    // and throws ProtocolException for those, so the protocol goes through OkHttp, which does not.
+    // Declared explicitly (it also arrives transitively via pdfbox-android) so the version cannot
+    // drift with someone else's dependency graph.
+    implementation 'com.squareup.okhttp3:okhttp:3.0.0'
+    // smbj's POM asks for bcprov-jdk18on, but bcprov-jdk15to18 is what pdfbox-android already puts
+    // on the path, and the two artifacts contain the same org.bouncycastle classes — packaging both
+    // fails checkDebugDuplicateClasses. Keep exactly one: the bcprov that pdfbox brings. The classes
+    // smbj actually uses (GCM/CCM engines, KDF generator, MD4, CMac, RC4) all exist in it, so no
+    // separate copy is needed; this block only pins the intent in one visible place.
+    implementation 'com.tom-roush:pdfbox-android:2.0.27.0'
+    implementation 'com.google.zxing:core:3.5.3'
+    implementation 'com.google.mlkit:text-recognition-chinese:16.0.1'
+    implementation 'com.google.mlkit:text-recognition:16.0.1'
+    implementation 'com.google.mlkit:barcode-scanning:17.3.0'
+    implementation 'com.google.mlkit:face-detection:16.1.7'
+    implementation 'com.google.mlkit:image-labeling:17.0.9'
+    implementation 'androidx.exifinterface:exifinterface:1.3.7'
+    implementation 'com.ibm.icu:icu4j:76.1'
+}
+
+// Record resolved app artifacts so the release can preserve their notices.
+tasks.register('resolveToolDependencies') {
+    doLast {
+        def rows = configurations.debugRuntimeClasspath.resolvedConfiguration.resolvedArtifacts.collect {
+            "${it.moduleVersion.id}\t${it.file.absolutePath}"
+        }
+        file("${rootDir}/.scratch/runtime-artifacts.tsv").setText(rows.join('\n'), 'UTF-8')
+        println("Resolved ${rows.size()} runtime artifacts")
+    }
+}

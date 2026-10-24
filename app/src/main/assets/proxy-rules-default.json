@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "rules": {
+    "direct": {
+      "domain": [],
+      "domain_suffix": [
+        "12306.cn",
+        "baidu.com",
+        "qq.com",
+        "tencent.com",
+        "weixin.qq.com",
+        "taobao.com",
+        "tmall.com",
+        "alipay.com",
+        "alibaba.com",
+        "aliyun.com",
+        "alicdn.com",
+        "jd.com",
+        "163.com",
+        "netease.com",
+        "weibo.com",
+        "sina.com",
+        "bilibili.com",
+        "iqiyi.com",
+        "youku.com",
+        "douyin.com",
+        "kuaishou.com",
+        "zhihu.com",
+        "douban.com",
+        "meituan.com",
+        "dianping.com",
+        "pinduoduo.com",
+        "xiaomi.com",
+        "mi.com",
+        "huawei.com",
+        "huaweicloud.com",
+        "ctrip.com",
+        "gitee.com",
+        "csdn.net",
+        "sohu.com",
+        "ximalaya.com",
+        "qcloud.com",
+        "bytedance.com",
+        "jianshu.com",
+        "gov.cn",
+        "edu.cn",
+        "com.cn",
+        "net.cn",
+        "org.cn"
+      ],
+      "ip_cidr": [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16",
+        "127.0.0.0/8",
+        "169.254.0.0/16",
+        "100.64.0.0/10",
+        "fc00::/7",
+        "fe80::/10",
+        "::1/128"
+      ]
+    },
+    "proxy": {
+      "domain": [],
+      "domain_suffix": []
+    }
+  }
+}

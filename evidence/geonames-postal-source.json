@@ -1,0 +1,21 @@
+{
+  "downloaded_at": "2026-10-13T11:03:32.676138+08:00",
+  "files": [
+    {
+      "url": "https://download.geonames.org/export/zip/readme.txt",
+      "file": "readme.txt",
+      "sha256": "4e149bfffa351fe3d99690aa48bb05e35035df187ea4933a01b85e983817ffdc",
+      "bytes": 2893,
+      "last_modified": "Tue, 13 Oct 2026 02:02:56 GMT"
+    },
+    {
+      "url": "https://download.geonames.org/export/zip/CN.zip",
+      "file": "CN.zip",
+      "sha256": "1942c2d1d9f85ae616f8a4a5c50435d6acca701fb5c8644cba7256b455282a3f",
+      "bytes": 42326,
+      "last_modified": "Tue, 13 Oct 2026 02:03:10 GMT"
+    }
+  ],
+  "scope": "GeoNames CN coarse postal codes ending in 00; not street-level",
+  "data_sha256": "ad935b4c99b73a4969313e9c10b28c76735b042414bd6b9ab4e4effe67495127"
+}

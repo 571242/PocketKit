@@ -1,0 +1,92 @@
+{
+  "release": {
+    "versionName": "0.9.4",
+    "versionCode": 22,
+    "apk": "dist/PocketKit-0.9.4.apk",
+    "sha256": "b7f63733b09dd458f00338ba73145d4ac353a3a2b35d33a2ed96d3951738ce69",
+    "bytes": 467984475,
+    "signatureMatches093": true,
+    "arm64AndApk16KiBAlignment": true,
+    "rulesClassesAndFallbackPackaged": true,
+    "androidDeviceTested": false,
+    "distCopySha256Verified": true
+  },
+  "clientRegression": {
+    "ProxyConfigChecks": 113,
+    "NodePersistenceChecks": 29,
+    "ProxyRulesChecks": 161,
+    "status": "PASS"
+  },
+  "cloudRegression": {
+    "HubTestCases": 11,
+    "RulesSyncTestCases": 8,
+    "status": "PASS"
+  },
+  "gradle": {
+    "assembleDebug": "PASS",
+    "assembleDebugAndroidTest": "PASS (build only)",
+    "lintDebug": "PASS",
+    "lintSeverities": {
+      "Fatal": 0,
+      "Error": 0,
+      "Warning": 146,
+      "Information": 0
+    }
+  },
+  "nativeCore": {
+    "version": "1.14.3",
+    "configs": [
+      "direct",
+      "node-0-global",
+      "node-0-rule",
+      "node-1-global",
+      "node-1-rule",
+      "rules-probe"
+    ],
+    "check": "PASS",
+    "androidTunTested": false
+  },
+  "liveTraffic": {
+    "policyChecks": "PASS",
+    "twoNodeHttps204": true,
+    "expectedExitsMatched": true,
+    "chinaComDirectHttps": true,
+    "directAndProxyDns": true
+  },
+  "cloudPublication": {
+    "versionName": "0.9.4",
+    "versionCode": 22,
+    "downloadUrl": "https://9876-agqvov42zisdyuvnzmi23lrrw4.instabox.tech/releases/PocketKit-0.9.4.apk",
+    "bytes": 467984475,
+    "sha256": "b7f63733b09dd458f00338ba73145d4ac353a3a2b35d33a2ed96d3951738ce69",
+    "originalSubscriptionUnchanged": true,
+    "services": {
+      "pocketkit-hub.service": "active",
+      "pocketkit-rules-sync.timer": "active"
+    },
+    "timerEnabled": true,
+    "rulesVersion": "95ee8bb95bcf90b1e4feb2a89ce2c162b92f0b17da79ba3bbcf6946d1e0536ee",
+    "rulesCounts": {
+      "cnCidrs": 10011,
+      "directDomains": 110235,
+      "proxyDomains": 27313
+    },
+    "lastRulesSuccessAt": "2026-10-24T11:00:43+00:00",
+    "nativeProtocolAutoInstall": false
+  },
+  "publicFinalCheck": {
+    "metadataHttpsVerified": false,
+    "apkPublicReadVerified": false,
+    "result": "inconclusive",
+    "reason": "TLS handshake EOF from the current local network before an HTTP response; not retried with weaker TLS or another equivalent download command",
+    "earlierRulesHttpsAndSourceHashesVerified": true
+  },
+  "hotUpdateScope": "routing data only; core/protocol releases monitored, never hot-installed",
+  "androidDeviceTested": false,
+  "knownLimits": [
+    "No physical Android TUN, cold native setup, in-tunnel hot reload, suspend or upgrade test",
+    "Public final verification inconclusive because current local TLS handshake ended before HTTP",
+    "Periodic checking, not real-time FCM push",
+    "APK retains the existing debug signing identity, not a production release key"
+  ]
+}

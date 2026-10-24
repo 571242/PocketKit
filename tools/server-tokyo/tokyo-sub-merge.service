@@ -1,0 +1,10 @@
+[Unit]
+Description=Merge Tokyo REALITY + InstaBox-01 nodes into fixed subscription
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/bin/tokyo-sub-merge.py
+# A failed refresh must not take anything down: the last aggregate stays served.
+TimeoutStartSec=120

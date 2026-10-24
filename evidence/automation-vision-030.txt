@@ -1,0 +1,3 @@
+Synthetic-image JVM test with Android test doubles; not device ML Kit.
+ExitCode=0
+TemplateMatcherSelfTest PASS checks=7 fullScreen1080x2400_ms=507 score=1.0; no device/MLKit claim

@@ -1,0 +1,723 @@
+[
+  {
+    "id": "002",
+    "name": "颜色码转换",
+    "category": "图片与设计",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "003",
+    "name": "配色助手",
+    "category": "图片与设计",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "004",
+    "name": "取色器",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "005",
+    "name": "画板",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "007",
+    "name": "GIF合成分解",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "008",
+    "name": "渐变图制作",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "010",
+    "name": "图片转链接",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "011",
+    "name": "图片压缩",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": [
+      "图片压缩：指定像素或目标文件大小"
+    ]
+  },
+  {
+    "id": "012",
+    "name": "照片信息编辑器",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": [
+      "一键清除EXIF隐私信息"
+    ]
+  },
+  {
+    "id": "013",
+    "name": "图片拼接",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "014",
+    "name": "图片转Base64",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "015",
+    "name": "图片水印",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "018",
+    "name": "九格切图",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "019",
+    "name": "图片文字化",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "020",
+    "name": "二维码工具",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": [
+      "二维码增强：条码识别、Wi-Fi二维码生成"
+    ]
+  },
+  {
+    "id": "022",
+    "name": "以图搜图",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "023",
+    "name": "简易图片编辑",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": [
+      "图片编辑：增加JPEG/PNG/WebP等格式转换"
+    ]
+  },
+  {
+    "id": "024",
+    "name": "表情制作",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "025",
+    "name": "文字转图",
+    "category": "图片与设计",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "026",
+    "name": "AI图片识别",
+    "category": "AI识别与增强",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "027",
+    "name": "人脸融合",
+    "category": "AI识别与增强",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "029",
+    "name": "图片清晰度增强",
+    "category": "AI识别与增强",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "030",
+    "name": "拉伸图片修复",
+    "category": "AI识别与增强",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "031",
+    "name": "图片表格识别",
+    "category": "AI识别与增强",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "032",
+    "name": "图片分辨率提升",
+    "category": "AI识别与增强",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "033",
+    "name": "拍照计数",
+    "category": "AI识别与增强",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "034",
+    "name": "OCR图片文字识别",
+    "category": "AI识别与增强",
+    "module": "MediaToolsActivity",
+    "enhancements": [
+      "本地离线OCR、导出TXT"
+    ]
+  },
+  {
+    "id": "035",
+    "name": "文章摘要生成",
+    "category": "文字与编码",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "036",
+    "name": "进制转换",
+    "category": "文字与编码",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "037",
+    "name": "数字转中文",
+    "category": "文字与编码",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "038",
+    "name": "中文转拼音",
+    "category": "文字与编码",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "039",
+    "name": "Base64编码转换",
+    "category": "文字与编码",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "040",
+    "name": "文本编辑器",
+    "category": "文字与编码",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "042",
+    "name": "迷你英文生成",
+    "category": "文字与编码",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "043",
+    "name": "摩斯电码",
+    "category": "文字与编码",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "044",
+    "name": "数字转上下标",
+    "category": "文字与编码",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "046",
+    "name": "拆分选词",
+    "category": "文字与编码",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "048",
+    "name": "文字转语音",
+    "category": "文字与编码",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "050",
+    "name": "身体质量计算器",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "051",
+    "name": "计算器",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "052",
+    "name": "汇率换算",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "053",
+    "name": "日期计算器",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "054",
+    "name": "手持弹幕",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "056",
+    "name": "做个决定",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "057",
+    "name": "纪念日",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "059",
+    "name": "随机数生成",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "060",
+    "name": "亲戚称呼换算",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "061",
+    "name": "记分牌",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "062",
+    "name": "时间屏幕",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "063",
+    "name": "时间计算器",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "064",
+    "name": "计时器",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "065",
+    "name": "番茄时钟",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "066",
+    "name": "全能单位换算",
+    "category": "计算与生活",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "067",
+    "name": "指南针",
+    "category": "传感器与测量",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "068",
+    "name": "水平仪",
+    "category": "传感器与测量",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "069",
+    "name": "金属探测仪",
+    "category": "传感器与测量",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "070",
+    "name": "噪音测量",
+    "category": "传感器与测量",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "071",
+    "name": "抢票助手",
+    "category": "传感器与测量",
+    "module": "DeviceToolsActivity",
+    "enhancements": [
+      "自选日期和时分秒、定时自动连点、绑定目标App的多步骤录制循环与悬浮停止入口"
+    ]
+  },
+  {
+    "id": "C01",
+    "name": "连点器",
+    "category": "独立模块",
+    "module": "AutomationToolsActivity",
+    "enhancements": [
+      "独立连点器模块：真实取点、单指操作录制、轨迹回放、快速连点与脚本编辑"
+    ]
+  },
+  {
+    "id": "072",
+    "name": "尺子",
+    "category": "传感器与测量",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "073",
+    "name": "震动器",
+    "category": "传感器与测量",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "074",
+    "name": "安装包清理",
+    "category": "文件与设备",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "075",
+    "name": "应用管理",
+    "category": "文件与设备",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "076",
+    "name": "大文件清理",
+    "category": "文件与设备",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "077",
+    "name": "查看设备详细信息",
+    "category": "文件与设备",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "078",
+    "name": "空文件夹清理",
+    "category": "文件与设备",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "079",
+    "name": "空文件清理",
+    "category": "文件与设备",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "080",
+    "name": "视频提取音频",
+    "category": "文件与设备",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "081",
+    "name": "FTP局域网文件共享",
+    "category": "文件与设备",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "083",
+    "name": "域名信息查询",
+    "category": "网络与开发",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "084",
+    "name": "全球IP查询",
+    "category": "网络与开发",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "086",
+    "name": "网速测试",
+    "category": "网络与开发",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "087",
+    "name": "通知自己",
+    "category": "网络与开发",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "088",
+    "name": "短链接生成与还原",
+    "category": "网络与开发",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "089",
+    "name": "网页源码获取",
+    "category": "网络与开发",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "094",
+    "name": "汉语字典",
+    "category": "查询与内容",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "095",
+    "name": "每日60s看世界",
+    "category": "查询与内容",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "096",
+    "name": "对联生成",
+    "category": "查询与内容",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "097",
+    "name": "快递查询",
+    "category": "查询与内容",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "104",
+    "name": "近反义词查询",
+    "category": "查询与内容",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "105",
+    "name": "邮编查询",
+    "category": "查询与内容",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "106",
+    "name": "历史上的今天",
+    "category": "查询与内容",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "111",
+    "name": "QQ强制会话",
+    "category": "平台相关",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "113",
+    "name": "以图搜番",
+    "category": "平台相关",
+    "module": "DeviceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "A01",
+    "name": "PDF页面工具：合并、拆分、旋转、删页",
+    "category": "文档与隐私",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "A02",
+    "name": "图片转PDF、PDF页面转图片",
+    "category": "文档与隐私",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "A03",
+    "name": "文档扫描：自动找边、透视校正、去阴影",
+    "category": "文档与隐私",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "A04",
+    "name": "自动打码与文本脱敏：人脸、电话、邮箱、卡号",
+    "category": "文档与隐私",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "A08",
+    "name": "视频压缩与裁剪",
+    "category": "文档与隐私",
+    "module": "MediaToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "B02",
+    "name": "单位价格比价",
+    "category": "生活与记录",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "B05",
+    "name": "极简记账、收据报销、周期付款记录",
+    "category": "生活与记录",
+    "module": "LocalToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "M01",
+    "name": "双窗口文件管理",
+    "category": "文件与管理器",
+    "module": "ManagerActivity",
+    "enhancements": []
+  },
+  {
+    "id": "M02",
+    "name": "ZIP / APK 浏览提取",
+    "category": "文件与管理器",
+    "module": "ManagerActivity",
+    "enhancements": []
+  },
+  {
+    "id": "M03",
+    "name": "应用提取与导出",
+    "category": "文件与管理器",
+    "module": "ManagerActivity",
+    "enhancements": []
+  },
+  {
+    "id": "M04",
+    "name": "文本差异对比",
+    "category": "文件与管理器",
+    "module": "ManagerActivity",
+    "enhancements": []
+  },
+  {
+    "id": "M05",
+    "name": "十六进制查看",
+    "category": "文件与管理器",
+    "module": "ManagerActivity",
+    "enhancements": []
+  },
+  {
+    "id": "M06",
+    "name": "文件哈希校验",
+    "category": "文件与管理器",
+    "module": "ManagerActivity",
+    "enhancements": []
+  },
+  {
+    "id": "V01",
+    "name": "录音变声",
+    "category": "声音与音频",
+    "module": "AiVoiceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "V02",
+    "name": "音频变声转换",
+    "category": "声音与音频",
+    "module": "AiVoiceToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "V03",
+    "name": "悬浮录音变声",
+    "category": "声音与音频",
+    "module": "VoiceOverlayActivity",
+    "enhancements": []
+  },
+  {
+    "id": "C02",
+    "name": "开屏广告跳过",
+    "category": "自动化",
+    "module": "AdSkipToolsActivity",
+    "enhancements": []
+  }
+]

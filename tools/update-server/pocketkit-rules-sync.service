@@ -1,0 +1,18 @@
+[Unit]
+Description=PocketKit trusted rule sync and upstream release watch
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=user
+Group=user
+WorkingDirectory=/data/pocketkit-hub
+ExecStart=/usr/bin/python3 /data/pocketkit-hub/rules-sync.py --validator /data/pocketkit-hub/bin/sing-box-1.14.3
+TimeoutStartSec=8min
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/data/pocketkit-hub
+UMask=0022

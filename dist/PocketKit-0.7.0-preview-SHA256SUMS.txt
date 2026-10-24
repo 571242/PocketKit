@@ -1,0 +1,2 @@
+02562c1e7e3e0555fe825b611e221170f37770d39a37b4688813dd7995f3c80e  PocketKit-0.7.0-preview.apk
+c0e77e8d04e56ca89cd90af856c83db6bfe570e3e41cee9bb94175f52df2b5e4  PocketKit-0.7.0-preview-source.zip

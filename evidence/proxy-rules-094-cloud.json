@@ -1,0 +1,52 @@
+{
+  "rulesBytes": 2258010,
+  "rulesCounts": {
+    "cnCidrs": 10011,
+    "directDomains": 110235,
+    "proxyDomains": 27313
+  },
+  "rulesLicenseUrl": "https://9876-agqvov42zisdyuvnzmi23lrrw4.instabox.tech/rule-sources/LICENSE.txt",
+  "rulesMinAppCode": 22,
+  "rulesSchemaVersion": 1,
+  "rulesSha256": "95ee8bb95bcf90b1e4feb2a89ce2c162b92f0b17da79ba3bbcf6946d1e0536ee",
+  "rulesSourceCommit": "bc9a903f65caee8381da1e0f8889607318c1e0ef",
+  "rulesSources": [
+    {
+      "license": "GPL-3.0",
+      "name": "direct",
+      "sha256": "a41b282280fcf0d5c2ee7dac24482b996bb271bbc32b6513343015db3d9c391f",
+      "sourceUrl": "https://9876-agqvov42zisdyuvnzmi23lrrw4.instabox.tech/rule-sources/a41b282280fcf0d5c2ee7dac24482b996bb271bbc32b6513343015db3d9c391f.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/bc9a903f65caee8381da1e0f8889607318c1e0ef/direct.txt"
+    },
+    {
+      "license": "GPL-3.0",
+      "name": "proxy",
+      "sha256": "e3bf962e6baf6e9c98fe1d4db61720cd3aa42fa4afe47ece99c90c8cd7440cce",
+      "sourceUrl": "https://9876-agqvov42zisdyuvnzmi23lrrw4.instabox.tech/rule-sources/e3bf962e6baf6e9c98fe1d4db61720cd3aa42fa4afe47ece99c90c8cd7440cce.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/bc9a903f65caee8381da1e0f8889607318c1e0ef/proxy.txt"
+    },
+    {
+      "license": "GPL-3.0",
+      "name": "cncidr",
+      "sha256": "ce5122e6bb0e0a3a0738b34d6aebfdf6b521ad22b689b46149ae19249bfca0b3",
+      "sourceUrl": "https://9876-agqvov42zisdyuvnzmi23lrrw4.instabox.tech/rule-sources/ce5122e6bb0e0a3a0738b34d6aebfdf6b521ad22b689b46149ae19249bfca0b3.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/bc9a903f65caee8381da1e0f8889607318c1e0ef/cncidr.txt"
+    }
+  ],
+  "rulesUpdatedAt": "2026-10-24T10:09:27+00:00",
+  "rulesUrl": "https://9876-agqvov42zisdyuvnzmi23lrrw4.instabox.tech/rules/95ee8bb95bcf90b1e4feb2a89ce2c162b92f0b17da79ba3bbcf6946d1e0536ee.json",
+  "rulesVersion": "95ee8bb95bcf90b1e4feb2a89ce2c162b92f0b17da79ba3bbcf6946d1e0536ee",
+  "httpsArtifactVerified": true,
+  "sourceSnapshotsVerified": true,
+  "publicCacheControl": "no-store",
+  "originCacheControl": "public, max-age=86400, immutable",
+  "originAnonymousWritesBlocked": true,
+  "publicAnonymousRecheck": "inconclusive: client TLS EOF before HTTP response",
+  "lastSuccessAt": "2026-10-24T10:09:29+00:00",
+  "idempotent": true,
+  "upstreamTags": {
+    "flclash": "v0.9.2",
+    "mihomo": "v1.19.33",
+    "singbox": "v1.14.4"
+  }
+}

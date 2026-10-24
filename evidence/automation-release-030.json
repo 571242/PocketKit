@@ -1,0 +1,21 @@
+{
+  "versionName": "0.3.0",
+  "versionCode": 11,
+  "apk": "dist/PocketKit-0.3.0.apk",
+  "apkBytes": 263480562,
+  "apkSha256": "230fae721deb7cdd18545d4165a81a9d653d71f08556faa77a4ee098ebea0150",
+  "signing": "Android Debug",
+  "sameCertificateAs022": true,
+  "assembleDebugPassed": true,
+  "assembleDebugAndroidTestPassed": true,
+  "lintPassed": true,
+  "independentJvmChecksPassed": true,
+  "compiledCatalogCount": 92,
+  "compiledSupportedCount": 92,
+  "releaseGatePassed": true,
+  "zip16KiBAlignmentPassed": true,
+  "deviceRuntimeVerified": false,
+  "instrumentationExecuted": false,
+  "uiRuntimeVerified": false,
+  "actualTicketPurchaseVerified": false
+}

@@ -1,0 +1,18 @@
+{
+  "landscape": false,
+  "hardwareAccelerated": false,
+  "pcMode": false,
+  "openAppEnable": false,
+  "supportMultipleWindows": true,
+  "enableProgressBar": false,
+  "launchUrl": "https://www.baidu.com",
+  "theme": {
+    "colorPrimary": "#79BD9A"
+  },
+  "appbar": {
+    "title": "测试百度",
+    "showWebTitle": true,
+    "menuEnable": false,
+    "enable": false
+  }
+}

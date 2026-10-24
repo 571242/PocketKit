@@ -1,0 +1,6 @@
+[Unit]
+Description=Health gate for the InstaBox-01 quick tunnel and Clash subscription
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/tunnel-watchdog.sh
