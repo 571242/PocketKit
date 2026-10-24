@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Keep the legacy resource name usable without retaining the obsolete artwork. -->
+    <item type="drawable" name="ic_launcher">@mipmap/ic_pocketkit</item>
+</resources>

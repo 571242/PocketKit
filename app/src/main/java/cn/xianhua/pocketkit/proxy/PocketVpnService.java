@@ -347,7 +347,6 @@ public final class PocketVpnService extends VpnService {
         PendingIntent stop = PendingIntent.getService(this, 1, new Intent(this, PocketVpnService.class).setAction(ACTION_STOP), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         return new Notification.Builder(this, CHANNEL_ID).setContentTitle("拾用 · 规则代理")
                 .setContentText(text).setSmallIcon(R.drawable.ic_stat_pocketkit)
-                .setLargeIcon(android.graphics.drawable.Icon.createWithResource(this, R.mipmap.ic_launcher))
                 .setContentIntent(open)
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel, "断开连接", stop).setOnlyAlertOnce(true).setOngoing(true).build();
     }

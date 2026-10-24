@@ -23,7 +23,7 @@
         <intent><action android:name="android.intent.action.TTS_SERVICE" /></intent>
         <package android:name="com.tencent.mobileqq" />
     </queries>
-    <application android:label="拾用" android:theme="@style/AppTheme" android:allowBackup="false" android:fullBackupContent="false" android:dataExtractionRules="@xml/data_extraction_rules" android:supportsRtl="true" android:requestLegacyExternalStorage="true" android:usesCleartextTraffic="true" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
+    <application android:label="拾用" android:theme="@style/AppTheme" android:allowBackup="false" android:fullBackupContent="false" android:dataExtractionRules="@xml/data_extraction_rules" android:supportsRtl="true" android:requestLegacyExternalStorage="true" android:usesCleartextTraffic="true" android:icon="@mipmap/ic_pocketkit" android:roundIcon="@mipmap/ic_pocketkit">
         <!-- Initialize ML Kit only when a model tool is used, never before the launcher. -->
         <provider android:name="com.google.mlkit.common.internal.MlKitInitProvider" tools:node="remove" />
         <activity android:name=".MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize">
@@ -40,6 +40,7 @@
         <activity android:name=".AutomationToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".proxy.ProxyActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
         <service android:name=".proxy.PocketVpnService"
+            android:icon="@mipmap/ic_pocketkit"
             android:permission="android.permission.BIND_VPN_SERVICE"
             android:exported="false"
             android:foregroundServiceType="specialUse">
