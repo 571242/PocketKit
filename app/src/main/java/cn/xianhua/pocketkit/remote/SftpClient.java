@@ -38,15 +38,15 @@ public final class SftpClient implements RemoteClient {
     private void connect(String password) throws IOException {
         String host = session.host == null ? "" : session.host.trim();
         if (host.isEmpty()) throw new IOException("没有填写服务器地址");
+        SftpHostKeys hostKeys = new SftpHostKeys(host, session.port > 0 ? session.port : 22, session.hostKey);
         try {
             JSch jsch = new JSch();
+            jsch.setHostKeyRepository(hostKeys);
             ssh = jsch.getSession(session.username == null ? "" : session.username.trim(), host,
                     session.port > 0 ? session.port : 22);
             ssh.setPassword(password);
             Properties config = new Properties();
-            // Host keys cannot be verified without a known_hosts store; rather than pretend, the
-            // connection accepts them and the UI states that limitation plainly.
-            config.put("StrictHostKeyChecking", "no");
+            config.put("StrictHostKeyChecking", "yes");
             ssh.setConfig(config);
             ssh.setTimeout(TIMEOUT_MS);
             ssh.connect(TIMEOUT_MS);
@@ -54,6 +54,8 @@ public final class SftpClient implements RemoteClient {
             channel.connect(TIMEOUT_MS);
         } catch (JSchException e) {
             close();
+            SftpHostKeys.Rejected rejected = hostKeys.rejection();
+            if (rejected != null) throw rejected;
             String message = e.getMessage() == null ? "" : e.getMessage();
             if (message.contains("Auth fail") || message.contains("auth cancel")) {
                 throw new IOException("SFTP 认证失败：用户名、密码不对，或服务器只接受密钥登录");

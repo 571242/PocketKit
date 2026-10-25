@@ -7,6 +7,12 @@ import java.util.Map;
 public final class ToolDescriptions {
     private static final Map<String, String> COPY = new HashMap<>();
     static {
+        COPY.put("R01", "打开 Markdown、电子书与常见文档");
+        COPY.put("I01", "把截图贴在屏幕上，对照查看和填写");
+        COPY.put("N01", "同一局域网，浏览器互传文件与文字");
+        COPY.put("F01", "按文件内容查重，确认后再清理");
+        COPY.put("F02", "预览批量改名，替换、加前后缀与序号");
+        COPY.put("F03", "创建 ZIP，解压 ZIP、7z 与 RAR");
         COPY.put("V03", "悬浮录音与变声，拖到侧边收起，点击小球展开");
         COPY.put("C02", "本机识别开屏跳过按钮，支持排除应用");
         COPY.put("V01", "文字配音、录音与导入音频，共用音色试听导出");

@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
@@ -29,6 +31,64 @@
         <activity android:name=".MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize">
             <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
         </activity>
+        <activity android:name=".ReaderActivity" android:label="拾用·轻量阅读" android:exported="true" android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" />
+                <data android:mimeType="text/*" />
+                <data android:mimeType="application/pdf" />
+                <data android:mimeType="application/epub+zip" />
+                <data android:mimeType="application/json" />
+                <data android:mimeType="application/xml" />
+                <data android:mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                <data android:mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                <data android:mimeType="application/vnd.openxmlformats-officedocument.presentationml.presentation" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/*" />
+                <data android:mimeType="application/pdf" />
+                <data android:mimeType="application/epub+zip" />
+                <data android:mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                <data android:mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                <data android:mimeType="application/vnd.openxmlformats-officedocument.presentationml.presentation" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PinImageActivity" android:label="拾用·贴屏参考图" android:exported="true" android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
+        <service android:name=".pinoverlay.PinOverlayService" android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started pinned image overlay for visual reference; closed from its controls or notification. No screen recording." />
+        </service>
+        <activity android:name=".LanShareActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <service android:name=".lanshare.LanShareService" android:exported="false" android:foregroundServiceType="dataSync" />
+        <activity android:name=".FileToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ArchiveActivity" android:label="拾用·压缩解压" android:exported="true" android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" />
+                <data android:mimeType="application/zip" />
+                <data android:mimeType="application/x-zip-compressed" />
+                <data android:mimeType="application/x-7z-compressed" />
+                <data android:mimeType="application/vnd.rar" />
+                <data android:mimeType="application/x-rar-compressed" />
+            </intent-filter>
+        </activity>
+        <receiver android:name=".timer.TimerAlarmReceiver" android:exported="false">
+            <intent-filter><action android:name="cn.xianhua.pocketkit.timer.FIRE" /></intent-filter>
+        </receiver>
         <activity android:name=".LocalToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".MediaToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".VoiceToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />

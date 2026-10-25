@@ -719,5 +719,47 @@
     "category": "自动化",
     "module": "AdSkipToolsActivity",
     "enhancements": []
+  },
+  {
+    "id": "R01",
+    "name": "轻量阅读器",
+    "category": "文档扫描",
+    "module": "ReaderActivity",
+    "enhancements": []
+  },
+  {
+    "id": "I01",
+    "name": "贴屏参考图",
+    "category": "图片编辑",
+    "module": "PinImageActivity",
+    "enhancements": []
+  },
+  {
+    "id": "N01",
+    "name": "浏览器局域网互传",
+    "category": "网络工具",
+    "module": "LanShareActivity",
+    "enhancements": []
+  },
+  {
+    "id": "F01",
+    "name": "重复文件查找",
+    "category": "文件管理",
+    "module": "FileToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "F02",
+    "name": "批量重命名",
+    "category": "文件管理",
+    "module": "FileToolsActivity",
+    "enhancements": []
+  },
+  {
+    "id": "F03",
+    "name": "压缩与解压",
+    "category": "文件管理",
+    "module": "ArchiveActivity",
+    "enhancements": []
   }
 ]

@@ -292,6 +292,7 @@ public final class RemotePanel {
         out.share = share.getText().toString().trim();
         out.startPath = basePath.getText().toString().trim();
         out.secure = secure.isChecked();
+        if (!out.sameServer(draft)) out.hostKey = "";
         return out;
     }
 
@@ -335,6 +336,11 @@ public final class RemotePanel {
                 if (context instanceof android.app.Activity) {
                     ((android.app.Activity) context).runOnUiThread(() -> adopt(session));
                 }
+            } catch (SftpHostKeys.Rejected e) {
+                closeQuietly(session.client);
+                if (context instanceof android.app.Activity) {
+                    ((android.app.Activity) context).runOnUiThread(() -> confirmHostKey(saved, e));
+                } else say(e.getMessage());
             } catch (Exception e) {
                 closeQuietly(session.client);
                 say(failure(e));
@@ -342,6 +348,42 @@ public final class RemotePanel {
                 busy = false;
             }
         });
+    }
+
+    private void confirmHostKey(RemoteStore.Saved saved, SftpHostKeys.Rejected key) {
+        if (released || !(context instanceof android.app.Activity)) return;
+        android.app.Activity activity = (android.app.Activity) context;
+        if (activity.isFinishing() || activity.isDestroyed()) return;
+        String message = key.endpoint + "\n算法：" + key.algorithm + "\n\n当前指纹\n" + key.fingerprint;
+        if (key.changed) {
+            new AlertDialog.Builder(context).setTitle("服务器指纹变化，已中止")
+                    .setMessage(message + "\n\n已保存指纹\n" + key.previousFingerprint
+                            + "\n\n可能是服务器更换密钥，也可能是冒充连接。未发送登录密码。请先通过可信渠道核实；确实更换服务器后再新建连接，不要直接忽略。")
+                    .setPositiveButton("关闭", null).show();
+            return;
+        }
+        new AlertDialog.Builder(context).setTitle("首次连接，核对服务器身份")
+                .setMessage(message + "\n\n请与服务器管理员或控制台显示的指纹核对。一致后再保存信任并连接；未确认前不会发送登录密码。")
+                .setPositiveButton("核对一致并连接", (dialog, which) -> {
+                    if (released) return;
+                    List<RemoteStore.Saved> all = store.load();
+                    RemoteStore.Saved trusted = null;
+                    for (int i = 0; i < all.size(); i++) {
+                        RemoteStore.Saved item = all.get(i);
+                        if (!item.session.id.equals(saved.session.id)) continue;
+                        if (!item.session.sameServer(saved.session) || !item.session.hostKey.isEmpty()) {
+                            say("连接记录已变化，请重新选择连接并核对"); return;
+                        }
+                        RemoteSession pinned = item.session.copy();
+                        pinned.hostKey = key.encodedKey;
+                        trusted = new RemoteStore.Saved(pinned, item.password);
+                        all.set(i, trusted);
+                        break;
+                    }
+                    if (trusted == null) { say("连接记录已不存在，请重新建立连接"); return; }
+                    if (!store.save(all)) { say("指纹保存失败，没有连接服务器，请稍后重试"); return; }
+                    connect(trusted);
+                }).setNegativeButton("取消连接", (dialog, which) -> say("已取消，未信任此服务器")).show();
     }
 
     private void adopt(Session session) {

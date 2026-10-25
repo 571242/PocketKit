@@ -76,6 +76,7 @@ public final class RemoteStore {
                 session.share = row.optString("share", "");
                 session.basePath = row.optString("basePath", "");
                 session.secure = row.optBoolean("secure", false);
+                session.hostKey = row.optString("hostKey", "");
                 String sealed = row.optString("password", "");
                 out.add(new Saved(session, open(sealed)));
             }
@@ -107,6 +108,7 @@ public final class RemoteStore {
                         .put("share", saved.session.share == null ? "" : saved.session.share)
                         .put("basePath", saved.session.basePath == null ? "" : saved.session.basePath)
                         .put("secure", saved.session.secure)
+                        .put("hostKey", saved.session.hostKey == null ? "" : saved.session.hostKey)
                         .put("password", sealed));
             }
         } catch (Exception e) {

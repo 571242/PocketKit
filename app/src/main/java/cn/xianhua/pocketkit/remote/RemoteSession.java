@@ -42,6 +42,8 @@ public final class RemoteSession {
     public String basePath;
     /** FTP and WebDAV: use TLS. */
     public boolean secure;
+    /** User-verified SSH public host key (Base64); never a private key or password. */
+    public String hostKey = "";
 
     public RemoteSession() {
         this.id = UUID.randomUUID().toString();
@@ -60,7 +62,16 @@ public final class RemoteSession {
         out.share = share;
         out.basePath = basePath;
         out.secure = secure;
+        out.hostKey = hostKey;
         return out;
+    }
+
+    public boolean sameServer(RemoteSession other) {
+        if (other == null || protocol != other.protocol) return false;
+        String a = host == null ? "" : host.trim();
+        String b = other.host == null ? "" : other.host.trim();
+        return a.equalsIgnoreCase(b) && (port > 0 ? port : protocol.defaultPort)
+                == (other.port > 0 ? other.port : other.protocol.defaultPort);
     }
 
     /** "user@host:port", never includes a secret. */

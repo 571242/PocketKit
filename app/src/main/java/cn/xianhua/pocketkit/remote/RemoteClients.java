@@ -38,7 +38,7 @@ public final class RemoteClients {
             case SFTP:
             default:
                 return "SSH 文件传输，适合自己的服务器与 NAS。\n"
-                        + "目前只支持密码登录；服务器只允许密钥时会明确报错。";
+                        + "首次连接需核对主机指纹，指纹变化会中止；目前只支持密码登录。";
         }
     }
 }

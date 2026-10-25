@@ -1,5 +1,13 @@
 Additional third-party source/data notices
 
+PocketKit 0.11.0 adds commonmark 0.24.0 (BSD-2-Clause), zip4j 2.11.5 (Apache-2.0),
+libarchive-android 1.1.6 and its native dependencies, and desugar_jdk_libs 2.1.5.
+Their license texts are preserved in toolbox-011-notices.txt and displayed in About.
+https://github.com/commonmark/commonmark-java
+https://github.com/srikanth-lingala/zip4j/tree/v2.11.5
+https://github.com/zhanghai/libarchive-android/tree/v1.1.6
+https://github.com/google/desugar_jdk_libs
+
 GeoNames CN postal-code data (105)
 Attribution: GeoNames https://www.geonames.org/
 https://download.geonames.org/export/zip/CN.zip

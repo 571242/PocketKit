@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'none'; media-src 'none'; font-src 'none'; script-src 'none'; connect-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'none'">
+<title>{{TITLE}}</title>
+<style>
+  html { color-scheme: {{SCHEME}}; }
+  html, body { margin: 0; padding: 0; background: {{BG}}; color: {{INK}}; }
+  body {
+    font-family: -apple-system, "Noto Sans CJK SC", "Source Han Sans SC", "PingFang SC",
+                 Roboto, "Droid Sans Fallback", sans-serif;
+    font-size: {{FONT}}px;
+    line-height: 1.72;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  .doc { max-width: {{WIDTH}}px; margin: 0 auto; padding: 12px 16px 96px 16px; overflow-wrap: break-word; word-wrap: break-word; }
+  h1, h2, h3, h4, h5, h6 { line-height: 1.34; margin: 1.15em 0 .5em; font-weight: 600; }
+  h1 { font-size: 1.52em; } h2 { font-size: 1.3em; } h3 { font-size: 1.16em; }
+  h4, h5, h6 { font-size: 1.04em; }
+  p { margin: .6em 0; }
+  ul, ol { margin: .55em 0 .55em 0; padding-left: 1.5em; }
+  li { margin: .2em 0; }
+  li > p { margin: .15em 0; }
+  blockquote { margin: .8em 0; padding: .1em 0 .1em .9em; border-left: 3px solid {{ACCENT}}; color: {{MUTED}}; }
+  hr { border: 0; border-top: 1px solid {{RULE}}; margin: 1.6em 0; }
+  a { color: {{ACCENT}}; text-decoration: none; border-bottom: 1px solid {{RULE}}; }
+  code { font-family: "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace; font-size: .92em;
+         background: {{CODE_BG}}; padding: .12em .34em; border-radius: 4px; }
+  pre { font-family: "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace; font-size: .88em;
+        line-height: 1.55; background: {{CODE_BG}}; border: 1px solid {{RULE}}; border-radius: 8px;
+        padding: 12px; margin: .8em 0; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+  pre code { background: none; padding: 0; font-size: 1em; }
+  table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: .9em 0; font-size: .95em; }
+  th, td { border: 1px solid {{RULE}}; padding: 6px 9px; text-align: left; vertical-align: top; }
+  th { background: {{CODE_BG}}; font-weight: 600; }
+  strong, b { font-weight: 600; }
+  .doc > *:first-child { margin-top: 0; }
+  ::selection { background: {{SELECTION}}; }
+</style>
+</head>
+<body>
+<div class="doc">{{BODY}}</div>
+</body>
+</html>

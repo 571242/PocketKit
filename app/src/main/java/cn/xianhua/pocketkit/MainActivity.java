@@ -30,10 +30,24 @@ public final class MainActivity extends BaseToolActivity {
     @Override protected void onCreate(Bundle state) {
         try {
             getIntent().putExtra("title", "拾用"); super.onCreate(state); createHome(state);
-            if (state == null) cn.xianhua.pocketkit.update.UpdateManager.get().check(this, false, null);
+            if (state == null) {
+                consumeToolShortcut(getIntent());
+                cn.xianhua.pocketkit.update.UpdateManager.get().check(this, false, null);
+            }
         } catch (RuntimeException | LinkageError failure) {
             results = null; StartupDiagnostics.show(this, failure);
         }
+    }
+
+    @Override protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent); setIntent(intent); consumeToolShortcut(intent);
+    }
+
+    private void consumeToolShortcut(Intent intent) {
+        if (!"cn.xianhua.pocketkit.OPEN_TOOL".equals(intent.getAction())) return;
+        String id = intent.getStringExtra("tool_id");
+        intent.setAction(Intent.ACTION_MAIN); intent.removeExtra("tool_id");
+        if (id != null) openId(ToolCatalog.canonicalId(id));
     }
 
     private void createHome(Bundle state) {
@@ -228,7 +242,12 @@ public final class MainActivity extends BaseToolActivity {
         LinearLayout top = new LinearLayout(this); top.setGravity(Gravity.CENTER_VERTICAL);
         int color = categoryColor(e.category); ToolIconView icon = new ToolIconView(this, e.category, color); icon.setPadding(dp(7), dp(7), dp(7), dp(7));
         icon.setBackground(ToolUi.fill(tint(color), dp(12), Color.TRANSPARENT, 0)); top.addView(icon, new LinearLayout.LayoutParams(dp(38), dp(38)));
-        TextView star = text(pinned.contains(e.id) ? "★" : "", accent, 14, false); star.setGravity(Gravity.END); top.addView(star, new LinearLayout.LayoutParams(0, -2, 1)); card.addView(top);
+        TextView star = text(pinned.contains(e.id) ? "★  ⋯" : "⋯", accent, 17, false);
+        star.setGravity(Gravity.END | Gravity.CENTER_VERTICAL); star.setMinHeight(dp(48));
+        star.setPadding(dp(8), 0, dp(3), 0); star.setFocusable(true);
+        star.setContentDescription(e.name + "更多操作，置顶或添加桌面快捷方式");
+        star.setOnClickListener(v -> toolOptions(e));
+        top.addView(star, new LinearLayout.LayoutParams(0, -2, 1)); card.addView(top);
         TextView name = text(e.name, ink, 16, true); name.setPadding(0, dp(12), 0, dp(5)); card.addView(name);
         TextView detail = text(ToolDescriptions.get(e), muted, 12, false); detail.setMaxLines(2); detail.setEllipsize(android.text.TextUtils.TruncateAt.END); detail.setLineSpacing(dp(2), 1); card.addView(detail);
         card.setContentDescription(e.name + "，" + ToolDescriptions.get(e) + (pinned.contains(e.id) ? "，已置顶" : "") + "，长按切换置顶");
@@ -239,6 +258,32 @@ public final class MainActivity extends BaseToolActivity {
         });
         return card;
     }
+    private void toolOptions(ToolRegistry.Entry entry) {
+        new android.app.AlertDialog.Builder(this).setTitle(entry.name)
+                .setItems(new String[]{pinned.contains(entry.id) ? "取消置顶" : "置顶到常用", "添加桌面快捷方式"}, (dialog, which) -> {
+                    if (which == 1) { pinToLauncher(entry); return; }
+                    if (!pinned.add(entry.id)) pinned.remove(entry.id);
+                    prefs.edit().putStringSet("pinned", new HashSet<>(pinned)).apply(); render();
+                }).setNegativeButton("关闭", null).show();
+    }
+
+    private void pinToLauncher(ToolRegistry.Entry entry) {
+        android.content.pm.ShortcutManager manager = getSystemService(android.content.pm.ShortcutManager.class);
+        if (manager == null || !manager.isRequestPinShortcutSupported()) {
+            Toast.makeText(this, "当前桌面不支持添加快捷方式，可继续使用应用内置顶", Toast.LENGTH_LONG).show(); return;
+        }
+        try {
+            Intent intent = new Intent(this, MainActivity.class).setAction("cn.xianhua.pocketkit.OPEN_TOOL")
+                    .putExtra("tool_id", entry.id);
+            android.content.pm.ShortcutInfo shortcut = new android.content.pm.ShortcutInfo.Builder(this, "tool-" + entry.id)
+                    .setShortLabel(entry.name).setLongLabel(entry.name)
+                    .setIcon(android.graphics.drawable.Icon.createWithResource(this, getApplicationInfo().icon))
+                    .setIntent(intent).build();
+            boolean requested = manager.requestPinShortcut(shortcut, null);
+            Toast.makeText(this, requested ? "已请求添加，请按桌面提示确认" : "桌面没有接受请求", Toast.LENGTH_LONG).show();
+        } catch (Exception error) { fail(error); }
+    }
+
     private int categoryColor(String group) {
         int[] light = {0xFF7353B7,0xFF3269B5,0xFF087F92,0xFF8A5797,0xFF346DA8,0xFF997021,0xFFB05351,0xFF937326,0xFF167E72,0xFF4C7190,0xFF885CC0};
         int[] night = {0xFFC5ADF4,0xFF9BBCFF,0xFF7CD6DF,0xFFDEA9E7,0xFF9ACBFF,0xFFE3C57E,0xFFFFB2AD,0xFFE5C884,0xFF87D9CA,0xFFAACDEB,0xFFC7ABF2};

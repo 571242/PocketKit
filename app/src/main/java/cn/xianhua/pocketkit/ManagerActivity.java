@@ -205,7 +205,55 @@ public final class ManagerActivity extends BaseToolActivity {
     private void deleteSelection(){List<ManagerStore.Node> list=selected();if(list.isEmpty()){status.setText("先长按选择需要删除的条目");return;}new AlertDialog.Builder(this).setTitle("永久删除 "+list.size()+" 项？").setMessage("目录将连同内容一起删除，无回收站。\n"+list.get(0).name+(list.size()>1?" 等":"")).setPositiveButton("删除",(d,w)->job(()->{for(ManagerStore.Node n:list)store.delete(n);reload();},this::render)).setNegativeButton("取消",null).show();}
     private void prompt(String title,String initial,java.util.function.Consumer<String> accept){EditText input=new EditText(this);input.setSingleLine(true);input.setText(initial);new AlertDialog.Builder(this).setTitle(title).setView(input).setPositiveButton("确定",(d,w)->accept.accept(input.getText().toString())).setNegativeButton("取消",null).show();}
     private void create(){new AlertDialog.Builder(this).setTitle("新建").setItems(new String[]{"文件夹","空文本文件"},(d,w)->prompt("名称",w==0?"新建文件夹":"新建文件.txt",name->{ManagerStore.Node dir=panes[active].dir;job(()->{store.create(dir,name,w==0,"text/plain");reload();},this::render);})).show();}
-    private void menu(ManagerStore.Node n,int index){
+    private void menu(ManagerStore.Node n, int index) {
+        active = index; render();
+        List<String> labels = new ArrayList<>(); List<Runnable> actions = new ArrayList<>();
+        String name = n.name.toLowerCase(Locale.ROOT), mime = n.mime == null ? "" : n.mime;
+        if (mime.startsWith("text/") || name.matches(".*\\.(md|markdown|txt|log|json|xml|csv|tsv|html?|xhtml|epub|pdf|docx|xlsx|pptx|ya?ml|ini|conf|java|py|js|ts|css|sql|kt|c|h|cpp|rs|go|sh|srt|vtt)$")) {
+            labels.add("轻量阅读 / 文档预览"); actions.add(() -> openReadOnlyTool(n, ReaderActivity.class, "R01", "轻量阅读器"));
+        }
+        if (mime.startsWith("image/") || name.matches(".*\\.(png|jpe?g|webp|gif|bmp|heic|heif)$")) {
+            labels.add("贴到屏幕作参考"); actions.add(() -> openReadOnlyTool(n, PinImageActivity.class, "I01", "贴屏参考图"));
+        }
+        if (name.matches(".*\\.(zip|7z|rar|apk)$")) {
+            labels.add("解压到新目录"); actions.add(() -> openReadOnlyTool(n, ArchiveActivity.class, "F03", "压缩与解压"));
+        }
+        labels.add("发送到浏览器互传"); actions.add(() -> launchOriginals(LanShareActivity.class, "N01", "浏览器局域网互传", Collections.singletonList(n)));
+        labels.add("其他应用打开"); actions.add(() -> openOther(n));
+        labels.add("打开所在位置"); actions.add(() -> locateFolderOf(n, index));
+        labels.add("更多文件操作"); actions.add(() -> advancedFileMenu(n, index));
+        new AlertDialog.Builder(this).setTitle(n.name).setItems(labels.toArray(new String[0]), (dialog, which) -> actions.get(which).run()).show();
+    }
+
+    private void openReadOnlyTool(ManagerStore.Node node, Class<?> type, String id, String title) {
+        Uri[] source = {null};
+        job(() -> {
+            source[0] = node.archive == null && "content".equals(node.uri.getScheme()) ? node.uri
+                    : ManagerShareProvider.uri(this, store.stage(node, "manager-exports", ManagerStore.ARCHIVE_LIMIT));
+        }, () -> {
+            Intent intent = new Intent(this, type).setAction(Intent.ACTION_VIEW)
+                    .setDataAndType(source[0], node.mime == null ? ManagerStore.mime(node.name) : node.mime)
+                    .putExtra("tool_id", id).putExtra("title", title)
+                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setClipData(ClipData.newRawUri(node.name, source[0])); startActivity(intent);
+        });
+    }
+
+    private void launchOriginals(Class<?> type, String id, String title, List<ManagerStore.Node> nodes) {
+        if (nodes.isEmpty()) { status.setText("先长按选择要处理的文件"); return; }
+        ArrayList<String> originals = new ArrayList<>();
+        job(() -> {
+            for (ManagerStore.Node node : nodes) {
+                if (type == LanShareActivity.class && node.directory) throw new IOException("不能直接发送目录，请先压缩后发送");
+                if (node.archive != null && type == FileToolsActivity.class) throw new IOException("压缩包内条目不能直接整理，请先解压到目录");
+                Uri uri = node.archive == null ? node.uri : ManagerShareProvider.uri(this, store.stage(node, "manager-exports", ManagerStore.ARCHIVE_LIMIT));
+                originals.add(uri.toString());
+            }
+        }, () -> startActivity(new Intent(this, type).putExtra("tool_id", id).putExtra("title", title)
+                .putStringArrayListExtra("manager_uris", originals)));
+    }
+
+    private void advancedFileMenu(ManagerStore.Node n,int index){
         active=index;render();String[] items={"文本查看","Hex 十六进制","计算校验值","浏览 ZIP / APK","设为对比原文件","与原文件对比","其他应用打开","打开所在位置","复制到另一窗口","重命名","属性","选择此项"};
         new AlertDialog.Builder(this).setTitle(n.name).setItems(items,(d,w)->{switch(w){
             case 0:readText(n);break;case 1:hex(n,0);break;case 2:hash(n);break;
@@ -245,7 +293,13 @@ public final class ManagerActivity extends BaseToolActivity {
      * location. The in-app "打开所在位置" entry still serves the real file.
      */
     private void openOther(ManagerStore.Node n){Uri[] uri={null};job(()->{File file=store.stage(n,"manager-exports",ManagerStore.ARCHIVE_LIMIT);uri[0]=ManagerShareProvider.uri(this,file);},()->{try{Intent view=new Intent(Intent.ACTION_VIEW).setDataAndType(uri[0],n.mime==null?ManagerStore.mime(n.name):n.mime).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);view.setClipData(ClipData.newRawUri(n.name,uri[0]));Intent chooser=Intent.createChooser(view,"选择打开方式");chooser.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS,new ComponentName[]{new ComponentName(this,ManagerActivity.class),new ComponentName(this,getPackageName()+".ManagerLocateActivity")});startActivity(chooser);}catch(Exception e){error(e);}});}
-    private void toolsMenu(){new AlertDialog.Builder(this).setTitle("快捷工具").setItems(new String[]{"打开 ZIP / APK","应用提取（含拆分包、图标）","文本对比","Hex 查看","文件校验","导入外部收到的文件","清理临时缓存"},(d,w)->{switch(w){case 0:pick("zip");break;case 1:applications();break;case 2:diffFirst=null;pick("diff-first");break;case 3:pick("hex");break;case 4:pick("hash");break;case 5:importIncoming();break;case 6:clearCache();break;}}).show();}
+    private void toolsMenu(){new AlertDialog.Builder(this).setTitle("快捷工具").setItems(new String[]{"查找当前目录重复文件","批量改名所选文件","压缩与解压","浏览器互传所选文件","轻量阅读器","打开 ZIP / APK","应用提取（含拆分包、图标）","文本对比","Hex 查看","文件校验","导入外部收到的文件","清理临时缓存"},(d,w)->{switch(w){
+        case 0:launchOriginals(FileToolsActivity.class,"F01","重复文件查找",Collections.singletonList(panes[active].dir));break;
+        case 1:launchOriginals(FileToolsActivity.class,"F02","批量重命名",selected());break;
+        case 2:startActivity(new Intent(this,ArchiveActivity.class).putExtra("tool_id","F03").putExtra("title","压缩与解压"));break;
+        case 3:launchOriginals(LanShareActivity.class,"N01","浏览器局域网互传",selected());break;
+        case 4:startActivity(new Intent(this,ReaderActivity.class).putExtra("tool_id","R01").putExtra("title","轻量阅读器"));break;
+        case 5:pick("zip");break;case 6:applications();break;case 7:diffFirst=null;pick("diff-first");break;case 8:pick("hex");break;case 9:pick("hash");break;case 10:importIncoming();break;case 11:clearCache();break;}}).show();}
     private void clearCache(){new AlertDialog.Builder(this).setTitle("清理管理器临时缓存？").setMessage("将关闭压缩包浏览，移除 ZIP 下载缓存与分享副本；不会删除原文件。其他应用正在读取的分享副本也会失效。").setPositiveButton("清理",(d,w)->job(()->{for(Pane p:panes)if(p.dir.archive!=null)p.dir=store.local(defaultLocalDirectory());diffFirst=null;incoming.removeIf(n->n.archive!=null);store.clearCache();reload();},this::render)).setNegativeButton("取消",null).show();}
     private void launchShortcut(){switch(toolId){case "M02":pick("zip");break;case "M03":applications();break;case "M04":pick("diff-first");break;case "M05":pick("hex");break;case "M06":pick("hash");break;}}
     private void pick(String mode){pendingMode=mode;startActivityForResult(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*").addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION),FILE);}

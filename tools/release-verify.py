@@ -26,6 +26,7 @@ def main():
     ap.add_argument('--coverage', type=pathlib.Path, required=True, help='JSON produced after final compiled-class reflection coverage')
     ap.add_argument('--version-name', default='0.2.0', help='Expected versionName (default keeps the legacy release gate)')
     ap.add_argument('--version-code', default='8', help='Expected versionCode (default keeps the legacy release gate)')
+    ap.add_argument('--abis', nargs='+', default=['arm64-v8a', 'armeabi-v7a'], help='Expected packaged device ABIs')
     args = ap.parse_args()
     for path in (args.apk, args.manifest, args.catalog, args.coverage):
         if not path.is_file(): raise SystemExit(f'FAIL: missing required final-build evidence: {path}')
@@ -55,7 +56,7 @@ def main():
         assert any(b'Lcn/xianhua/pocketkit/MainActivity;' in z.read(n) for n in dex), 'missing launcher class'
         assert any(b'Lcn/xianhua/pocketkit/MlKitBootstrap;' in z.read(n) for n in dex), 'missing MLKit bootstrap class'
         abis = {n.split('/')[1] for n in names if n.startswith('lib/') and n.endswith('.so')}
-        assert abis == {'arm64-v8a','armeabi-v7a','x86','x86_64'}, f'ABI set mismatch: {abis}'
+        assert abis == set(args.abis), f'ABI set mismatch: {abis}, expected {args.abis}'
         for info in z.infolist():
             if info.filename.startswith('lib/') and info.filename.endswith('.so') and info.compress_type == zipfile.ZIP_STORED:
                 stream.seek(info.header_offset); header = stream.read(30); name_len, extra_len = struct.unpack_from('<HH', header, 26)

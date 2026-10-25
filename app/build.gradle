@@ -8,13 +8,14 @@ android {
         applicationId 'cn.xianhua.pocketkit'
         minSdk 26
         targetSdk 36
-        versionCode 28
-        versionName '0.10.4'
+        versionCode 29
+        versionName '0.11.0'
         testInstrumentationRunner 'cn.xianhua.pocketkit.PocketKitRegressionInstrumentation'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled true
     }
     // Keep phone ABIs for the proxy core; x86 is opt-in for emulator testing.
     defaultConfig { ndk {
@@ -28,6 +29,7 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
     implementation files('libs/libbox-1.14.3.aar', 'libs/snakeyaml-2.0.jar')
     // Remote file protocols. Bundled as jars because they are not on Google's Maven mirror:
     // SFTP (jsch), SMB2/3 (smbj + mbassador + asn-one + bcprov), and slf4j-api which smbj logs to.
@@ -48,6 +50,10 @@ dependencies {
     // smbj actually uses (GCM/CCM engines, KDF generator, MD4, CMac, RC4) all exist in it, so no
     // separate copy is needed; this block only pins the intent in one visible place.
     implementation 'com.tom-roush:pdfbox-android:2.0.27.0'
+    implementation 'org.commonmark:commonmark:0.24.0'
+    implementation 'org.commonmark:commonmark-ext-gfm-tables:0.24.0'
+    implementation 'net.lingala.zip4j:zip4j:2.11.5'
+    implementation 'me.zhanghai.android.libarchive:library:1.1.6'
     implementation 'com.google.zxing:core:3.5.3'
     implementation 'com.google.mlkit:text-recognition-chinese:16.0.1'
     implementation 'com.google.mlkit:text-recognition:16.0.1'

@@ -116,8 +116,11 @@ public final class RemotePanelContractTest {
         check(dav.contains("OkHttpClient"), "WebDAV 走 OkHttp，可发送任意请求方法");
         check(gradle.contains("com.squareup.okhttp3:okhttp"), "OkHttp 显式声明，不靠传递依赖");
 
-        // 10. SFTP states its real limitation instead of pretending keys work.
-        check(sftp.contains("StrictHostKeyChecking\", \"no\""), "SFTP 明确不校验主机指纹");
+        // 10. SSH rejects untrusted keys before authentication; trust is a separate UI act.
+        check(sftp.contains("StrictHostKeyChecking\", \"yes\""), "SFTP 严格校验主机指纹");
+        check(sftp.contains("jsch.setHostKeyRepository(hostKeys)"), "SFTP 使用已核对的主机密钥");
+        check(panel.contains("confirmHostKey(saved, e)"), "未知主机指纹经用户显式核对");
+        check(store.contains(".put(\"hostKey\","), "已信任的主机密钥持久化");
         check(sftp.contains("服务器只接受密钥登录"), "SFTP 对密钥登录给出明确错误");
 
         // 11. The panel is a separate surface, not spliced into the local two-pane manager.

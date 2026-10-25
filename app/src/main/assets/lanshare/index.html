@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<title>拾用 · 局域网互传</title>
+<style>
+  :root{
+    --bg:#f3f6fb; --card:#ffffff; --ink:#172d4d; --muted:#61718a;
+    --line:#d7e0ed; --accent:#2264dc; --accent-soft:#e8f0ff;
+    --warn:#8a5a00; --warn-bg:#fff6e0; --danger:#b3261e; --ok:#1d6f42;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#101b2b; --card:#1b293e; --ink:#e7eefc; --muted:#a8b8d1;
+      --line:#40516c; --accent:#9bbcff; --accent-soft:#22344f;
+      --warn:#ffd07a; --warn-bg:#3a2f18; --danger:#ff8f85; --ok:#7ee0a8;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink); min-height:100vh;
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Source Han Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:20px 16px 48px}
+  header{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:4px 0 14px}
+  header h1{font-size:20px;margin:0;letter-spacing:.2px}
+  header .pill{
+    font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);
+    color:var(--muted);background:var(--card)
+  }
+  header .pill.live{color:var(--ok);border-color:currentColor}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:16px;margin:0 0 14px
+  }
+  .card h2{font-size:15px;margin:0 0 4px;letter-spacing:.2px}
+  .card p.sub{color:var(--muted);font-size:13px;margin:0 0 12px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  button{
+    font:inherit;font-size:15px;border-radius:12px;border:1px solid transparent;
+    padding:10px 16px;min-height:44px;cursor:pointer;background:var(--accent);color:#fff;
+    transition:filter .15s ease;touch-action:manipulation
+  }
+  @media (prefers-color-scheme: dark){button{color:#0d1826}}
+  button:hover{filter:brightness(1.06)}
+  button:disabled{opacity:.5;cursor:not-allowed;filter:none}
+  button.ghost{background:transparent;color:var(--accent);border-color:var(--line)}
+  button.danger{background:transparent;color:var(--danger);border-color:currentColor}
+  button.small{font-size:13px;min-height:36px;padding:6px 12px;border-radius:10px}
+  textarea{
+    width:100%;min-height:92px;resize:vertical;font:inherit;color:inherit;
+    background:transparent;border:1px solid var(--line);border-radius:12px;padding:12px
+  }
+  textarea:focus,button:focus-visible,.drop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .drop{
+    border:2px dashed var(--line);border-radius:14px;padding:26px 16px;text-align:center;
+    color:var(--muted);font-size:14px;cursor:pointer;transition:border-color .15s,background .15s
+  }
+  .drop.hot{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
+  .drop strong{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
+  ul.list{list-style:none;margin:0;padding:0}
+  ul.list li{
+    display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);
+    min-width:0
+  }
+  ul.list li:first-child{border-top:0}
+  .name{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+  .name small{display:block;color:var(--muted);font-size:12px}
+  .empty{color:var(--muted);font-size:14px;padding:6px 0}
+  .item{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .item .name{flex:1 1 220px}
+  .bar{height:6px;border-radius:999px;background:var(--accent-soft);overflow:hidden;margin-top:8px}
+  .bar > i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s ease}
+  .job{margin-top:12px}
+  .msg{
+    border-top:1px solid var(--line);padding:9px 0;font-size:14px;overflow-wrap:anywhere;
+    white-space:pre-wrap
+  }
+  .msg:first-child{border-top:0}
+  .msg .meta{color:var(--muted);font-size:11px;margin-bottom:2px}
+  .note{
+    font-size:13px;border-radius:12px;padding:10px 12px;background:var(--warn-bg);
+    color:var(--warn);border:1px solid currentColor;margin:0 0 14px
+  }
+  .status{font-size:13px;color:var(--muted);margin-top:10px;min-height:1.4em;overflow-wrap:anywhere}
+  .status.bad{color:var(--danger)}
+  .status.good{color:var(--ok)}
+  footer{color:var(--muted);font-size:12px;text-align:center;margin-top:18px;line-height:1.7}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  @media (max-width:420px){
+    .wrap{padding:14px 12px 40px}
+    .card{padding:14px;border-radius:14px}
+    .row > button{flex:1 1 100%}
+    .item .name{flex:1 1 100%}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>局域网互传</h1>
+    <span class="pill" id="link-pill">连接中…</span>
+  </header>
+
+  <p class="note">
+    这条连接是 <strong>明文 HTTP</strong>，只在你信任的局域网里、短时间使用。
+    同一网段的其他人有可能看到传输内容。用完请在手机上停止共享。
+  </p>
+
+  <section class="card">
+    <h2>传到手机</h2>
+    <p class="sub">拖文件到这里，或点下面的按钮。文件直接写进你在手机上选定的接收目录，重名会自动加 (1)，不会覆盖已有文件。</p>
+    <div class="drop" id="drop" tabindex="0" role="button" aria-label="选择或拖入要上传的文件">
+      <strong>把文件拖到这里</strong>
+      <span>或点击选择文件（可多选）</span>
+    </div>
+    <input type="file" id="picker" multiple class="visually-hidden" aria-hidden="true" tabindex="-1">
+    <div id="upload-queue" aria-live="polite"></div>
+    <div class="status" id="upload-status"></div>
+  </section>
+
+  <section class="card">
+    <h2>手机里的文件</h2>
+    <p class="sub">只包含两类：你刚上传到接收目录的，以及手机上明确挑出来共享的。手机上的其他文件一概不在这里。</p>
+    <ul class="list" id="files"><li class="empty">正在读取…</li></ul>
+    <div class="status" id="file-status"></div>
+  </section>
+
+  <section class="card">
+    <h2>文字互传</h2>
+    <p class="sub">贴在下面发给手机；手机发来的文字会出现在同一列表里。</p>
+    <textarea id="text" placeholder="粘贴或输入要传给手机的文字…" aria-label="要发送的文字"></textarea>
+    <div class="row" style="margin-top:10px">
+      <button id="send">发送到手机</button>
+      <button id="refresh" class="ghost">刷新</button>
+    </div>
+    <div class="status" id="text-status"></div>
+    <div id="messages" style="margin-top:12px"></div>
+  </section>
+
+  <footer>
+    同一 Wi-Fi / 热点下的电脑与手机才能互通。<br>
+    页面不加载任何外部资源，关闭手机上的共享后刷新即失效。
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // 所有写操作都带这个头：服务端用它拒绝跨站提交（自定义头会触发预检，而本服务从不回 CORS 头）。
+  var GUARD = { "X-LanShare": "1" };
+  var base = location.pathname.replace(/[^/]*$/, "");
+  var lastSignature = "";
+  var MAX_UPLOAD = 4 * 1024 * 1024 * 1024;
+
+  function $(id) { return document.getElementById(id); }
+
+  function bytes(n) {
+    if (n === null || n === undefined || n < 0) { return "大小未知"; }
+    if (n < 1024) { return n + " B"; }
+    var kb = n / 1024;
+    if (kb < 1024) { return kb.toFixed(1) + " KB"; }
+    var mb = kb / 1024;
+    if (mb < 1024) { return mb.toFixed(1) + " MB"; }
+    return (mb / 1024).toFixed(2) + " GB";
+  }
+
+  function setStatus(el, text, kind) {
+    el.textContent = text || "";
+    el.className = "status" + (kind ? " " + kind : "");
+  }
+
+  function el(tag, cls, text) {
+    var node = document.createElement(tag);
+    if (cls) { node.className = cls; }
+    if (text !== undefined) { node.textContent = text; }
+    return node;
+  }
+
+  // ---------- 状态轮询 ----------
+
+  function render(data) {
+    var files = data.files || [];
+    var messages = data.messages || [];
+    var signature = JSON.stringify([
+      files.map(function (f) { return f.id + f.name + f.size; }),
+      messages.length,
+      messages.length ? messages[messages.length - 1].time : 0
+    ]);
+    if (signature !== lastSignature) {
+      lastSignature = signature;
+      renderFiles(files);
+    }
+    renderMessages(messages);
+    $("link-pill").textContent = "已连接";
+    $("link-pill").className = "pill live";
+  }
+
+  function renderFiles(files) {
+    var list = $("files");
+    list.textContent = "";
+    if (!files.length) {
+      list.appendChild(el("li", "empty", "还没有文件。上传成功的文件会出现在这里。"));
+      return;
+    }
+    files.forEach(function (file) {
+      var row = el("li");
+      var name = el("div", "name", file.name);
+      name.appendChild(el("small", null,
+        bytes(file.size) + (file.uploaded ? " · 来自这台电脑" : " · 手机选中")));
+      row.appendChild(name);
+
+      var get = el("button", "ghost small", "下载");
+      get.type = "button";
+      get.addEventListener("click", function () {
+        window.location.href = base + "f/" + encodeURIComponent(file.id);
+        setStatus($("file-status"), "开始下载 " + file.name, "good");
+      });
+      row.appendChild(get);
+
+      if (file.uploaded) {
+        var del = el("button", "danger small", "删除");
+        del.type = "button";
+        del.addEventListener("click", function () {
+          if (!window.confirm("从手机接收目录里删除「" + file.name + "」？")) { return; }
+          del.disabled = true;
+          fetch(base + "api/delete?id=" + encodeURIComponent(file.id), {
+            method: "POST", headers: GUARD, body: ""
+          }).then(function (response) {
+            if (!response.ok) { throw new Error("删除失败（" + response.status + "）"); }
+            setStatus($("file-status"), "已删除 " + file.name, "good");
+            lastSignature = "";
+            refresh();
+          }).catch(function (error) {
+            del.disabled = false;
+            setStatus($("file-status"), error.message, "bad");
+          });
+        });
+        row.appendChild(del);
+      }
+      list.appendChild(row);
+    });
+  }
+
+  function renderMessages(messages) {
+    var box = $("messages");
+    var nearBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 140;
+    box.textContent = "";
+    if (!messages.length) {
+      box.appendChild(el("div", "empty", "还没有文字消息。"));
+      return;
+    }
+    messages.slice(-60).forEach(function (message) {
+      var item = el("div", "msg");
+      var when = new Date(message.time);
+      item.appendChild(el("div", "meta",
+        (message.phone ? "手机" : "电脑") + " · " +
+        when.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" })));
+      item.appendChild(document.createTextNode(message.text));
+      box.appendChild(item);
+    });
+    if (nearBottom) { window.scrollTo(0, document.body.scrollHeight); }
+  }
+
+  function refresh() {
+    return fetch(base + "api/state", { headers: GUARD, cache: "no-store" })
+      .then(function (response) {
+        if (!response.ok) { throw new Error("状态读取失败（" + response.status + "）"); }
+        return response.json();
+      })
+      .then(render)
+      .catch(function (error) {
+        $("link-pill").textContent = "已断开";
+        $("link-pill").className = "pill";
+        setStatus($("upload-status"), error.message + "；手机上的共享可能已经停止。", "bad");
+      });
+  }
+
+  // ---------- 上传：一次一个，排队，可取消 ----------
+
+  var queue = [];
+  var busy = false;
+
+  function cancelJob(job) {
+    job.cancelled = true;
+    if (job.xhr) {
+      job.xhr.abort();
+      return;
+    }
+    job.holder.remove();
+    setStatus($("upload-status"), "已取消 " + job.file.name + "（没有上传任何内容）", "");
+  }
+
+  function enqueue(files) {
+    var accepted = 0;
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      if (file.size > MAX_UPLOAD) {
+        setStatus($("upload-status"), file.name + "：超过单次 4 GB 上限", "bad");
+        continue;
+      }
+      var job = { file: file, cancelled: false, xhr: null };
+      var holder = el("div", "job");
+      var item = el("div", "item");
+      var name = el("div", "name", file.name);
+      name.appendChild(el("small", null, bytes(file.size) + " · 等待中"));
+      item.appendChild(name);
+      var cancel = el("button", "danger small", "取消");
+      cancel.type = "button";
+      item.appendChild(cancel);
+      var bar = el("div", "bar");
+      bar.appendChild(el("i"));
+      holder.appendChild(item);
+      holder.appendChild(bar);
+      $("upload-queue").appendChild(holder);
+
+      job.holder = holder;
+      job.name = name;
+      job.cancel = cancel;
+      job.bar = bar.firstChild;
+      cancel.addEventListener("click", function (target) {
+        return function () { cancelJob(target); };
+      }(job));
+      queue.push(job);
+      accepted++;
+    }
+    if (accepted) { pump(); }
+  }
+
+  function prune(job) {
+    job.cancel.disabled = true;
+    job.holder.remove();
+  }
+
+  function pump() {
+    if (busy) { return; }
+    var job = queue.shift();
+    if (!job) {
+      setStatus($("upload-status"), "全部处理完毕", "good");
+      return;
+    }
+    if (job.cancelled) {
+      prune(job);
+      pump();
+      return;
+    }
+    busy = true;
+    start(job);
+  }
+
+  function setState(job, text) {
+    var meta = job.name.querySelector("small");
+    if (meta) { meta.textContent = bytes(job.file.size) + " · " + text; }
+  }
+
+  function start(job) {
+    var xhr = new XMLHttpRequest();
+    job.xhr = xhr;
+    setState(job, "传输中");
+
+    function done() {
+      busy = false;
+      job.xhr = null;
+      setTimeout(pump, 60);
+    }
+
+    xhr.upload.addEventListener("progress", function (event) {
+      if (!event.lengthComputable || job.cancelled) { return; }
+      var percent = Math.round(event.loaded / event.total * 100);
+      job.bar.style.width = percent + "%";
+      setState(job, bytes(event.loaded) + " / " + bytes(event.total) + " · " + percent + "%");
+    });
+
+    xhr.addEventListener("load", function () {
+      if (job.cancelled) { return; }
+      if (xhr.status >= 200 && xhr.status < 300) {
+        job.bar.style.width = "100%";
+        setState(job, "已写入手机");
+        prune(job);
+        setStatus($("upload-status"), "已上传 " + job.file.name, "good");
+        lastSignature = "";
+        refresh();
+      } else {
+        var detail = "上传失败（" + xhr.status + "）";
+        try { detail = JSON.parse(xhr.responseText).error || detail; } catch (ignored) {}
+        prune(job);
+        setStatus($("upload-status"), job.file.name + "：" + detail
+          + "（手机上的半成品已删除）", "bad");
+      }
+      done();
+    });
+
+    xhr.addEventListener("error", function () {
+      if (job.cancelled) { return; }
+      prune(job);
+      setStatus($("upload-status"), job.file.name + "：连接中断，手机上的半成品已删除", "bad");
+      done();
+    });
+
+    xhr.addEventListener("abort", function () {
+      if (!job.cancelled) { return; }
+      job.bar.style.width = "0%";
+      prune(job);
+      setStatus($("upload-status"), "已取消 " + job.file.name
+        + "（手机上不会留下半截文件）", "");
+      done();
+    });
+
+    xhr.open("POST", base + "api/upload?name=" + encodeURIComponent(job.file.name), true);
+    xhr.setRequestHeader("X-LanShare", "1");
+    xhr.setRequestHeader("Content-Type", "application/octet-stream");
+    xhr.send(job.file);
+  }
+
+  var drop = $("drop");
+  var picker = $("picker");
+
+  drop.addEventListener("click", function () { picker.click(); });
+  drop.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      picker.click();
+    }
+  });
+  picker.addEventListener("change", function () {
+    if (picker.files && picker.files.length) { enqueue(picker.files); }
+    picker.value = "";
+  });
+  ["dragenter", "dragover"].forEach(function (name) {
+    drop.addEventListener(name, function (event) {
+      event.preventDefault();
+      drop.classList.add("hot");
+    });
+  });
+  ["dragleave", "drop"].forEach(function (name) {
+    drop.addEventListener(name, function (event) {
+      event.preventDefault();
+      drop.classList.remove("hot");
+    });
+  });
+  drop.addEventListener("drop", function (event) {
+    var items = event.dataTransfer && event.dataTransfer.files;
+    if (items && items.length) { enqueue(items); }
+  });
+
+  // ---------- 文字 ----------
+
+  $("send").addEventListener("click", function () {
+    var box = $("text");
+    var text = box.value.trim();
+    if (!text) {
+      setStatus($("text-status"), "先写点内容再发", "bad");
+      return;
+    }
+    var button = this;
+    button.disabled = true;
+    fetch(base + "api/text", { method: "POST", headers: GUARD, body: text })
+      .then(function (response) {
+        if (!response.ok) { throw new Error("发送失败（" + response.status + "）"); }
+        box.value = "";
+        setStatus($("text-status"), "已发送给手机", "good");
+        lastSignature = "";
+        refresh();
+      })
+      .catch(function (error) { setStatus($("text-status"), error.message, "bad"); })
+      .then(function () { button.disabled = false; });
+  });
+
+  $("refresh").addEventListener("click", function () {
+    lastSignature = "";
+    refresh();
+  });
+
+  refresh();
+  setInterval(refresh, 3000);
+})();
+</script>
+</body>
+</html>
