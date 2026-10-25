@@ -98,4 +98,4 @@
 
 依赖和来源记录见 evidence/build-dependencies.json、docs/implementation-paths.md；APK包含 app/src/main/assets/third-party-notices.txt 与 additional-notices.txt。第三方SDK受各自条款约束，本项目不能称整个依赖链全开源；开发包不是商业分发许可的完整法律审查。
 
-传统色来自两份MIT数据集；GIF使用明确来源的NeuQuant/LZW编码核心，保留Apache声明与Anthony Dekker单独许可。其余代码与系统接口独立实现。未采用来源不清的商业字典抓取数据、未借商业API凭据。
+传统色来自两份MIT数据集；GIF使用明确来源的NeuQuant/LZW编码核心，保留Apache声明与Anthony Dekker单独许可。其余代码与系统接口独立实现。未采用来源不清的商业字典抓取数据、未借商业API凭据。本项目源码基于 [Apache-2.0 许可协议](LICENSE) 开源。
