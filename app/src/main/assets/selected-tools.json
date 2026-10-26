@@ -742,6 +742,13 @@
     "enhancements": []
   },
   {
+    "id": "N02",
+    "name": "无痕浏览",
+    "category": "网络工具",
+    "module": "BrowserHomeActivity",
+    "enhancements": []
+  },
+  {
     "id": "F01",
     "name": "重复文件查找",
     "category": "文件管理",

@@ -71,6 +71,13 @@
         <service android:name=".pinoverlay.PinOverlayService" android:exported="false" android:foregroundServiceType="specialUse">
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started pinned image overlay for visual reference; closed from its controls or notification. No screen recording." />
         </service>
+        <activity android:name=".BrowserHomeActivity" android:label="拾用·无痕浏览" android:exported="false"
+            android:launchMode="singleTop" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".PrivateBrowserActivity" android:label="拾用·无痕浏览"
+            android:exported="false" android:process=":private_browser"
+            android:launchMode="singleTask" android:taskAffinity="cn.xianhua.pocketkit.private_browser"
+            android:excludeFromRecents="true" android:configChanges="orientation|screenSize|keyboardHidden|uiMode"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".LanShareActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
         <service android:name=".lanshare.LanShareService" android:exported="false" android:foregroundServiceType="dataSync" />
         <activity android:name=".FileToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />

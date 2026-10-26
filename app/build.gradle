@@ -8,8 +8,8 @@ android {
         applicationId 'cn.xianhua.pocketkit'
         minSdk 26
         targetSdk 36
-        versionCode 29
-        versionName '0.11.0'
+        versionCode 30
+        versionName '0.12.0'
         testInstrumentationRunner 'cn.xianhua.pocketkit.PocketKitRegressionInstrumentation'
     }
     compileOptions {
@@ -61,6 +61,8 @@ dependencies {
     implementation 'com.google.mlkit:face-detection:16.1.7'
     implementation 'com.google.mlkit:image-labeling:17.0.9'
     implementation 'androidx.exifinterface:exifinterface:1.3.7'
+    // Small compatibility bridge; the browser still uses the system WebView engine.
+    implementation 'androidx.webkit:webkit:1.12.1'
     implementation 'com.ibm.icu:icu4j:76.1'
 }
 
