@@ -1,5 +1,12 @@
 Additional third-party source/data notices
 
+PocketKit 0.12.0 adds AndroidX WebKit 1.12.1 (Apache-2.0).
+Copyright The Android Open Source Project.
+https://developer.android.com/jetpack/androidx/releases/webkit
+https://android.googlesource.com/platform/frameworks/support/+/androidx-main/webkit/
+Apache-2.0 license text is included in the bundled dependency notices.
+The browser uses the device's system WebView; no Chromium engine is redistributed here.
+
 PocketKit 0.11.0 adds commonmark 0.24.0 (BSD-2-Clause), zip4j 2.11.5 (Apache-2.0),
 libarchive-android 1.1.6 and its native dependencies, and desugar_jdk_libs 2.1.5.
 Their license texts are preserved in toolbox-011-notices.txt and displayed in About.
