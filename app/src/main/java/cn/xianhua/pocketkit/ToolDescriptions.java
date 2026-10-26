@@ -10,7 +10,7 @@ public final class ToolDescriptions {
         COPY.put("R01", "打开 Markdown、电子书与常见文档");
         COPY.put("I01", "把截图贴在屏幕上，对照查看和填写");
         COPY.put("N01", "同一局域网，浏览器互传文件与文字");
-        COPY.put("N02", "基础抗指纹无痕浏览，加密冻结登录会话");
+        COPY.put("N02", "无痕浏览，退出即清除，可冻结会话下次接着看");
         COPY.put("F01", "按文件内容查重，确认后再清理");
         COPY.put("F02", "预览批量改名，替换、加前后缀与序号");
         COPY.put("F03", "创建 ZIP，解压 ZIP、7z 与 RAR");
