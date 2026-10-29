@@ -27,6 +27,11 @@ public final class ToolCatalogTest {
         require(ToolCatalog.category("071", "").equals("自动化"), "ticket helper purpose");
         require(ToolCatalog.category("A08", "").equals("影音变声"), "video purpose");
         require(ToolCatalog.category("034", "").equals("文档扫描"), "OCR purpose");
+        require(found.contains("D01") && ToolCatalog.category("D01", "").equals("设备测量"), "camera rangefinder entry");
+        require(found.contains("I02") && ToolCatalog.category("I02", "").equals("图片编辑"), "picture text repair entry");
+        require(ToolCatalog.keywords("I02").contains("去字"), "picture text repair searchable");
+        String manifest = new String(Files.readAllBytes(root.resolve("app/src/main/AndroidManifest.xml")), java.nio.charset.StandardCharsets.UTF_8);
+        require(manifest.contains("android:name=\".PatchEditorActivity\""), "picture text repair activity registered");
         require(ToolCatalog.keywords("V01").contains("文字转语音"), "merged voice search alias");
         String main = new String(Files.readAllBytes(root.resolve("app/src/main/java/cn/xianhua/pocketkit/MainActivity.java")), java.nio.charset.StandardCharsets.UTF_8);
         require(main.contains("ToolCatalog.canonicalId(id)") && main.contains("putStringSet(\"pinned\""), "pin migration/persistence");

@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>修改定位</title>
+<style>
+  :root{
+    --ink:#172D4D; --muted:#61718A; --surface:#FFFFFF; --base:#F3F6FB;
+    --accent:#2264DC; --line:#D7E0ED; --warn:#8A5A00; --warn-bg:#FFF6E0;
+    --danger:#B3261E; --ok:#1B7F4B;
+  }
+  body.dark{
+    --ink:#E7EEFC; --muted:#A8B8D1; --surface:#1B293E; --base:#101B2B;
+    --accent:#9BBCFF; --line:#40516C; --warn:#FFD07A; --warn-bg:#3A2F18;
+    --danger:#FF8A80; --ok:#6FD39B;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%;overflow:hidden;background:var(--base);color:var(--ink);
+    font:14px/1.45 -apple-system,"Noto Sans SC","PingFang SC",sans-serif}
+  #app{display:flex;flex-direction:column;height:100%}
+  #map{position:relative;flex:1;overflow:hidden;background-color:var(--base);touch-action:none;cursor:grab;
+    background-image:linear-gradient(rgba(23,45,77,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(23,45,77,.07) 1px,transparent 1px);
+    background-size:64px 64px}
+  body.dark #map{background-image:linear-gradient(rgba(231,238,252,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(231,238,252,.06) 1px,transparent 1px)}
+  #map.dragging{cursor:grabbing}
+  #mapstatus{position:absolute;inset:0;z-index:9;display:none;align-items:center;justify-content:center;pointer-events:none;padding:0 20px}
+  #mapstatus .box{pointer-events:auto;max-width:270px;text-align:center;background:var(--surface);border:1px solid var(--line);
+    border-radius:14px;box-shadow:0 8px 24px rgba(16,27,43,.18);padding:16px 18px;font-size:13px;color:var(--ink)}
+  #mapstatus .box b{display:block;margin-bottom:5px}
+  #mapstatus .box p{margin:0 0 11px;color:var(--muted);font-size:12.5px;line-height:1.45}
+  #mapstatus .box.load{padding:7px 14px;border-radius:999px;box-shadow:none;color:var(--muted);pointer-events:none}
+  #mapstatus .box.load p{margin:0}
+  #mapstatus button{border:0;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;font-size:13px;padding:8px 18px}
+  .tile{position:absolute;width:256px;height:256px;user-select:none;-webkit-user-drag:none;pointer-events:none;background:#E8EDF4}
+  body.dark .tile{filter:invert(.92) hue-rotate(180deg) brightness(.92)}
+  #route{position:absolute;inset:0;pointer-events:none}
+  .pin{position:absolute;transform:translate(-50%,-100%);pointer-events:none;z-index:5}
+  .pin .dot{width:16px;height:16px;border-radius:50%;background:var(--accent);border:3px solid #fff;
+    box-shadow:0 1px 5px rgba(0,0,0,.4);transform:translate(2px,10px)}
+  .pin .num{position:absolute;top:-20px;left:50%;transform:translateX(-50%);background:var(--accent);
+    color:#fff;border-radius:9px;font-size:11px;padding:1px 6px;white-space:nowrap}
+  .pin.center .dot{background:var(--danger)}
+  .live-position{position:absolute;width:14px;height:14px;transform:translate(-50%,-50%);z-index:6;
+    border:3px solid #fff;border-radius:50%;background:var(--ok);box-shadow:0 0 0 5px rgba(27,127,75,.2),0 1px 5px rgba(0,0,0,.35);pointer-events:none}
+  .pulse{position:absolute;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;
+    background:radial-gradient(circle,rgba(34,100,220,.28),rgba(34,100,220,0) 70%);pointer-events:none;z-index:3}
+  #hud{position:absolute;left:10px;right:10px;top:10px;z-index:10;display:flex;gap:8px;align-items:flex-start}
+  .search{flex:1;display:flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;
+    box-shadow:0 4px 14px rgba(16,27,43,.14);overflow:hidden}
+  .search input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font-size:14px;padding:10px 12px}
+  .search button,.chipbtn{border:0;background:transparent;color:var(--accent);font-weight:600;font-size:14px;padding:0 12px}
+  .chipbtn{background:var(--surface);border:1px solid var(--line);border-radius:12px;height:40px;
+    box-shadow:0 4px 14px rgba(16,27,43,.14)}
+  #results{position:absolute;left:10px;right:10px;top:56px;z-index:12;background:var(--surface);
+    border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 28px rgba(16,27,43,.22);
+    max-height:44vh;overflow:auto;display:none}
+  #results .row{padding:10px 12px;border-bottom:1px solid var(--line);cursor:pointer}
+  #results .row:last-child{border-bottom:0}
+  #results .row b{font-weight:600}
+  #results .row small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+  #zoom{position:absolute;right:10px;bottom:14px;z-index:10;display:flex;flex-direction:column;gap:6px}
+  #zoom button{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--surface);
+    color:var(--ink);font-size:20px;line-height:1;box-shadow:0 4px 14px rgba(16,27,43,.14)}
+  #coords{position:absolute;left:10px;bottom:20px;z-index:10;background:rgba(255,255,255,.86);
+    color:var(--muted);font-size:11px;padding:4px 8px;border-radius:8px;backdrop-filter:blur(4px)}
+  body.dark #coords{background:rgba(27,41,62,.86)}
+  #attribution{position:absolute;left:10px;bottom:2px;z-index:10;color:var(--muted);font-size:10px}
+  #panel{background:var(--surface);border-top:1px solid var(--line);padding:10px 14px 14px;
+    box-shadow:0 -6px 20px rgba(16,27,43,.08);max-height:46vh;overflow:auto}
+  #banner{display:none;margin-bottom:8px;padding:9px 11px;border-radius:10px;background:var(--warn-bg);
+    color:var(--warn);border:1px solid rgba(138,90,0,.28);font-size:12.5px}
+  #banner b{display:block;margin-bottom:3px}
+  #banner button{margin-top:6px;border:1px solid currentColor;background:transparent;color:inherit;
+    border-radius:8px;padding:4px 10px;font-size:12.5px}
+  .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px}
+  .pts{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+  .pt{display:flex;align-items:center;gap:6px;background:var(--base);border:1px solid var(--line);
+    border-radius:999px;padding:4px 8px 4px 10px;font-size:12px;font-variant-numeric:tabular-nums}
+  .pt i{font-style:normal;color:var(--muted)}
+  .pt button{border:0;background:transparent;color:var(--danger);font-size:15px;line-height:1;padding:0 2px}
+  .pt.single button{display:none}
+  .rowline{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .rowline label{color:var(--muted);font-size:12.5px;white-space:nowrap}
+  input[type=range]{flex:1;accent-color:var(--accent)}
+  .val{width:56px;text-align:right;font-size:12.5px;font-variant-numeric:tabular-nums}
+  .actions{display:flex;gap:8px}
+  .primary{flex:1;border:0;border-radius:12px;background:var(--accent);color:#fff;font-weight:600;
+    font-size:15px;padding:12px}
+  .primary:disabled{opacity:.45}
+  .ghost{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;
+    font-size:14px;padding:12px 14px}
+  .ghost.danger{color:var(--danger);border-color:rgba(179,38,30,.4)}
+  #status{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-bottom:8px}
+  #dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex:none}
+  #dot.on{background:var(--ok);box-shadow:0 0 0 4px rgba(27,127,75,.16)}
+  #dot.pause{background:var(--warn)}
+  #dot.err{background:var(--danger)}
+  #bar{height:4px;border-radius:2px;background:var(--line);overflow:hidden;margin-bottom:8px;display:none}
+  #bar>i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+  .single-only,.route-only{display:none}
+  body.footprint .route-only{display:block}
+  body.footprint .single-only{display:none}
+  body.fixed .single-only{display:block}
+  body.fixed .route-only{display:none}
+  .actions.route-only{display:none}
+  body.footprint .actions.route-only{display:flex}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="map">
+    <svg id="route"><polyline id="line" fill="none" stroke="#2264DC" stroke-width="3"
+      stroke-linecap="round" stroke-linejoin="round" opacity=".85"/></svg>
+    <div id="markers"></div>
+    <div id="hud">
+      <div class="search">
+        <input id="q" type="search" placeholder="搜索地点或输入纬度,经度" autocomplete="off" aria-label="搜索地点或输入纬度,经度">
+        <button id="go">搜索</button>
+      </div>
+      <button class="chipbtn" id="locate" title="回到当前模拟位置或起点" aria-label="回到当前模拟位置或起点">◎</button>
+    </div>
+    <div id="results"></div>
+    <div id="mapstatus"></div>
+    <div id="zoom"><button id="zin">+</button><button id="zout">−</button></div>
+    <div id="coords">—</div>
+    <div id="attribution">地图 © 高德 / 腾讯 · 地点 © OpenStreetMap</div>
+  </div>
+
+  <div id="panel">
+    <div id="banner"></div>
+    <div id="status"><span id="dot"></span><span id="stext">未在模拟</span></div>
+    <div id="bar"><i></i></div>
+
+    <div class="hint route-only" id="routeHint">依次选择起点和途经点，按直线连接、匀速移动；到终点后停在原地。</div>
+    <div class="hint single-only">在地图上选点或搜索地点。抖动设为 0 米可精确定位。</div>
+    <div class="hint">地图区域会发送给高德或腾讯；搜索词会发送给系统地点服务及 Photon。坐标格式：纬度,经度（GCJ-02）。</div>
+
+    <div class="pts" id="pts"></div>
+
+    <div class="rowline route-only">
+      <label>速度</label>
+      <input id="speed" type="range" min="0.3" max="8" step="0.1" value="1.4">
+      <span class="val" id="speedv">1.4 m/s</span>
+    </div>
+    <div class="rowline">
+      <label>抖动</label>
+      <input id="jitter" type="range" min="0" max="12" step="1" value="2">
+      <span class="val" id="jitterv">2 米</span>
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="start">启动模拟</button>
+      <button class="ghost" id="clear">清空</button>
+    </div>
+    <div class="actions route-only" id="live">
+      <button class="ghost" id="pause">暂停</button>
+      <button class="ghost" id="fast">2 倍速</button>
+      <button class="ghost danger" id="stop">停止</button>
+    </div>
+    <div class="actions single-only" id="live2">
+      <button class="ghost danger" id="stop2">停止模拟</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  "use strict";
+  var mode = /mode=footprint/.test(location.search) ? "footprint" : "fixed";
+  if (/dark=1/.test(location.search)) document.body.classList.add("dark");
+  document.body.classList.add(mode);
+
+  var TILE = 256;
+  var MIN_Z = 4, MAX_Z = 19;
+  var zoom = 16;
+  var center = {lat: 39.90890, lng: 116.39750};   // 天安门，GCJ-02
+  var points = [];                                 // GCJ-02
+  var seededFromSession = false, livePosition = null;
+  var running = false, paused = false, arrived = false, lastMultiplier = 1;
+  var map = document.getElementById("map");
+  var markers = document.getElementById("markers");
+  var line = document.getElementById("line");
+  var tiles = {};
+
+  function project(lat, lng, z){
+    var scale = TILE * Math.pow(2, z);
+    var s = Math.sin(lat * Math.PI / 180);
+    s = Math.max(-0.9999, Math.min(0.9999, s));
+    return {x: (lng + 180) / 360 * scale,
+            y: (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * scale};
+  }
+  function unproject(x, y, z){
+    var scale = TILE * Math.pow(2, z);
+    var lng = x / scale * 360 - 180;
+    var n = Math.PI - 2 * Math.PI * y / scale;
+    return {lat: Math.atan(Math.sinh(n)) * 180 / Math.PI, lng: lng};
+  }
+  function view(){ return {w: map.clientWidth, h: map.clientHeight}; }
+  function centerPx(){ return project(center.lat, center.lng, zoom); }
+  function toScreen(lat, lng){
+    var p = project(lat, lng, zoom), c = centerPx(), v = view();
+    return {x: p.x - c.x + v.w / 2, y: p.y - c.y + v.h / 2};
+  }
+  function fromScreen(x, y){
+    var c = centerPx(), v = view();
+    return unproject(c.x + x - v.w / 2, c.y + y - v.h / 2, zoom);
+  }
+
+  // ---- 高德 / 腾讯栅格瓦片，均按 GCJ-02 显示 ----
+  var tileStats = {loaded: 0, error: 0};
+  function refreshTileStatus(){
+    var total = 0;
+    tileStats.loaded = 0; tileStats.error = 0;
+    for (var key in tiles){
+      total++;
+      if (tiles[key]._state === "loaded") tileStats.loaded++;
+      if (tiles[key]._state === "error") tileStats.error++;
+    }
+    if (tileStats.loaded) hideMapStatus();
+    else if (total && tileStats.error === total) showMapStatus("error");
+    else if (total) showMapStatus("loading");
+  }
+  function nextTileSource(img){
+    clearTimeout(img._timer);
+    if (img._removed) return;
+    img._attempt++;
+    if (img._attempt >= img._sources.length){
+      img._state = "error"; img.style.visibility = "hidden"; refreshTileStatus();
+      return;
+    }
+    var attempt = img._attempt;
+    img.onload = function(){
+      if (this._removed || this._attempt !== attempt) return;
+      clearTimeout(this._timer); this._state = "loaded"; refreshTileStatus();
+    };
+    img.onerror = function(){
+      if (!this._removed && this._attempt === attempt) nextTileSource(this);
+    };
+    img.src = img._sources[attempt];
+    img._timer = setTimeout(function(){
+      if (!img._removed && img._state === "loading" && img._attempt === attempt) nextTileSource(img);
+    }, 5000);
+  }
+  function discardTile(img){
+    img._removed = true; clearTimeout(img._timer); img.remove();
+  }
+  function renderTiles(){
+    var v = view(), c = centerPx();
+    if (!v.w || !v.h) return;
+    var left = c.x - v.w / 2, top = c.y - v.h / 2;
+    var x0 = Math.floor(left / TILE), x1 = Math.floor((left + v.w) / TILE);
+    var y0 = Math.floor(top / TILE), y1 = Math.floor((top + v.h) / TILE);
+    var count = Math.pow(2, zoom);
+    var keep = {};
+    for (var x = x0; x <= x1; x++){
+      for (var y = y0; y <= y1; y++){
+        if (y < 0 || y >= count) continue;
+        var wx = ((x % count) + count) % count;
+        var key = zoom + "/" + wx + "/" + y;
+        keep[key] = 1;
+        var img = tiles[key];
+        if (!img){
+          img = document.createElement("img");
+          img.className = "tile"; img.loading = "eager"; img.alt = "";
+          var sub = 1 + (Math.abs(wx + y) % 4);
+          var suffix = "?lang=zh_cn&size=1&scale=1&style=7&x=" + wx + "&y=" + y + "&z=" + zoom;
+          img._sources = [
+            "https://wprd0" + sub + ".is.autonavi.com/appmaptile" + suffix,
+            "https://rt0.map.gtimg.com/realtimerender?z=" + zoom + "&x=" + wx + "&y=" + (count - 1 - y) + "&type=vector&style=0",
+            "https://webrd0" + sub + ".is.autonavi.com/appmaptile" + suffix
+          ];
+          img._attempt = -1; img._state = "loading";
+          map.insertBefore(img, map.firstChild);
+          tiles[key] = img;
+          nextTileSource(img);
+        }
+        img.style.left = (x * TILE - left) + "px";
+        img.style.top = (y * TILE - top) + "px";
+      }
+    }
+    for (var k in tiles){
+      if (!keep[k]){ discardTile(tiles[k]); delete tiles[k]; }
+    }
+    refreshTileStatus();
+  }
+
+  // ---- 底图状态提示（统一一个浮层，避免各种失败都只剩一张白板） ----
+  var mapStatus = document.getElementById("mapstatus");
+  var tileTimer = null;
+  function showMapStatus(kind){
+    if (kind === "loading"){
+      mapStatus.className = "loading";
+      mapStatus.innerHTML = '<div class="box load"><p>正在加载地图…</p></div>';
+    } else {
+      mapStatus.innerHTML = '<div class="box"><b>地图没加载出来</b>'
+        + '<p>网络断了，或地图服务暂时连不上。位置照样能选——直接在地图上点，或用上面搜索。</p>'
+        + '<button id="mapRetry">重试</button></div>';
+      var btn = document.getElementById("mapRetry");
+      if (btn) btn.onclick = function(){ retryTiles(); };
+    }
+    mapStatus.style.display = "flex";
+  }
+  function hideMapStatus(){ mapStatus.style.display = "none"; mapStatus.innerHTML = ""; }
+  function retryTiles(){
+    tileStats.loaded = 0; tileStats.error = 0;
+    for (var k in tiles){ discardTile(tiles[k]); delete tiles[k]; }
+    hideMapStatus();
+    showMapStatus("loading");
+    render();
+    // 15 秒仍没出一张，就告诉用户别死等
+    clearTimeout(tileTimer);
+    tileTimer = setTimeout(function(){ if (tileStats.loaded === 0){ showMapStatus("error"); } }, 15000);
+  }
+
+  // ---- 标记与路线 ----
+  function renderLivePosition(){
+    if (!livePosition) return;
+    var position = toScreen(livePosition.lat, livePosition.lng);
+    var dot = document.createElement("div");
+    dot.className = "live-position"; dot.title = "当前模拟位置";
+    dot.style.left = position.x + "px"; dot.style.top = position.y + "px";
+    markers.appendChild(dot);
+  }
+  function renderMarks(){
+    markers.innerHTML = "";
+    if (!points.length) { line.setAttribute("points", ""); renderLivePosition(); return; }
+    var show = points.length > 1 ? points : [points[0]];
+    for (var i = 0; i < show.length; i++){
+      var p = toScreen(show[i].lat, show[i].lng);
+      var pin = document.createElement("div");
+      pin.className = "pin" + (i === 0 && points.length === 1 ? " center" : "");
+      pin.style.left = p.x + "px";
+      pin.style.top = p.y + "px";
+      var dot = document.createElement("div"); dot.className = "dot";
+      pin.appendChild(dot);
+      if (show.length > 1){
+        var num = document.createElement("div"); num.className = "num"; num.textContent = String(i + 1);
+        pin.appendChild(num);
+      }
+      markers.appendChild(pin);
+      if (i === 0 && points.length === 1){
+        var pulse = document.createElement("div"); pulse.className = "pulse";
+        pulse.style.left = p.x + "px"; pulse.style.top = p.y + "px";
+        markers.appendChild(pulse);
+      }
+    }
+    if (show.length > 1){
+      var pts = show.map(function(pt){
+        var s = toScreen(pt.lat, pt.lng); return s.x + "," + s.y;
+      }).join(" ");
+      line.setAttribute("points", pts);
+      line.setAttribute("stroke", document.body.classList.contains("dark") ? "#9BBCFF" : "#2264DC");
+    } else {
+      line.setAttribute("points", "");
+    }
+    renderLivePosition();
+  }
+
+  function render(){ renderTiles(); renderMarks(); updateCoords(); }
+
+  function updateCoords(){
+    var el = document.getElementById("coords");
+    if (!points.length){ el.textContent = "点击地图选点"; return; }
+    var p = points[points.length - 1];
+    el.textContent = p.lat.toFixed(5) + ", " + p.lng.toFixed(5) + " (GCJ-02)";
+  }
+
+  function moveBy(dx, dy){
+    var c = centerPx(), v = view();
+    var next = unproject(c.x - dx, c.y - dy, zoom);
+    if (next.lat > 85 || next.lat < -85) return;
+    center = {lat: next.lat, lng: next.lng};
+    render();
+  }
+  function zoomTo(next, anchorX, anchorY){
+    next = Math.max(MIN_Z, Math.min(MAX_Z, next));
+    if (next === zoom) return;
+    var v = view();
+    var ax = anchorX == null ? v.w / 2 : anchorX;
+    var ay = anchorY == null ? v.h / 2 : anchorY;
+    var before = fromScreen(ax, ay);
+    zoom = next;
+    var after = toScreen(before.lat, before.lng);
+    var c = centerPx();
+    var shifted = unproject(c.x + (after.x - ax), c.y + (after.y - ay), zoom);
+    center = {lat: shifted.lat, lng: shifted.lng};
+    render();
+  }
+
+  // ---- 手势：拖动 / 双指缩放 / 单击选点 ----
+  var pointers = new Map();
+  var dragStart = null, moved = 0, pinchStart = null;
+
+  map.addEventListener("pointerdown", function(e){
+    if (e.target.closest("#hud,#zoom,#results,#mapstatus")) return;
+    map.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, {x: e.clientX, y: e.clientY});
+    if (pointers.size === 1){
+      dragStart = {x: e.clientX, y: e.clientY};
+      moved = 0;
+      map.classList.add("dragging");
+    } else if (pointers.size === 2){
+      var p = Array.from(pointers.values());
+      pinchStart = {d: Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y), z: zoom};
+      dragStart = null;
+    }
+  });
+  map.addEventListener("pointermove", function(e){
+    if (!pointers.has(e.pointerId)) return;
+    var prev = pointers.get(e.pointerId);
+    pointers.set(e.pointerId, {x: e.clientX, y: e.clientY});
+    if (pointers.size === 1 && dragStart){
+      var dx = e.clientX - prev.x, dy = e.clientY - prev.y;
+      moved += Math.abs(dx) + Math.abs(dy);
+      moveBy(dx, dy);
+    } else if (pointers.size === 2 && pinchStart){
+      var p = Array.from(pointers.values());
+      var d = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y);
+      if (pinchStart.d > 10){
+        var rect = map.getBoundingClientRect();
+        zoomTo(Math.round(pinchStart.z + Math.log2(d / pinchStart.d) * 1.4),
+               (p[0].x + p[1].x) / 2 - rect.left, (p[0].y + p[1].y) / 2 - rect.top);
+      }
+      moved = 99;
+    }
+  });
+  function endPointer(e){
+    if (!pointers.has(e.pointerId)) return;
+    pointers.delete(e.pointerId);
+    if (pointers.size === 0){
+      map.classList.remove("dragging");
+      // 只有 pointerup 才算「点了一下」；pointercancel 是系统抢走了手势，
+      // 这时 clientX/clientY 可能是 0，绝不能拿它当一次选点。
+      // 容差 12px：手指点按时难免抖，太严会把一次正常点选当成拖动而丢掉。
+      if (e.type === "pointerup" && dragStart && moved < 12) pickAt(e.clientX, e.clientY);
+      dragStart = null; pinchStart = null;
+    } else if (pointers.size === 1){
+      var remaining = Array.from(pointers.values())[0];
+      dragStart = {x: remaining.x, y: remaining.y};
+      pinchStart = null;
+    }
+  }
+  map.addEventListener("pointerup", endPointer);
+  map.addEventListener("pointercancel", endPointer);
+  map.addEventListener("wheel", function(e){
+    e.preventDefault();
+    var rect = map.getBoundingClientRect();
+    zoomTo(zoom + (e.deltaY < 0 ? 1 : -1), e.clientX - rect.left, e.clientY - rect.top);
+  }, {passive: false});
+
+  function pickAt(clientX, clientY){
+    var rect = map.getBoundingClientRect();
+    var p = fromScreen(clientX - rect.left, clientY - rect.top);
+    if (mode === "fixed") points = [{lat: p.lat, lng: p.lng}];
+    else points.push({lat: p.lat, lng: p.lng});
+    render(); renderPoints();
+  }
+
+  // ---- 点列表 ----
+  function renderPoints(){
+    var host = document.getElementById("pts");
+    host.innerHTML = "";
+    if (!points.length){
+      var empty = document.createElement("span");
+      empty.className = "hint"; empty.style.margin = "0";
+      empty.textContent = mode === "fixed" ? "还没有选点" : "还没有添加足迹点";
+      host.appendChild(empty);
+      return;
+    }
+    points.forEach(function(p, i){
+      var chip = document.createElement("span");
+      chip.className = "pt" + (points.length === 1 ? " single" : "");
+      var label = document.createElement("span");
+      label.textContent = (mode === "footprint" ? (i + 1) + ". " : "") + p.lat.toFixed(4) + ", " + p.lng.toFixed(4);
+      var del = document.createElement("button");
+      del.type = "button"; del.textContent = "×"; del.title = "删除这个点";
+      del.onclick = function(){
+        if (i === 0) seededFromSession = false;
+        points.splice(i, 1);
+        if (mode === "fixed" && points.length > 1) points = [points[points.length - 1]];
+        render(); renderPoints();
+      };
+      chip.appendChild(label); chip.appendChild(del);
+      host.appendChild(chip);
+    });
+  }
+
+  // ---- 搜索 ----
+  var results = document.getElementById("results");
+  var searchTimer = null;
+  function doSearch(){
+    var q = document.getElementById("q").value.trim();
+    if (!q) return;
+    clearTimeout(searchTimer);
+    var coordinates = q.match(/^\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*[,，]\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*$/);
+    if (coordinates){
+      try { ToolboxMock.cancelSearch(); } catch (e) {}
+      var lat = Number(coordinates[1]), lng = Number(coordinates[2]);
+      if (Math.abs(lat) > 85.0511 || Math.abs(lng) > 180){
+        results.style.display = "block";
+        renderSearchError("坐标超出范围：纬度须在 ±85° 内，经度须在 ±180° 内。");
+      } else selectPoint({lat: lat, lng: lng});
+      return;
+    }
+    results.style.display = "block";
+    results.innerHTML = '<div class="row">正在搜索…</div>';
+    results.dataset.state = "loading";
+    searchTimer = setTimeout(function(){
+      if (results.dataset.state === "loading") renderSearchError("搜索超时，请检查网络。");
+    }, 12000);
+    try { ToolboxMock.search(q); } catch (e) {
+      renderSearchError("地点搜索不可用。");
+    }
+  }
+  document.getElementById("go").onclick = doSearch;
+  document.getElementById("q").addEventListener("keydown", function(e){ if (e.key === "Enter") doSearch(); });
+
+  function selectPoint(picked){
+    if (!isFinite(picked.lat) || !isFinite(picked.lng) || Math.abs(picked.lat) > 85.0511 || Math.abs(picked.lng) > 180){
+      renderSearchError("地点坐标不在地图显示范围内。"); return;
+    }
+    if (mode === "footprint") points.push(picked);
+    else points = [picked];
+    center = {lat: picked.lat, lng: picked.lng};
+    zoom = Math.max(zoom, 16);
+    results.style.display = "none";
+    document.getElementById("q").blur();
+    document.getElementById("q").value = "";
+    render(); renderPoints();
+  }
+  function renderSearchResult(list){
+    clearTimeout(searchTimer);
+    results.dataset.state = "done";
+    if (!list.length){
+      results.innerHTML = '<div class="row"><b>没搜到这个地名</b><small>换个说法试试（如加「市」「区」），或直接在地图上点。</small></div>';
+      return;
+    }
+    results.innerHTML = "";
+    list.forEach(function(item){
+      var row = document.createElement("div");
+      row.className = "row";
+      var b = document.createElement("b"); b.textContent = item.name || "未命名地点";
+      var small = document.createElement("small"); small.textContent = (item.detail || "") + " " + Number(item.lat).toFixed(5) + ", " + Number(item.lng).toFixed(5);
+      row.appendChild(b); row.appendChild(small);
+      row.onclick = function(){
+        selectPoint({lat: Number(item.lat), lng: Number(item.lng)});
+      };
+      results.appendChild(row);
+    });
+  }
+  function renderSearchError(msg){
+    clearTimeout(searchTimer);
+    results.dataset.state = "error";
+    results.innerHTML = "";
+    var row = document.createElement("div"), title = document.createElement("b"), detail = document.createElement("small");
+    row.className = "row"; title.textContent = "搜索失败";
+    detail.textContent = (msg || "网络不通或服务连不上。") + " 可重试、输入坐标或直接点地图。";
+    row.appendChild(title); row.appendChild(detail); results.appendChild(row);
+    var retry = document.createElement("div");
+    retry.className = "row"; retry.id = "searchRetry"; retry.textContent = "点这里重试"; retry.onclick = doSearch;
+    results.appendChild(retry);
+  }
+
+  window.MockUI = {
+    onSearchResult: function(raw){
+      // 兼容两种原生回包：旧的纯数组，或新的 {ok,error,items} 对象。
+      var data = null;
+      try { data = typeof raw === "string" ? JSON.parse(raw) : raw; } catch (e) { data = null; }
+      if (data && !Array.isArray(data) && typeof data === "object" && ("items" in data || "ok" in data)){
+        if (data.ok === false){ renderSearchError(data.error); return; }
+        renderSearchResult(Array.isArray(data.items) ? data.items : []);
+        return;
+      }
+      if (Array.isArray(data)){ renderSearchResult(data); return; }
+      renderSearchError("");
+    },
+    onStatus: function(json){ applyStatus(json); },
+    refreshPermission: function(){ checkReady(); }
+  };
+
+  // ---- 状态 ----
+  var state = "idle";
+  function applyStatus(raw){
+    var s = {};
+    try { s = (typeof raw === "string" ? JSON.parse(raw) : raw) || {}; } catch (e) { return; }
+    state = s.state || "idle";
+    running = state === "running" || state === "paused";
+    paused = state === "paused";
+    arrived = !!s.arrived;
+    livePosition = running && typeof s.lat === "number" && typeof s.lng === "number" ? gcj(s.lat, s.lng) : null;
+    var dot = document.getElementById("dot");
+    dot.className = state === "running" ? "on" : state === "paused" ? "pause" : state === "error" ? "err" : "";
+    var text = document.getElementById("stext");
+    if (state === "error") text.textContent = s.message || "启动失败";
+    else if (state === "idle") text.textContent = s.message || "未在模拟";
+    else {
+      var where = livePosition ? livePosition.lat.toFixed(5) + ", " + livePosition.lng.toFixed(5) + "（地图坐标）"
+        : Number(s.lat).toFixed(5) + ", " + Number(s.lng).toFixed(5) + "（WGS-84）";
+      if (s.total > 1) text.textContent = where + " · " + Math.round(s.travelled) + "/" + Math.round(s.total) + " 米" + (arrived ? " · 已到终点" : paused ? " · 已暂停" : "");
+      else text.textContent = where + (paused ? " · 已暂停" : " · 模拟中");
+    }
+    var bar = document.getElementById("bar");
+    if (running && s.total > 1){
+      bar.style.display = "block";
+      bar.firstElementChild.style.width = Math.round((s.progress || 0) * 100) + "%";
+    } else bar.style.display = "none";
+    document.getElementById("start").textContent = mode === "footprint" ? "开始模拟足迹" : (running ? "更新定位" : "启动模拟");
+    document.getElementById("pause").textContent = paused ? "继续" : "暂停";
+    document.getElementById("pause").style.display = s.total > 1 ? "" : "none";
+    document.getElementById("fast").textContent = (s.multiplier >= 2 ? "恢复 1x" : "2 倍速");
+    document.getElementById("fast").style.display = s.total > 1 ? "" : "none";
+    lastMultiplier = s.multiplier >= 2 ? 2 : 1;
+    document.getElementById("live").style.display = (running && mode === "footprint") ? "flex" : "none";
+    document.getElementById("live2").style.display = (running && mode === "fixed") ? "flex" : "none";
+    renderMarks();
+  }
+  function gcj(lat, lng){
+    try {
+      var t = ToolboxMock.toGcj02(lat + "," + lng).split(",");
+      var point = {lat: parseFloat(t[0]), lng: parseFloat(t[1])};
+      return isFinite(point.lat) && isFinite(point.lng) ? point : null;
+    } catch (e) { return null; }
+  }
+
+  // ---- 权限与前置条件 ----
+  function checkReady(){
+    var banner = document.getElementById("banner");
+    var ok = true, html = "";
+    try {
+      if (!ToolboxMock.locationEnabled()){
+        ok = false;
+        html += "<b>系统定位开关是关着的</b>即使模拟成功，其他应用也收不到位置。<button onclick='MockBridge.openLocationSettings()'>打开定位设置</button>";
+      }
+      if (!ToolboxMock.permitted()){
+        ok = false;
+        html += "<b>还差一步：把「拾用」选为模拟位置应用</b>"
+             + "到 开发者选项 → 选择模拟位置信息应用 里选上「拾用」。"
+             + (ToolboxMock.developerOptionsEnabled() ? "" : "（开发者选项还没打开：先到 关于手机 连点版本号 7 次。）")
+             + "<button onclick='MockBridge.openDeveloperOptions()'>打开开发者选项</button>";
+      }
+    } catch (e) {
+      ok = false;
+      html = "<b>无法检查定位权限</b>请退出此页面后重新打开，再确认系统定位和模拟位置设置。";
+    }
+    if (html){ banner.innerHTML = html; banner.style.display = "block"; }
+    else banner.style.display = "none";
+    document.getElementById("start").disabled = !ok;
+    return ok;
+  }
+  window.MockBridge = {
+    openDeveloperOptions: function(){ try { ToolboxMock.openDeveloperOptions(); } catch (e) {} },
+    openLocationSettings: function(){ try { ToolboxMock.openLocationSettings(); } catch (e) {} }
+  };
+
+  // ---- 启动 / 停止 ----
+  document.getElementById("start").onclick = function(){
+    if (!points.length){
+      document.getElementById("stext").textContent = "先在地图上点一个位置";
+      return;
+    }
+    if (mode === "footprint" && points.length < 2){
+      document.getElementById("stext").textContent = "请再选择一个足迹终点";
+      return;
+    }
+    if (!checkReady()) return;
+    if (mode === "footprint" && seededFromSession){
+      try {
+        var latest = JSON.parse(ToolboxMock.status());
+        if ((latest.state === "running" || latest.state === "paused") && typeof latest.lat === "number" && typeof latest.lng === "number"){
+          var current = gcj(latest.lat, latest.lng);
+          if (current) points[0] = current;
+        }
+      } catch (e) {}
+      render(); renderPoints();
+    }
+    var converted = points.map(function(p){
+      try {
+        var t = ToolboxMock.toWgs84(p.lat + "," + p.lng).split(",");
+        var lat = parseFloat(t[0]), lng = parseFloat(t[1]);
+        return isFinite(lat) && isFinite(lng) ? lat + "," + lng : null;
+      } catch (e) { return null; }
+    });
+    if (converted.some(function(p){ return p === null; })){
+      document.getElementById("stext").textContent = "坐标转换失败，请重新选点后再试";
+      return;
+    }
+    var wgs = converted.join(";");
+    var speed = mode === "footprint" ? parseFloat(document.getElementById("speed").value) : 0;
+    var jitter = parseFloat(document.getElementById("jitter").value);
+    try { ToolboxMock.start(wgs, speed, jitter); } catch (e) {
+      document.getElementById("stext").textContent = "启动失败：" + e;
+    }
+  };
+  function stop(){ try { ToolboxMock.stop(); } catch (e) {} }
+  document.getElementById("stop").onclick = stop;
+  document.getElementById("stop2").onclick = stop;
+  document.getElementById("pause").onclick = function(){ try { ToolboxMock.togglePause(); } catch (e) {} };
+  document.getElementById("fast").onclick = function(){
+    try { ToolboxMock.setMultiplier(lastMultiplier >= 2 ? 1 : 2); } catch (e) {}
+  };
+  document.getElementById("clear").onclick = function(){
+    points = []; seededFromSession = false;
+    document.getElementById("routeHint").textContent = "依次选择起点和途经点，按直线连接、匀速移动；到终点后停在原地。";
+    render(); renderPoints();
+  };
+  document.getElementById("zin").onclick = function(){ zoomTo(zoom + 1); };
+  document.getElementById("zout").onclick = function(){ zoomTo(zoom - 1); };
+  document.getElementById("locate").onclick = function(){
+    var target = livePosition || points[0];
+    if (target){ center = {lat: target.lat, lng: target.lng}; render(); }
+  };
+  document.getElementById("speed").oninput = function(){
+    document.getElementById("speedv").textContent = parseFloat(this.value).toFixed(1) + " m/s";
+  };
+  document.getElementById("jitter").oninput = function(){
+    document.getElementById("jitterv").textContent = Math.round(this.value) + " 米";
+  };
+  document.getElementById("map").addEventListener("click", function(e){
+    if (e.target.closest("#hud,#zoom,#results,#mapstatus")) return;
+    results.style.display = "none";
+  });
+
+  // 有活跃会话时继承当前点；没有会话才从默认地图位置开始。
+  showMapStatus("loading");
+  try {
+    applyStatus(ToolboxMock.status());
+    if (running && livePosition){
+      center = {lat: livePosition.lat, lng: livePosition.lng};
+      points = [{lat: livePosition.lat, lng: livePosition.lng}];
+      seededFromSession = mode === "footprint";
+      if (seededFromSession) document.getElementById("routeHint").textContent = "已将当前模拟位置设为起点；继续选终点，开始后按直线移动。";
+    }
+  } catch (e) {}
+  render(); renderPoints(); checkReady();
+  function layoutReady(){ render(); }
+  if (window.ResizeObserver){
+    var _lastW = 0, _lastH = 0;
+    new ResizeObserver(function(){
+      var v = view();
+      if (v.w && v.h && (v.w !== _lastW || v.h !== _lastH)){ _lastW = v.w; _lastH = v.h; layoutReady(); }
+    }).observe(map);
+  }
+  requestAnimationFrame(layoutReady);
+  setTimeout(layoutReady, 60);
+  setTimeout(layoutReady, 250);
+  // 第一张大瓦片回来的兜底：15 秒还没出图就提示（可能断网或被拦）
+  clearTimeout(tileTimer);
+  tileTimer = setTimeout(function(){ if (tileStats.loaded === 0 && view().w){ showMapStatus("error"); } }, 15000);
+  setInterval(function(){
+    try { applyStatus(ToolboxMock.status()); } catch (e) {}
+  }, 1000);
+  window.addEventListener("resize", layoutReady);
+})();
+</script>
+</body>
+</html>

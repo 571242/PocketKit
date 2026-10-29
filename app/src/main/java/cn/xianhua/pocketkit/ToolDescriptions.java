@@ -9,6 +9,7 @@ public final class ToolDescriptions {
     static {
         COPY.put("R01", "打开 Markdown、电子书与常见文档");
         COPY.put("I01", "把截图贴在屏幕上，对照查看和填写");
+        COPY.put("I02", "取样背景或文字，贴到图片里修字");
         COPY.put("N01", "同一局域网，浏览器互传文件与文字");
         COPY.put("N02", "无痕浏览，退出即清除，可冻结会话下次接着看");
         COPY.put("F01", "按文件内容查重，确认后再清理");
@@ -121,6 +122,9 @@ public final class ToolDescriptions {
         COPY.put("A08", "压缩视频并裁剪片段");
         COPY.put("B02", "按单位价格比较商品成本");
         COPY.put("B05", "记录账目、收据报销和周期付款");
+        COPY.put("D01", "通过相机和倾角估算距离与高度");
+        COPY.put("L01", "把系统定位改到地图上选定的地点");
+        COPY.put("L02", "沿一条自定路线匀速移动，模拟走出的足迹");
     }
     private ToolDescriptions() {}
     public static String get(ToolRegistry.Entry entry) {

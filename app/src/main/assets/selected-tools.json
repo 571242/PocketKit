@@ -735,6 +735,13 @@
     "enhancements": []
   },
   {
+    "id": "I02",
+    "name": "图片修字",
+    "category": "图片编辑",
+    "module": "PatchEditorActivity",
+    "enhancements": []
+  },
+  {
     "id": "N01",
     "name": "浏览器局域网互传",
     "category": "网络工具",
@@ -767,6 +774,27 @@
     "name": "压缩与解压",
     "category": "文件管理",
     "module": "ArchiveActivity",
+    "enhancements": []
+  },
+  {
+    "id": "D01",
+    "name": "相机测距",
+    "category": "设备测量",
+    "module": "RangefinderActivity",
+    "enhancements": []
+  },
+  {
+    "id": "L01",
+    "name": "修改定位",
+    "category": "设备测量",
+    "module": "MockLocationActivity",
+    "enhancements": []
+  },
+  {
+    "id": "L02",
+    "name": "模拟足迹",
+    "category": "设备测量",
+    "module": "MockLocationActivity",
     "enhancements": []
   }
 ]

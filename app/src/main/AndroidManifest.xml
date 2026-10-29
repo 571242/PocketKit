@@ -3,6 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -19,7 +20,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
     <!-- Core personal file-manager feature: user-selected export of installed base/split APKs, including apps without launchers. No inventory leaves the device. -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission" />
+    <!-- Not a grantable permission: declaring it only makes PocketKit appear in
+         Developer options -> Select mock location app. Real authority is the app op. -->
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" tools:ignore="MockLocation,ProtectedPermissions" />
     <uses-feature android:name="android.hardware.sensor.compass" android:required="false" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.any" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
     <queries>
         <intent><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent>
         <intent><action android:name="android.intent.action.TTS_SERVICE" /></intent>
@@ -78,8 +85,13 @@
             android:launchMode="singleTask" android:taskAffinity="cn.xianhua.pocketkit.private_browser"
             android:excludeFromRecents="true" android:configChanges="orientation|screenSize|keyboardHidden|uiMode"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".PatchEditorActivity" android:label="拾用·图片修字" android:exported="false"
+            android:configChanges="orientation|screenSize|keyboardHidden|uiMode" />
         <activity android:name=".LanShareActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
         <service android:name=".lanshare.LanShareService" android:exported="false" android:foregroundServiceType="dataSync" />
+        <activity android:name=".MockLocationActivity" android:label="拾用·模拟定位" android:exported="false"
+            android:configChanges="orientation|screenSize|keyboardHidden|uiMode"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".FileToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ArchiveActivity" android:label="拾用·压缩解压" android:exported="true" android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -104,6 +116,7 @@
         <service android:name=".voiceoverlay.VoiceOverlayService" android:exported="false" android:foregroundServiceType="microphone|mediaPlayback" />
         <activity android:name=".AdSkipToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".DeviceToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".RangefinderActivity" android:label="拾用·相机测距" android:exported="false" />
         <activity android:name=".AutomationToolsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".proxy.ProxyActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
         <service android:name=".proxy.PocketVpnService"
@@ -169,5 +182,8 @@
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started single-finger gesture recording with a visible floating pause, undo, save and cancel controller. Gestures are replayed only following the user's touch; recording ends explicitly." />
         </service>
         <service android:name=".automation.ProjectionCaptureService" android:exported="false" android:foregroundServiceType="mediaProjection" />
+        <service android:name=".mocklocation.MockLocationService" android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started mock location feed: keeps a visible notification with pause, speed and stop while the user checks other apps' location; stopped explicitly and test providers are always removed on exit." />
+        </service>
     </application>
 </manifest>
