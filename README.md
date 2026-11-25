@@ -6,7 +6,7 @@
 
 ## 全能提取 0.13.7
 
-沿用 0.13.6 的代理与订阅功能，不包含在线阅读中心；原有本地文档预览不变。安装包：[0.13.7 APK](dist/PocketKit-0.13.7-extractor-debug.apk)，校验和：[SHA256](dist/PocketKit-0.13.7-extractor-debug.apk.sha256)。
+沿用 0.13.6 的代理与订阅功能，不包含在线阅读中心；原有本地文档预览不变。安装包：[0.13.7 APK](https://github.com/571242/PocketKit/releases/download/v0.13.7/PocketKit-0.13.7.apk)，校验和：[SHA256](https://github.com/571242/PocketKit/releases/download/v0.13.7/PocketKit-0.13.7.apk.sha256)（`2bcb9e50d1d4fc69a37471f06c4974ceefeeb73bbaf6985be8d6fb5a4718e8a5`）。
 
 「全部 → 网络工具 → 全能提取」可粘贴网页 URL 或整段抖音分享文案，也可从 Android 分享菜单选「拾用·全能提取」。点「提取内容」后，可复制或保存正文为 TXT、下载页面公开的视频或音频文件，或从视频另存音轨。没找到影音时，点「在网页中提取」，播放几秒再点「重新扫描网页」。
 
