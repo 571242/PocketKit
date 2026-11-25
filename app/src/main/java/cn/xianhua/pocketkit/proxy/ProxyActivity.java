@@ -42,6 +42,7 @@ public final class ProxyActivity extends BaseToolActivity implements ProxyState.
     private TextView tvNodePoolHeader;
     private TextView btnTestDelay;
     private TextView tvRulesStatus;
+    private TextView btnBypass;
 
     private TextView text(String value, int color, float size, boolean bold) {
         TextView v = new TextView(this);
@@ -133,7 +134,20 @@ public final class ProxyActivity extends BaseToolActivity implements ProxyState.
         body.addView(heroCard);
 
         // 2. Mode Selector
-        sectionTitle("分流模式");
+        LinearLayout modeHeader = new LinearLayout(this);
+        modeHeader.setOrientation(LinearLayout.HORIZONTAL);
+        modeHeader.setGravity(Gravity.CENTER_VERTICAL);
+        modeHeader.setPadding(0, dp(20), 0, dp(8));
+        modeHeader.addView(text("分流模式", ink, 16, true), new LinearLayout.LayoutParams(0, -2, 1));
+        btnBypass = text("应用绕过", accent, 13, true);
+        btnBypass.setGravity(Gravity.CENTER);
+        btnBypass.setMinHeight(dp(44));
+        btnBypass.setPadding(dp(12), dp(6), dp(12), dp(6));
+        btnBypass.setBackground(ToolUi.ripple(this, Color.argb(18, 34, 100, 220), dp(10), Color.TRANSPARENT, 0));
+        btnBypass.setOnClickListener(v -> ProxyBypassDialog.show(this, workers, this::renderBypassButton));
+        modeHeader.addView(btnBypass);
+        body.addView(modeHeader);
+        renderBypassButton();
         modeContainer = new LinearLayout(this);
         modeContainer.setOrientation(LinearLayout.HORIZONTAL);
         modeContainer.setGravity(Gravity.CENTER_VERTICAL);
@@ -157,7 +171,7 @@ public final class ProxyActivity extends BaseToolActivity implements ProxyState.
         TextView tvSubTitle = text("订阅地址管理", ink, 16, true);
         subHeaderRow.addView(tvSubTitle, new LinearLayout.LayoutParams(0, -2, 1));
 
-        TextView btnAddSub = text("+ 添加订阅", accent, 13, true);
+        TextView btnAddSub = text("+ 添加订阅/节点", accent, 13, true);
         btnAddSub.setPadding(dp(10), dp(4), dp(10), dp(4));
         btnAddSub.setBackground(ToolUi.ripple(this, Color.argb(18, 34, 100, 220), dp(10), Color.TRANSPARENT, 0));
         btnAddSub.setOnClickListener(v -> showAddSubscriptionDialog());
@@ -195,6 +209,10 @@ public final class ProxyActivity extends BaseToolActivity implements ProxyState.
         nodesContainer.setOrientation(LinearLayout.VERTICAL);
         renderNodes();
         body.addView(nodesContainer);
+    }
+
+    private void renderBypassButton() {
+        if (btnBypass != null) btnBypass.setText("应用绕过 · " + ProxyBypass.load(ProxyBypass.preferences(this)).size());
     }
 
     /** One line, refreshed with every subscription refresh: no URL, no credentials. */
@@ -243,7 +261,7 @@ public final class ProxyActivity extends BaseToolActivity implements ProxyState.
             emptyCard.setGravity(Gravity.CENTER);
             emptyCard.setBackground(ToolUi.fill(surface, dp(16), Color.TRANSPARENT, 0));
 
-            TextView tip = text("暂无订阅地址，请点击右上角「+ 添加订阅」", muted, 13, false);
+            TextView tip = text("暂无订阅或节点，请点击右上角「+ 添加订阅/节点」", muted, 13, false);
             emptyCard.addView(tip);
             subsContainer.addView(emptyCard);
             return;
@@ -398,22 +416,25 @@ public final class ProxyActivity extends BaseToolActivity implements ProxyState.
         layout.addView(etName);
 
         EditText etUrl = new EditText(this);
-        etUrl.setHint("订阅地址 URL (http/https)");
+        etUrl.setHint("订阅地址或节点链接（可多行）");
         etUrl.setTextColor(ink);
         etUrl.setTextSize(14);
-        etUrl.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
+        etUrl.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        etUrl.setSingleLine(false);
+        etUrl.setMinLines(3);
+        etUrl.setMaxLines(6);
         LinearLayout.LayoutParams urlLp = new LinearLayout.LayoutParams(-1, -2);
         urlLp.setMargins(0, dp(10), 0, 0);
         layout.addView(etUrl, urlLp);
 
         new AlertDialog.Builder(this)
-                .setTitle("添加新订阅")
+                .setTitle("添加订阅/节点")
                 .setView(layout)
-                .setPositiveButton("添加并拉取", (dialog, which) -> {
+                .setPositiveButton("添加并导入", (dialog, which) -> {
                     String name = etName.getText().toString().trim();
                     String url = etUrl.getText().toString().trim();
                     if (url.isEmpty()) {
-                        Toast.makeText(this, "订阅链接不能为空", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "订阅地址或节点链接不能为空", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     profileManager.addSubscription(name, url);
@@ -429,12 +450,12 @@ public final class ProxyActivity extends BaseToolActivity implements ProxyState.
     }
 
     private void syncSingleSubscription(ProxyProfileManager.Subscription sub) {
-        Toast.makeText(this, "正在拉取「" + sub.name + "」...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "正在导入「" + sub.name + "」...", Toast.LENGTH_SHORT).show();
         workers.execute(() -> {
             boolean ok = profileManager.fetchAndParseSubscription(sub);
             handler.post(() -> {
                 if (ok) {
-                    Toast.makeText(this, "「" + sub.name + "」拉取成功 (" + sub.nodeCount + " 个节点)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "「" + sub.name + "」导入成功 (" + sub.nodeCount + " 个节点)", Toast.LENGTH_SHORT).show();
                     if ("未选择节点".equals(ProxyState.get().getSelectedProxy())) {
                         for (ProxyProfileManager.Node node : profileManager.getNodes()) {
                             if (node.usable()) { ProxyState.get().setSelectedProxy(node.name, this); break; }
@@ -579,6 +600,7 @@ public final class ProxyActivity extends BaseToolActivity implements ProxyState.
         ProxyState.get().addListener(this);
         if (ProxyState.get().getStatus() == ProxyState.Status.CONNECTED) OutboundIpDetector.refresh();
         renderRulesStatus();
+        renderBypassButton();
     }
 
     @Override

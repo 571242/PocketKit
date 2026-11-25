@@ -4,6 +4,14 @@
 
 仓库：<https://github.com/571242/PocketKit>。更新检查也在应用内「全部 → 右上角 ⋯」里，仓库地址可以改。
 
+## 全能提取 0.13.7
+
+沿用 0.13.6 的代理与订阅功能，不包含在线阅读中心；原有本地文档预览不变。安装包：[0.13.7 APK](dist/PocketKit-0.13.7-extractor-debug.apk)，校验和：[SHA256](dist/PocketKit-0.13.7-extractor-debug.apk.sha256)。
+
+「全部 → 网络工具 → 全能提取」可粘贴网页 URL 或整段抖音分享文案，也可从 Android 分享菜单选「拾用·全能提取」。点「提取内容」后，可复制或保存正文为 TXT、下载页面公开的视频或音频文件，或从视频另存音轨。没找到影音时，点「在网页中提取」，播放几秒再点「重新扫描网页」。
+
+链接在本机解析，不经过第三方解析站。只支持站点开放的普通影音文件；HLS / DASH 分段流仅提供链接，无法直接合并下载。抖音仅适用于网页能正常加载且实际提供媒体的作品。不提供语音转文字。
+
 ## 图片修字 0.13.3
 
 「全部 → 图片编辑 → 图片修字」可从图片中框取一块背景或现成文字，将切片拖到目标位置后盖印：背景可用于遮盖旧字，现成文字可用于补字。支持矩形 / 椭圆选区、双指缩放与平移、边缘羽化、正常覆盖 / 留黑字 / 留白字、逐像素微调和撤销。处理完全在本机，保存为新的无损 PNG，不改原图，输出不保留原图元数据。
@@ -132,4 +140,6 @@
 
 依赖和来源记录见 evidence/build-dependencies.json、docs/implementation-paths.md；APK包含 app/src/main/assets/third-party-notices.txt 与 additional-notices.txt。第三方SDK受各自条款约束，本项目不能称整个依赖链全开源；开发包不是商业分发许可的完整法律审查。
 
-传统色来自两份MIT数据集；GIF使用明确来源的NeuQuant/LZW编码核心，保留Apache声明与Anthony Dekker单独许可。其余代码与系统接口独立实现。未采用来源不清的商业字典抓取数据、未借商业API凭据。本项目源码基于 [Apache-2.0 许可协议](LICENSE) 开源。
+传统色来自两份MIT数据集；GIF使用明确来源的NeuQuant/LZW编码核心，保留Apache声明与Anthony Dekker单独许可。未采用来源不清的商业字典抓取数据、未借商业API凭据。
+
+项目许可见 [GPL-3.0](LICENSE)；此前的 [Apache-2.0 声明](LICENSES/Apache-2.0.txt) 和第三方来源声明继续保留。已停用的阅读中心源码单独归档，不再打包进 APK；其来源和许可见 [reading-licenses](docs/reading-licenses.md)。

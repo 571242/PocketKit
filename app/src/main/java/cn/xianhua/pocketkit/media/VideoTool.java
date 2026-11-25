@@ -332,10 +332,22 @@ public final class VideoTool implements Tool {
 
     Result extractAudio(Uri uri) throws Exception {
         File out = MediaIo.scratch(host.activity(), ".m4a");
+        try {
+            String mime = remuxAudio(host.activity(), uri, out);
+            String name = ImageCompressTool.suggestName(MediaIo.displayName(host.activity(), uri), "audio" + extensionFor(mime));
+            return new Result(out, name, mimeFor(mime), "提取完成（无重编码）：音轨格式 " + mime
+                    + "\n文件大小 " + cn.xianhua.pocketkit.core.SizeFmt.bytes(out.length()));
+        } catch (Exception e) {
+            out.delete();
+            throw e;
+        }
+    }
+
+    public static String remuxAudio(Context context, Uri uri, File out) throws Exception {
         MediaExtractor extractor = new MediaExtractor();
         MediaMuxer muxer = null;
         try {
-            extractor.setDataSource(host.activity(), uri, null);
+            extractor.setDataSource(context, uri, null);
             int audioTrack = -1;
             MediaFormat audioFormat = null;
             for (int i = 0; i < extractor.getTrackCount(); i++) {
@@ -374,12 +386,7 @@ public final class VideoTool implements Tool {
             if (written == 0) {
                 throw new IOException("这个视频的音轨没有可复制的数据");
             }
-            String extension = extensionFor(audioFormat.getString(MediaFormat.KEY_MIME));
-            String name = ImageCompressTool.suggestName(
-                    MediaIo.displayName(host.activity(), uri), "audio" + extension);
-            return new Result(out, name, mimeFor(audioFormat.getString(MediaFormat.KEY_MIME)),
-                    "提取完成（无重编码）：音轨格式 " + audioFormat.getString(MediaFormat.KEY_MIME)
-                            + "\n文件大小 " + cn.xianhua.pocketkit.core.SizeFmt.bytes(out.length()));
+            return audioFormat.getString(MediaFormat.KEY_MIME);
         } finally {
             extractor.release();
             if (muxer != null) {

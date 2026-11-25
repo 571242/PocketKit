@@ -12,6 +12,7 @@ public final class ToolDescriptions {
         COPY.put("I02", "取样背景或文字，贴到图片里修字");
         COPY.put("N01", "同一局域网，浏览器互传文件与文字");
         COPY.put("N02", "无痕浏览，退出即清除，可冻结会话下次接着看");
+        COPY.put("N03", "从分享链接提取视频、音频和网页文字");
         COPY.put("F01", "按文件内容查重，确认后再清理");
         COPY.put("F02", "预览批量改名，替换、加前后缀与序号");
         COPY.put("F03", "创建 ZIP，解压 ZIP、7z 与 RAR");

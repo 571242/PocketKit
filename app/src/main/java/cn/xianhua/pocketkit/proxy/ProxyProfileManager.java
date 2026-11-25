@@ -2,14 +2,23 @@ package cn.xianhua.pocketkit.proxy;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.util.Log;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.Proxy;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,6 +51,7 @@ public final class ProxyProfileManager {
     private static final int READ_TIMEOUT_MS = 15000;
     private static final int MAX_RESPONSE_BYTES = 4 * 1024 * 1024;
     private static final String USER_AGENT = "clash.meta/1.19.0 sing-box/1.14.3";
+    private static final String[] SUBSCRIPTION_AGENTS = {"sing-box/1.14.3", "Clash.Meta/1.19.0"};
 
     public static final class Subscription {
         public String id;
@@ -401,13 +411,20 @@ public final class ProxyProfileManager {
      * Bounded, validated HTTP(S) fetch: 5 redirects, capped body size, gzip/deflate, always released.
      */
     public static String fetchHttpContent(String targetUrl) throws IOException {
+        return fetchHttpContent(targetUrl, USER_AGENT, null, false, false);
+    }
+
+    private static String fetchHttpContent(String targetUrl, String userAgent, Network network,
+                                           boolean direct, boolean subscription) throws IOException {
         String currentUrl = validateUrl(targetUrl);
         for (int hop = 0; hop <= MAX_REDIRECTS; hop++) {
             HttpURLConnection conn = null;
             try {
-                conn = (HttpURLConnection) new URL(currentUrl).openConnection();
+                URL url = new URL(currentUrl);
+                conn = (HttpURLConnection) (network != null ? network.openConnection(url, Proxy.NO_PROXY)
+                        : direct ? url.openConnection(Proxy.NO_PROXY) : url.openConnection());
                 conn.setInstanceFollowRedirects(false);
-                conn.setRequestProperty("User-Agent", USER_AGENT);
+                conn.setRequestProperty("User-Agent", userAgent);
                 conn.setRequestProperty("Accept", "*/*");
                 conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
                 conn.setConnectTimeout(CONNECT_TIMEOUT_MS);
@@ -429,14 +446,91 @@ public final class ProxyProfileManager {
                     continue;
                 }
                 if (status < 200 || status >= 300) {
+                    if (subscription) throw new SubscriptionHttpException(status);
                     throw new IOException("HTTP " + status);
                 }
-                return readBody(conn);
+                return subscription ? readSubscriptionBody(conn) : readBody(conn);
             } finally {
                 if (conn != null) conn.disconnect();
             }
         }
         throw new IOException("跳转次数超过 " + MAX_REDIRECTS);
+    }
+
+    private static final class SubscriptionHttpException extends IOException {
+        final int status;
+        SubscriptionHttpException(int status) { super("HTTP " + status); this.status = status; }
+    }
+
+    private static final class ResponseTooLargeException extends IOException {
+        ResponseTooLargeException() { super("响应超过 " + (MAX_RESPONSE_BYTES / 1024 / 1024) + "MB 上限"); }
+    }
+
+    private String fetchSubscriptionContent(String targetUrl, String userAgent) throws IOException {
+        try {
+            return fetchHttpContent(targetUrl, userAgent, null, false, true);
+        } catch (IOException error) {
+            if (!(error instanceof SocketException) && !(error instanceof SocketTimeoutException)
+                    && !(error instanceof UnknownHostException) && !(error instanceof EOFException)) throw error;
+            return fetchHttpContent(targetUrl, userAgent, findDirectNetwork(), true, true);
+        }
+    }
+
+    private Network findDirectNetwork() {
+        try {
+            ConnectivityManager manager = context.getSystemService(ConnectivityManager.class);
+            if (manager == null) return null;
+            Network active = manager.getActiveNetwork();
+            if (isDirectNetwork(manager, active)) return active;
+            for (Network network : manager.getAllNetworks()) {
+                if (isDirectNetwork(manager, network)) return network;
+            }
+        } catch (RuntimeException ignored) { }
+        return null;
+    }
+
+    private static boolean isDirectNetwork(ConnectivityManager manager, Network network) {
+        if (network == null) return false;
+        NetworkCapabilities caps = manager.getNetworkCapabilities(network);
+        return caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+    }
+
+    private static byte[] readBounded(InputStream in) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buffer = new byte[16384];
+        int count;
+        while ((count = in.read(buffer)) != -1) {
+            if (out.size() + count > MAX_RESPONSE_BYTES) throw new ResponseTooLargeException();
+            out.write(buffer, 0, count);
+        }
+        return out.toByteArray();
+    }
+
+    /** FlClash also detects gzip/zlib payloads when Content-Encoding is missing. */
+    private static String readSubscriptionBody(HttpURLConnection conn) throws IOException {
+        byte[] bytes;
+        try (InputStream in = conn.getInputStream()) { bytes = readBounded(in); }
+        String encoding = conn.getHeaderField("Content-Encoding");
+        String lower = encoding == null ? "" : encoding.toLowerCase(Locale.ROOT);
+        boolean gzip = lower.contains("gzip");
+        boolean zlib = lower.contains("deflate");
+        boolean sniffed = !gzip && !zlib && (lower.isEmpty() || "identity".equals(lower));
+        if (sniffed && bytes.length >= 2) {
+            int a = bytes[0] & 0xff, b = bytes[1] & 0xff;
+            gzip = a == 0x1f && b == 0x8b;
+            zlib = a == 0x78 && ((a << 8) | b) % 31 == 0;
+        }
+        if (gzip || zlib) {
+            try (InputStream in = gzip ? new GZIPInputStream(new ByteArrayInputStream(bytes))
+                    : new InflaterInputStream(new ByteArrayInputStream(bytes))) {
+                bytes = readBounded(in);
+            } catch (IOException error) {
+                if (!sniffed || error instanceof ResponseTooLargeException) throw error;
+            }
+        }
+        String body = new String(bytes, StandardCharsets.UTF_8);
+        return body.startsWith("\uFEFF") ? body.substring(1) : body;
     }
 
     private static String readBody(HttpURLConnection conn) throws IOException {
@@ -496,16 +590,39 @@ public final class ProxyProfileManager {
             lastError = "订阅地址为空";
             return false;
         }
-        String content;
-        try {
-            content = fetchHttpContent(sub.url);
-        } catch (IOException e) {
-            lastError = "订阅拉取失败（" + e.getClass().getSimpleName() + "），已保留原节点";
-            Log.w(TAG, "Subscription fetch failed: " + e.getClass().getSimpleName());
-            return false;
+        String input = sub.url.trim();
+        List<Node> parsed = null;
+        if (input.regionMatches(true, 0, "http://", 0, 7)
+                || input.regionMatches(true, 0, "https://", 0, 8)) {
+            IOException failure = null;
+            int bestCount = -1;
+            for (String userAgent : SUBSCRIPTION_AGENTS) {
+                try {
+                    String content = fetchSubscriptionContent(input, userAgent);
+                    List<Node> candidate = parseContentToNodes(content, sub.id, sub.name);
+                    int count = 0;
+                    for (Node node : candidate) if (node.usable()) count++;
+                    if (count > bestCount) { parsed = candidate; bestCount = count; }
+                    if (count > 0 && count == candidate.size()) { parsed = candidate; break; }
+                } catch (IOException error) {
+                    failure = error;
+                    if (!(error instanceof SubscriptionHttpException)) break;
+                    int status = ((SubscriptionHttpException) error).status;
+                    if (status != 401 && status != 403 && status != 404
+                            && status != 406 && status != 415) break;
+                }
+            }
+            if (parsed == null) {
+                String reason = failure instanceof SubscriptionHttpException
+                        ? "HTTP " + ((SubscriptionHttpException) failure).status
+                        : failure == null ? "IOException" : failure.getClass().getSimpleName();
+                lastError = "订阅拉取失败（" + reason + "），已保留原节点";
+                Log.w(TAG, "Subscription fetch failed: " + reason);
+                return false;
+            }
+        } else {
+            parsed = parseContentToNodes(input, sub.id, sub.name);
         }
-
-        List<Node> parsed = parseContentToNodes(content, sub.id, sub.name);
         List<Node> usable = new ArrayList<>();
         String firstReject = null;
         for (Node n : parsed) {
@@ -533,7 +650,8 @@ public final class ProxyProfileManager {
                 return false;
             }
 
-            List<Node> merged = mergeForSubscription(retainActiveNodes(subs, readNodes(sp)), sub.id, usable);
+            List<Node> stored = retainActiveNodes(subs, readNodes(sp));
+            List<Node> merged = mergeForSubscription(stored, sub.id, usable);
 
             target.nodeCount = usable.size();
             target.lastUpdated = System.currentTimeMillis();

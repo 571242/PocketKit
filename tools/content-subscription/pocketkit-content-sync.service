@@ -1,0 +1,26 @@
+[Unit]
+Description=PocketKit 拾用精选 content subscription refresh (bounded, no upstream JS)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=pk-content
+Group=pk-content
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+ReadWritePaths=/data/pocketkit-content
+ReadOnlyPaths=/opt/pocketkit-content
+UMask=0022
+TimeoutStartSec=20min
+ExecStart=/opt/pocketkit-content/refresh-inner.sh

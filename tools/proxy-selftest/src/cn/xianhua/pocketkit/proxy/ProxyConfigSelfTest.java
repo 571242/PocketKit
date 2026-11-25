@@ -21,6 +21,7 @@ public final class ProxyConfigSelfTest {
         base64UriList();
         runtimeConfigModes();
         runtimeConfigDirect();
+        runtimeConfigReverseMapping();
         System.out.println("ProxyConfig self-test passed (" + checks + " checks)");
     }
 
@@ -264,6 +265,39 @@ public final class ProxyConfigSelfTest {
             threw = true;
         }
         check(threw, "rule mode without outbound must be refused");
+    }
+
+    private static void runtimeConfigReverseMapping() throws Exception {
+        String outbound = new JSONObject()
+                .put("type", "trojan").put("server", "fixture.example.com").put("server_port", 443)
+                .put("password", "fixture-only")
+                .put("tls", new JSONObject().put("enabled", true).put("server_name", "fixture.example.com"))
+                .toString();
+        ProxyRules full = ProxyRules.parse("{\"schemaVersion\":1,\"rules\":{"
+                + "\"direct\":{\"domain\":[\"probe.douyin.com\"]},\"proxy\":{}}}");
+        ProxyRules empty = ProxyRules.parse("{\"schemaVersion\":1,\"rules\":{\"direct\":{},\"proxy\":{}}}");
+
+        for (String mode : new String[]{"Global", "Direct"}) {
+            String node = "Direct".equals(mode) ? null : outbound;
+            JSONObject legacyDns = new JSONObject(ProxyConfig.buildRuntimeConfig(node, mode, null)).getJSONObject("dns");
+            JSONObject cloudDns = new JSONObject(ProxyConfig.buildRuntimeConfig(node, mode, null, full)).getJSONObject("dns");
+            check(!legacyDns.has("reverse_mapping"), mode + ": legacy DNS unchanged");
+            check(!cloudDns.has("reverse_mapping"), mode + ": cloud DNS unchanged");
+        }
+
+        JSONObject legacy = new JSONObject(ProxyConfig.buildRuntimeConfig(outbound, "Rule", null));
+        JSONObject noCloud = new JSONObject(ProxyConfig.buildRuntimeConfig(outbound, "Rule", null, null));
+        JSONObject fullCloud = new JSONObject(ProxyConfig.buildRuntimeConfig(outbound, "RULE", null, full));
+        JSONObject emptyCloud = new JSONObject(ProxyConfig.buildRuntimeConfig(outbound, " rule ", null, empty));
+        // A shared CDN IP can map to another domain and send proxied traffic direct.
+        check(!legacy.getJSONObject("dns").optBoolean("reverse_mapping", false),
+                "Rule: three-argument DNS reverse_mapping remains disabled");
+        check(!noCloud.getJSONObject("dns").optBoolean("reverse_mapping", false),
+                "Rule: null cloud DNS reverse_mapping remains disabled");
+        check(!fullCloud.getJSONObject("dns").optBoolean("reverse_mapping", false),
+                "Rule: populated cloud DNS reverse_mapping remains disabled");
+        check(!emptyCloud.getJSONObject("dns").optBoolean("reverse_mapping", false),
+                "Rule: empty cloud DNS reverse_mapping remains disabled");
     }
 
     private static boolean hasAction(JSONArray rules, String action) {

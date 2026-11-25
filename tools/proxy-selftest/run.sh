@@ -55,6 +55,9 @@ run_java -cp "$OUT;$SNAKEYAML;$JSON" cn.xianhua.pocketkit.proxy.ProxyConfigSelfT
   "$TEST_SRC/NodePersistenceSelfTest.java"
 run_java -cp "$OUT;$SNAKEYAML;$JSON;$ANDROID_JAR" cn.xianhua.pocketkit.proxy.NodePersistenceSelfTest
 
+# Subscription import end-to-end with local HTTP and in-memory Android preferences.
+python "$ROOT/tools/proxy-selftest/subscription-selftest.py"
+
 # --- 3. cloud rule bundle: parser, hash, atomic save, route/DNS ordering.
 # ProxyRulesStore is compiled for its pure static URL check; its Context-based methods are never called.
 "$JAVAC" -encoding UTF-8 -nowarn -cp "$SNAKEYAML;$JSON;$ANDROID_JAR" -d "$OUT" \

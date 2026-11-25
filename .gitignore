@@ -24,3 +24,7 @@ app/libs/libbox-1.14.3.aar
 .idea/
 *.iml
 .DS_Store
+
+*.idsig
+*.pyc
+__pycache__/

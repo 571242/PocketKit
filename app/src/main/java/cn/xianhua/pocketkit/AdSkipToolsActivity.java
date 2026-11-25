@@ -16,10 +16,10 @@ public final class AdSkipToolsActivity extends BaseToolActivity {
     private final Handler main=new Handler(Looper.getMainLooper());
     private final Runnable update=new Runnable(){public void run(){refresh();main.postDelayed(this,750);}};
     public static boolean supports(String id){return "C02".equals(id);}
-    public static String limitation(String id){return "无障碍监听窗口，匹配跳过按钮并点击；哔哩哔哩/网易云音乐适配，支持排除应用与诊断。";}
+    public static String limitation(String id){return "通用无障碍开屏跳过：支持倒计时组合、主流广告 SDK 控件与角标跳过，防误触。";}
     @Override protected void onCreate(Bundle state){
         getIntent().putExtra("title","开屏广告跳过");super.onCreate(state);
-        note("监听 → 匹配 → 点击 → 确认。需同时打开下方开关与系统无障碍服务。哔哩哔哩按开屏按钮 ID，网易云音乐按短跳过文案；支持带倒计时的按钮。所有处理在本机完成。");
+        note("监听 → 匹配 → 点击 → 确认。需同时打开下方开关与系统无障碍服务。通用适配带倒计时跳过、穿山甲/优量汇/快手等主流开屏 SDK 按钮及右上/右下角跳过胶囊。所有处理在本机完成。");
         enabled=new Switch(this);enabled.setText("自动跳过开屏广告");enabled.setTextColor(ink);enabled.setMinHeight(dp(52));enabled.setChecked(AdSkipController.isEnabled(this));
         enabled.setOnCheckedChangeListener((b,checked)->{AdSkipController.setEnabled(this,checked);refresh();});body.addView(enabled);
         serviceState=note("");resultState=note("");resultState.setTextColor(accent);

@@ -377,7 +377,11 @@ public final class ProxyRulesStore {
         String upstream = prefs().getString(KEY_UPSTREAM, "");
         String suffix = (error.isEmpty() ? "" : " · 最近失败：" + error)
                 + (upstream.isEmpty() ? "" : "\n" + upstream);
-        if (!ProxyRules.isSha256Hex(sha) || !file().isFile()) return "分流规则：随包快照（" + builtIn().entryCount() + " 条）" + suffix;
+        if (!ProxyRules.isSha256Hex(sha) || !file().isFile()) {
+            ProxyRules cached = BUILT_IN;
+            return "分流规则：随包快照"
+                    + (cached == null ? "" : "（" + cached.entryCount() + " 条）") + suffix;
+        }
         String updated = getUpdatedAt() > 0
                 ? new SimpleDateFormat("MM-dd HH:mm", Locale.getDefault()).format(new Date(getUpdatedAt()))
                 : "";

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -25,6 +27,7 @@ public final class ProxyRulesSelfTest {
         writesAtomically();
         validatesRulesUrl();
         upstreamStatus();
+        suffixPriority();
         ruleModeOrdering();
         globalAndDirectIgnoreRules();
         legacyThreeArgSignature();
@@ -241,6 +244,76 @@ public final class ProxyRulesSelfTest {
         check(ProxyRulesStore.upstreamSummary(bad).isEmpty(), "unsafe release text rejected");
     }
 
+    private static void suffixPriority() throws Exception {
+        String outbound = new JSONObject()
+                .put("type", "trojan").put("server", "t.example.com").put("server_port", 443)
+                .put("password", "pw").toString();
+        String asset = Files.readString(Path.of(root, "app/src/main/assets/proxy-rules-default.json"));
+        ProxyRules defaults = ProxyRules.parse(asset);
+        check(defaults.directSuffix.contains("cn.bing.com"), "bundled direct cn.bing.com fixture");
+        check(defaults.proxySuffix.contains("bing.com"), "bundled proxy bing.com fixture");
+        JSONObject bundled = new JSONObject(ProxyConfig.buildRuntimeConfig(outbound, "Rule", "s", defaults));
+        decision(bundled, "cn.bing.com", "direct");
+        decision(bundled, "www.cn.bing.com", "direct");
+        decision(bundled, "www.bing.com", "proxy");
+        decision(bundled, "azuremigrate.download.prss.microsoft.com", "direct");
+        decision(bundled, "x.azuremigrate.download.prss.microsoft.com", "direct");
+        Set<String> proxySuffixes = new HashSet<>();
+        for (String suffix : defaults.proxySuffix) {
+            proxySuffixes.add(suffix.startsWith(".") ? suffix.substring(1) : suffix);
+        }
+        int conflicts = 0;
+        for (String suffix : defaults.directSuffix) {
+            String host = suffix.startsWith(".") ? "x" + suffix : suffix;
+            for (int dot = host.indexOf('.'); dot >= 0; dot = host.indexOf('.', dot + 1)) {
+                if (proxySuffixes.contains(host.substring(dot + 1))) {
+                    decision(bundled, host, "direct");
+                    decision(bundled, "x." + host, "direct");
+                    conflicts++;
+                    break;
+                }
+            }
+        }
+        check(conflicts == 91, "all 91 shadowed bundled direct suffixes covered, got " + conflicts);
+
+        ProxyRules nested = ProxyRules.parse("{\"schemaVersion\":1,\"rules\":{"
+                + "\"direct\":{\"domain\":[\"exact.proxy.parent.test\",\"equal.test\"],"
+                + "\"domain_suffix\":[\"parent.test\",\"direct.proxy.parent.test\","
+                + "\"same.test\",\".dotted.test\",\"plain.test\",\"scope.cn\"]},"
+                + "\"proxy\":{\"domain\":[\"equal.test\",\"exact.parent.test\"],"
+                + "\"domain_suffix\":[\"proxy.parent.test\",\"sub.direct.proxy.parent.test\","
+                + "\"same.test\",\"dotted.test\",\".plain.test\",\"cn\"]}}}");
+        JSONObject config = new JSONObject(ProxyConfig.buildRuntimeConfig(outbound, "Rule", "s", nested));
+        decision(config, "parent.test", "direct");
+        decision(config, "child.parent.test", "direct");
+        decision(config, "notproxy.parent.test", "direct");
+        decision(config, "proxy.parent.test", "proxy");
+        decision(config, "x.proxy.parent.test", "proxy");
+        decision(config, "direct.proxy.parent.test", "direct");
+        decision(config, "x.direct.proxy.parent.test", "direct");
+        decision(config, "sub.direct.proxy.parent.test", "proxy");
+        decision(config, "x.sub.direct.proxy.parent.test", "proxy");
+        decision(config, "same.test", "proxy");
+        decision(config, "x.same.test", "proxy");
+        decision(config, "dotted.test", "proxy");
+        decision(config, "x.dotted.test", "proxy");
+        decision(config, "plain.test", "direct");
+        decision(config, "x.plain.test", "proxy");
+        decision(config, "scope.cn", "direct");
+        decision(config, "x.scope.cn", "direct");
+        decision(config, "other.cn", "proxy");
+        decision(config, "exact.proxy.parent.test", "direct");
+        decision(config, "exact.parent.test", "proxy");
+        decision(config, "equal.test", "proxy");
+    }
+
+    private static void decision(JSONObject config, String host, String expected) {
+        String route = domainDecision(config.getJSONObject("route").getJSONArray("rules"), host, "outbound");
+        String dns = domainDecision(config.getJSONObject("dns").getJSONArray("rules"), host, "server");
+        check(expected.equals(route), host + " route expected " + expected + ", got " + route);
+        check((expected + "-dns").equals(dns), host + " DNS expected " + expected + "-dns, got " + dns);
+    }
+
     private static void ruleModeOrdering() throws Exception {
         ProxyRules rules = ProxyRules.parse(VALID);
         String outbound = new JSONObject()
@@ -263,10 +336,11 @@ public final class ProxyRulesSelfTest {
         check(proxyDomains == 3, "explicit proxy domains before China direct, got " + proxyDomains);
         check(exactDirect > proxyDomains, "proxy exact precedes direct exact");
         check(proxySuffix > exactDirect, "exact direct exceptions precede broad proxy suffixes");
-        check(chinaDomains > proxySuffix, "proxy suffix precedes direct suffix");
-        check(cnCidr > chinaDomains, "CN cidr after China domains");
+        check(chinaDomains > exactDirect, "suffixes follow exact domains");
+        int lastSuffix = lastIndexOfField(route, "domain_suffix");
+        check(cnCidr > lastSuffix, "CN cidr after all domain suffixes");
         int resolve = indexOfAction(route, "resolve");
-        check(resolve > chinaDomains && resolve < cnCidr, "resolve only after explicit domain policy and before CN CIDR");
+        check(resolve > lastSuffix && resolve < cnCidr, "resolve only after explicit domain policy and before CN CIDR");
         check("direct-dns".equals(route.getJSONObject(resolve).getString("server")), "CN fallback resolution uses direct DNS");
         check("ipv4_only".equals(route.getJSONObject(resolve).getString("strategy")), "CN fallback resolution preserves IPv4 compatibility");
         check("proxy".equals(root.getJSONObject("route").getString("final")), "final is proxy");
@@ -276,19 +350,16 @@ public final class ProxyRulesSelfTest {
         check(!route.getJSONObject(proxyDomains).has("domain_suffix"), "exact proxy rule has no broad suffix");
         check(route.getJSONObject(proxySuffix).getJSONArray("domain_suffix").length() == 1,
                 "proxy suffix is a separate priority tier");
-        JSONArray chinaSuffix = route.getJSONObject(chinaDomains).getJSONArray("domain_suffix");
-        check(contains(chinaSuffix, ".cn"), "China suffix always includes .cn");
-        check(contains(chinaSuffix, "gov.cn"), "China suffix keeps bundle suffixes");
+        decision(root, "test.gov.cn", "direct");
+        decision(root, "test.other.cn", "direct");
+        decision(root, "www.google.com", "proxy");
         check(route.getJSONObject(cnCidr).getJSONArray("ip_cidr").length() == 2, "CN cidr list carried");
 
         JSONArray dnsRules = root.getJSONObject("dns").getJSONArray("rules");
-        check(dnsRules.length() == 4, "DNS has matching four specificity tiers");
         check("proxy-dns".equals(dnsRules.getJSONObject(0).getString("server")), "DNS proxy exact first");
         check("openai.com".equals(dnsRules.getJSONObject(0).getJSONArray("domain").getString(0)),
                 "DNS exact proxy domain preserved");
         check("direct-dns".equals(dnsRules.getJSONObject(1).getString("server")), "DNS direct exact second");
-        check("proxy-dns".equals(dnsRules.getJSONObject(2).getString("server")), "DNS proxy suffix third");
-        check(contains(dnsRules.getJSONObject(3).getJSONArray("domain_suffix"), ".cn"), "DNS direct suffix includes .cn");
         check("proxy-dns".equals(root.getJSONObject("dns").getString("final")), "DNS final stays proxy-dns");
         ProxyRules apple = ProxyRules.parse(VALID.replace("Example.COM", "apps.apple.com")
                 .replace("google.com", "apple.com"));
@@ -356,12 +427,20 @@ public final class ProxyRulesSelfTest {
             boolean match = exact != null && contains(exact, host);
             JSONArray suffixes = rule.optJSONArray("domain_suffix");
             if (suffixes != null) for (int j = 0; j < suffixes.length(); j++) {
-                String suffix = suffixes.getString(j).replaceFirst("^\\.", "");
-                match |= host.equals(suffix) || host.endsWith("." + suffix);
+                String suffix = suffixes.getString(j);
+                match |= suffix.startsWith(".") ? host.endsWith(suffix)
+                        : host.equals(suffix) || host.endsWith("." + suffix);
             }
             if (match) return rule.getString(target);
         }
         return "<final>";
+    }
+
+    private static int lastIndexOfField(JSONArray rules, String field) {
+        for (int i = rules.length() - 1; i >= 0; i--) {
+            if (rules.getJSONObject(i).has(field)) return i;
+        }
+        return -1;
     }
 
     private static int indexOfAction(JSONArray rules, String action) {

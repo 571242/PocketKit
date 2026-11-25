@@ -19,6 +19,15 @@ RULE_MANIFEST_FIELDS = ("rulesSchemaVersion", "rulesVersion", "rulesSha256", "ru
                         "rulesLicenseUrl", "rulesMinAppCode")
 RELEASES_DIR = os.path.join(DATA_DIR, "releases")
 BASE_URL = "https://9876-agqvov42zisdyuvnzmi23lrrw4.instabox.tech"
+# 阅读精选：仅暴露固定的只读 JSON 文件名白名单，不接受任意路径/子目录/符号链接。
+# 内容由独立低权限用户 pk-content 写入 /data/pocketkit-content/content（0644 可读），
+# hub 进程只读取、不写该目录，保持权限分离。
+CONTENT_DIR = "/data/pocketkit-content/content"
+CONTENT_FILES = {
+    "book-sources.json",          # 拾用精选下发包
+    "book-sources-status.json",   # 维护状态：次数/错误/最后成功/检测深度
+    "builtin-sources.json",       # 内置 fallback 镜像（与 APK asset 同结构）
+}
 # 管理口令文件，0600，由部署脚本生成；每次请求读取，轮换口令无需重启
 AUTH_FILE = os.path.join(DATA_DIR, "admin.token")
 MAX_UPLOAD_BYTES = 512 * 1024 * 1024
@@ -238,6 +247,24 @@ class HubHandler(SimpleHTTPRequestHandler):
             self.send_header("Content-Length", str(len(rules)))
             self.end_headers()
             self.wfile.write(rules)
+            return
+
+        # 阅读精选只读下发：严格文件名白名单，禁止子路径/符号链接/任意读取
+        content_match = re.fullmatch(r"/content/([A-Za-z0-9._-]+)", path)
+        if content_match:
+            name = content_match.group(1)
+            target = os.path.join(CONTENT_DIR, name)
+            if (name not in CONTENT_FILES or not os.path.isfile(target)
+                    or os.path.islink(target)):
+                self.send_error(404, "Content artifact not found")
+                return
+            with open(target, "rb") as stream:
+                body = stream.read()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
             return
 
         if path.startswith("/releases/"):

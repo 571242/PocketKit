@@ -1,0 +1,189 @@
+{
+  "task": "PocketKit 拾用精选 content subscription — three-in-one reading (novel / manga / video), client engine + host 01 service + 0.14.0 release",
+  "date": "2026-10-31",
+  "release": {
+    "versionName": "0.14.0",
+    "versionCode": 37,
+    "apk": "dist/PocketKit-0.14.0.apk",
+    "apkBytes": 286498053,
+    "apkSha256": "df366f0f3428ba148df9213ada68a0906c6b263475a83f998153205f6b034289",
+    "sourceZip": "dist/PocketKit-0.14.0-source.zip",
+    "sourceZipBytes": 162417835,
+    "sourceZipSha256": "3e480630a5f84b10af3e61d7f815fb95f08131d2d6d6d84b3ecf01af40713f29"
+  },
+  "engine_fixes": [
+    "Map -> NativeObject conversion so @js rules can read JSON fields (result.id was undefined for every JSON source)",
+    "Script instruction counter keyed per factory instance instead of per class (Rhino Context is thread-local and was accumulating across all scripts)",
+    "Script budget raised to 400M instructions / 8s wall clock so pure-JS AES decoders finish while hostile loops still die",
+    "Apple CMS routes: .m3u8 lines sorted before HTML share pages",
+    "stripUrlOptions() removes Legado ',{\"webView\":true}' suffixes before URI parsing",
+    "Multi-URL results truncated at first whitespace",
+    "Fanqie: drop audio albums from search rows; bookUrl points at the reader directory API",
+    "TOC pagination past the item cap keeps read chapters instead of throwing",
+    "SourceHttp: HTTP/2 first with automatic HTTP/1.1 retry on stalled streams; read timeout 20s",
+    "finalize_sources.atomic_json chmod 0644 (mkstemp default 0600 caused 502 after every curator run)",
+    "curator: carry over untested published sources + fixed CMS seed so a nightly run cannot shrink the bundle"
+  ],
+  "client_verification": {
+    "unit_tests": {
+      "suite": "ReadingEngineTest + ReadingImportsTest",
+      "result": "34/34 OK"
+    },
+    "novel": [
+      {
+        "name": "番茄小说",
+        "hits": 6,
+        "chapters": 404,
+        "chars": 2394
+      },
+      {
+        "name": "搬山人小说网",
+        "hits": 24,
+        "chapters": 79,
+        "chars": 5545
+      },
+      {
+        "name": "无忧书城",
+        "hits": 2,
+        "chapters": 1705,
+        "chars": 2746,
+        "note": "Cloudflare interstitial during this run; passed on 2026-10-30 and intermittently"
+      },
+      {
+        "name": "笔趣阁",
+        "hits": 1,
+        "chapters": 500,
+        "chars": 2781
+      },
+      {
+        "name": "精华书阁",
+        "hits": 20,
+        "chapters": 25,
+        "chars": 1204
+      },
+      {
+        "name": "全本小说网",
+        "hits": 12,
+        "chapters": 209,
+        "chars": 1125
+      },
+      {
+        "name": "得奇小说网",
+        "hits": 10,
+        "chapters": 1277,
+        "chars": 665
+      }
+    ],
+    "manga": [
+      {
+        "name": "G社漫画",
+        "hits": 30,
+        "chapters": 681,
+        "images": 36,
+        "first": "https://t-nd2-1.6wm.top/scomic/doupocangqiong-zhiyinmankerenxiang/0/0-8is0/1.webp"
+      },
+      {
+        "name": "漫画团",
+        "hits": 3,
+        "chapters": 681,
+        "images": 36,
+        "first": "https://c-nd3-1.6wm.top/scomic/doupocangqiong-zhiyinmankerenxiang/0/0-8is0/1.webp"
+      }
+    ],
+    "video": [
+      {
+        "name": "非凡资源",
+        "hits": 17,
+        "episodes": 354,
+        "mime": "application/x-mpegURL"
+      },
+      {
+        "name": "极速资源",
+        "hits": 20,
+        "episodes": 354,
+        "mime": "application/x-mpegURL"
+      },
+      {
+        "name": "光速资源",
+        "hits": 20,
+        "episodes": 354,
+        "mime": "application/x-mpegURL"
+      },
+      {
+        "name": "红牛资源",
+        "hits": 20,
+        "episodes": 354,
+        "mime": "application/x-mpegURL"
+      }
+    ],
+    "dropped_environment_blocked": {
+      "筆趣閣": "both hostnames TCP timeout, IPv6 unreachable",
+      "拷贝漫画": "api.mangacopy.com TLS reset on all four Cloudflare IPs",
+      "最大资源": "zuidazy.me network unreachable",
+      "无尽资源": "api.wujinapi.me Cloudflare JS challenge, HTTP 403"
+    },
+    "live_check_2026_10_31": "13/13 PASS via tools/reading-live-check/ReadingLiveCheck against the bundled asset",
+    "nightly_merge_proof": "curator run 2026-10-30T19:44:47Z: tested=60 verifiedNow=5 keptLastGood=1 carriedOver=8 publishedSources=14 (bundle baseline intact)"
+  },
+  "host01_deployment": {
+    "status": "DEPLOYED",
+    "transport": "InstaBox REST (old SSH key expired)",
+    "machine": "m_agqvov42zisdyuvnzmi23lrrw4",
+    "timer": "pocketkit-content-sync.timer enabled, OnCalendar 04:17 + up to 30min randomized delay (Persistent=true)",
+    "service": "pocketkit-content-sync.service Result=success ExecMainStatus=0",
+    "published_package": {
+      "url": "https://9876-agqvov42zisdyuvnzmi23lrrw4.instabox.tech/content/book-sources.json",
+      "http": 200,
+      "sources": 14,
+      "kinds": {
+        "novel": 8,
+        "manga": 2,
+        "video": 4
+      },
+      "note": "baseline 13 + 1 newly verified (错层小说); carriedOver proves nightly merge no longer shrinks the bundle"
+    },
+    "status_endpoint": {
+      "url": "/content/book-sources-status.json",
+      "http": 200,
+      "bytes": 22685
+    },
+    "admin": {
+      "http": 401
+    },
+    "permissions_fix": "book-sources.json was 0600 owned by pk-content while the hub runs as user -> 502; installed 0644 with 755 directory and deploy.py verify now fails on non-200/empty",
+    "update_endpoint": {
+      "url": "https://9876-agqvov42zisdyuvnzmi23lrrw4.instabox.tech/api/check-update",
+      "versionName": "0.14.0",
+      "versionCode": 37,
+      "downloadUrl": "https://9876-agqvov42zisdyuvnzmi23lrrw4.instabox.tech/releases/PocketKit-0.14.0.apk",
+      "apk_http": 200,
+      "apk_bytes": 286498053,
+      "apk_sha256_remote": "df366f0f3428ba148df9213ada68a0906c6b263475a83f998153205f6b034289",
+      "latest_symlink": "releases/latest.apk -> PocketKit-0.14.0.apk"
+    },
+    "builtin_mirror": {
+      "url": "/content/builtin-sources.json",
+      "http": 200,
+      "bytes": 32908,
+      "sources": 13
+    }
+  },
+  "written_files": {
+    "engine": [
+      "app/src/main/java/cn/xianhua/pocketkit/reading/RuleEvaluator.java",
+      "app/src/main/java/cn/xianhua/pocketkit/reading/ReadingEngine.java"
+    ],
+    "bundle": [
+      "app/src/main/assets/reading/builtin-sources.json (13 sources)"
+    ],
+    "service": [
+      "tools/content-subscription/curator.py",
+      "tools/content-subscription/assemble_builtin.py",
+      "tools/content-subscription/deploy.py (verify now asserts HTTP 200 and non-empty package)"
+    ],
+    "docs": [
+      "docs/reading-contract.md",
+      "docs/reading-source-provenance.md"
+    ]
+  }
+}

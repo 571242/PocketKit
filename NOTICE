@@ -1,0 +1,19 @@
+PocketKit
+Copyright 2026 PocketKit Authors
+
+This source version is distributed under GNU GPL version 3. The pre-existing
+Apache License 2.0 notice is retained in LICENSES/Apache-2.0.txt. Copyright and
+license notices of third-party code, libraries and data remain applicable.
+
+The reading compatibility implementation references the rule semantics in:
+Legado and its contributors
+https://github.com/huajideshutiao/legado
+commit d0c42f32426d01741dba0122982554f2934209e7
+GNU GPL v3 text: sources/legado/LICENSE
+This is not a distribution of the complete Legado application.
+
+Reading dependency and distribution notes: docs/reading-licenses.md
+Original SDK and dataset notices remain bundled in app/src/main/assets/.
+A GPL license for project source is not a certification that all bundled SDKs
+or content can be redistributed together under GPL. No public binary release
+or complete third-party legal compliance review is implied by this development build.

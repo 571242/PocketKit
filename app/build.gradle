@@ -8,8 +8,8 @@ android {
         applicationId 'cn.xianhua.pocketkit'
         minSdk 26
         targetSdk 36
-        versionCode 35
-        versionName '0.13.3'
+        versionCode 39
+        versionName '0.13.7'
         testInstrumentationRunner 'cn.xianhua.pocketkit.PocketKitRegressionInstrumentation'
     }
     compileOptions {
@@ -43,7 +43,7 @@ dependencies {
     // and throws ProtocolException for those, so the protocol goes through OkHttp, which does not.
     // Declared explicitly (it also arrives transitively via pdfbox-android) so the version cannot
     // drift with someone else's dependency graph.
-    implementation 'com.squareup.okhttp3:okhttp:3.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     // smbj's POM asks for bcprov-jdk18on, but bcprov-jdk15to18 is what pdfbox-android already puts
     // on the path, and the two artifacts contain the same org.bouncycastle classes — packaging both
     // fails checkDebugDuplicateClasses. Keep exactly one: the bcprov that pdfbox brings. The classes
@@ -64,6 +64,9 @@ dependencies {
     // Small compatibility bridge; the browser still uses the system WebView engine.
     implementation 'androidx.webkit:webkit:1.12.1'
     implementation 'com.ibm.icu:icu4j:76.1'
+    implementation 'org.jsoup:jsoup:1.18.3' // HTML parsing for 全能提取
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.json:json:20240303'
 }
 
 // Record resolved app artifacts so the release can preserve their notices.

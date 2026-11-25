@@ -218,7 +218,8 @@ public final class PocketVpnService extends VpnService {
         while (addresses.hasNext()) { RoutePrefix address = addresses.next(); builder.addAddress(address.address(), address.prefix()); }
         builder.addRoute("0.0.0.0", 0).addRoute("::", 0).addDnsServer("172.19.0.2");
         if (Build.VERSION.SDK_INT >= 29) builder.setMetered(false);
-        // Do not exclude PocketKit: protect(fd) keeps core sockets out of the TUN, while app probes use it.
+        // Core sockets use protect(fd); only user-selected packages bypass this TUN.
+        ProxyBypass.apply(ProxyBypass.preferences(this), builder);
         closeTun();
         vpnInterface = builder.establish();
         if (vpnInterface == null) throw new java.io.IOException("VPN interface unavailable");

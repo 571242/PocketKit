@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh PocketKit 拾用精选 book sources daily
+
+[Timer]
+OnCalendar=*-*-* 04:17:00
+RandomizedDelaySec=30min
+Persistent=true
+Unit=pocketkit-content-sync.service
+
+[Install]
+WantedBy=timers.target

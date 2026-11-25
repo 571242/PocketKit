@@ -37,8 +37,8 @@ public final class ProxyConfig {
             "chrome", "firefox", "edge", "safari", "360", "qq", "ios", "android", "random", "randomized",
             "chrome_psk", "chrome_psk_shuffle", "chrome_padding_psk_shuffle", "chrome_pq", "chrome_pq_psk"));
 
-    private static final Pattern CLASH_MARKER =
-            Pattern.compile("(?m)^\\s*[\"']?(proxies|Proxy)[\"']?\\s*:");
+    private static final Pattern CONFIG_MARKER =
+            Pattern.compile("(?m)^\\s*[\"']?(proxies|Proxy|outbounds)[\"']?\\s*:");
 
     /** One parsed proxy: either a complete outbound JSON, or a rejection reason. */
     public static final class Entry {
@@ -69,7 +69,7 @@ public final class ProxyConfig {
 
     // ---------------------------------------------------------------- entry points
 
-    /** Auto-detect Clash JSON/YAML, base64-wrapped or plain URI list. */
+    /** Auto-detect Clash or sing-box JSON/YAML, base64-wrapped or plain URI lists. */
     public static List<Entry> parse(String content) {
         List<Entry> out = new ArrayList<>();
         if (content == null) return out;
@@ -77,15 +77,16 @@ public final class ProxyConfig {
         if (text.startsWith("\uFEFF")) text = text.substring(1).trim();
         if (text.isEmpty()) return out;
 
-        if (text.startsWith("{") || text.startsWith("[") || CLASH_MARKER.matcher(text).find()) {
-            List<Entry> clash = parseClash(text);
-            if (!clash.isEmpty()) return clash;
-        }
         String decoded = decodeBase64Text(text);
-        return parseUris(decoded != null ? decoded : text);
+        if (decoded != null) text = decoded;
+        if (text.startsWith("{") || text.startsWith("[") || CONFIG_MARKER.matcher(text).find()) {
+            List<Entry> config = parseClash(text);
+            if (!config.isEmpty()) return config;
+        }
+        return parseUris(text);
     }
 
-    /** Clash / Clash.Meta "proxies" list via SnakeYAML SafeConstructor (JSON is valid YAML). */
+    /** Clash / Clash.Meta proxies or sing-box outbounds (JSON is valid YAML). */
     static List<Entry> parseClash(String text) {
         List<Entry> out = new ArrayList<>();
         Object root;
@@ -101,11 +102,44 @@ public final class ProxyConfig {
         Map<?, ?> map = (Map<?, ?>) root;
         Object proxies = map.get("proxies");
         if (proxies == null) proxies = map.get("Proxy");
+        boolean nativeOutbounds = false;
+        if (!(proxies instanceof List)) {
+            proxies = map.get("outbounds");
+            nativeOutbounds = true;
+        }
         if (!(proxies instanceof List)) return out;
         for (Object item : (List<?>) proxies) {
-            if (item instanceof Map) out.add(entryFromClash((Map<?, ?>) item));
+            if (!(item instanceof Map)) continue;
+            Map<?, ?> proxy = (Map<?, ?>) item;
+            if (!nativeOutbounds) out.add(entryFromClash(proxy));
+            else if (proxy.containsKey("server")) out.add(entryFromNative(proxy));
         }
         return out;
+    }
+
+    private static Entry entryFromNative(Map<?, ?> proxy) {
+        String type = normalizeType(str(proxy.get("type")));
+        String server = str(proxy.get("server"));
+        int port = parseInt(str(proxy.get("server_port")), 0);
+        String name = firstNonEmpty(str(proxy.get("tag")), server + ":" + port);
+        try {
+            if (!TYPES.contains(type)) throw new Reject("不支持的协议: " + type);
+            if (server.isEmpty() || port <= 0 || port > 65535) throw new Reject("缺少有效 server/port");
+            if (!str(proxy.get("detour")).isEmpty()) throw new Reject("节点依赖其他出站 (detour)");
+            if ("vless".equals(type) || "vmess".equals(type)) require(str(proxy.get("uuid")), "缺少 uuid");
+            if ("trojan".equals(type) || "shadowsocks".equals(type) || "hysteria2".equals(type)) {
+                require(str(proxy.get("password")), "缺少 password");
+            }
+            if ("shadowsocks".equals(type)) require(str(proxy.get("method")), "缺少加密方式");
+            Map<String, Object> outbound = new LinkedHashMap<>();
+            for (Map.Entry<?, ?> field : proxy.entrySet()) {
+                if (!(field.getKey() instanceof String)) throw new Reject("出站字段名无效");
+                if (!"tag".equals(field.getKey())) outbound.put((String) field.getKey(), field.getValue());
+            }
+            return new Entry(name, type, server, port, json(outbound), null);
+        } catch (Reject | RuntimeException error) {
+            return rejected(name, type, server, port, error instanceof Reject ? error.getMessage() : "出站配置无效");
+        }
     }
 
     /** One proxy URI per line; unknown lines are ignored. */
@@ -216,8 +250,9 @@ public final class ProxyConfig {
      * Same as the three-argument form plus cloud routing rules. {@code rules == null} means "no cloud
      * rules": RULE mode then only splits on private IPs and .cn, exactly like before the rules feature.
      *
-     * <p>RULE order: sniff, DNS hijack, private IP direct, exact proxy/direct hosts, proxy/direct
-     * suffixes, CN CIDRs direct, final proxy. GLOBAL and DIRECT ignore the bundle entirely.
+     * <p>RULE order: sniff, DNS hijack, private IP direct, exact proxy/direct hosts, suffixes from
+     * most to least specific (proxy first at equal depth), CN CIDRs direct, final proxy.
+     * GLOBAL and DIRECT ignore the bundle entirely.
      */
     public static String buildRuntimeConfig(String outboundJson, String mode, String secret, ProxyRules rules) {
         String normalized = mode == null ? "" : mode.trim();
@@ -243,6 +278,9 @@ public final class ProxyConfig {
         servers.add(dnsServer("direct-dns", "223.5.5.5", "direct"));
 
         boolean ruleMode = !direct && !global && rules != null;
+        List<Object> routeSuffixRules = new ArrayList<>();
+        List<Object> dnsSuffixRules = new ArrayList<>();
+        if (ruleMode) addSuffixRules(routeSuffixRules, dnsSuffixRules, rules);
         List<Object> routeRules = new ArrayList<>();
         routeRules.add(map("action", "sniff"));
         routeRules.add(map("protocol", "dns", "action", "hijack-dns"));
@@ -253,10 +291,7 @@ public final class ProxyConfig {
                 // Within each specificity tier an explicit proxy match wins.
                 addDomainRule(routeRules, rules.proxyDomain, Collections.emptyList(), "proxy");
                 addDomainRule(routeRules, rules.directDomain, Collections.emptyList(), "direct");
-                addDomainRule(routeRules, Collections.emptyList(), rules.proxySuffix, "proxy");
-                List<String> directSuffix = new ArrayList<>(rules.directSuffix);
-                directSuffix.add(".cn");
-                addDomainRule(routeRules, Collections.emptyList(), directSuffix, "direct");
+                routeRules.addAll(routeSuffixRules);
                 if (!rules.directCidr.isEmpty()) {
                     // Domain-only connections need an IP for CN fallback, after explicit domain policy.
                     routeRules.add(map("action", "resolve", "server", "direct-dns", "strategy", "ipv4_only"));
@@ -298,12 +333,9 @@ public final class ProxyConfig {
         dns.put("strategy", direct ? "prefer_ipv4" : "ipv4_only");
         if (ruleMode) {
             List<Object> dnsRules = new ArrayList<>();
-            List<String> chinaSuffix = new ArrayList<>(rules.directSuffix);
-            chinaSuffix.add(".cn");
             addDnsRule(dnsRules, rules.proxyDomain, Collections.emptyList(), "proxy-dns");
             addDnsRule(dnsRules, rules.directDomain, Collections.emptyList(), "direct-dns");
-            addDnsRule(dnsRules, Collections.emptyList(), rules.proxySuffix, "proxy-dns");
-            addDnsRule(dnsRules, Collections.emptyList(), chinaSuffix, "direct-dns");
+            dnsRules.addAll(dnsSuffixRules);
             if (!dnsRules.isEmpty()) dns.put("rules", dnsRules);
         } else if (!direct && !global) {
             dns.put("rules", list(map("domain_suffix", list(".cn"), "action", "route", "server", "direct-dns")));
@@ -332,6 +364,35 @@ public final class ProxyConfig {
         // A bare direct outbound cannot be used as a DNS detour in sing-box 1.14.
         if (!"direct".equals(detour)) server.put("detour", detour);
         return server;
+    }
+
+    /** More labels are more specific; equal-depth explicit proxy rules retain priority. */
+    private static void addSuffixRules(List<Object> route, List<Object> dns, ProxyRules rules) {
+        List<List<String>> proxy = suffixesByDepth(rules.proxySuffix);
+        List<String> directSuffix = new ArrayList<>(rules.directSuffix);
+        directSuffix.add(".cn");
+        List<List<String>> direct = suffixesByDepth(directSuffix);
+        for (int depth = Math.max(proxy.size(), direct.size()) - 1; depth >= 0; depth--) {
+            for (int side = 0; side < 2; side++) {
+                List<List<String>> groups = side == 0 ? proxy : direct;
+                if (depth >= groups.size()) continue;
+                List<String> suffixes = groups.get(depth);
+                String target = side == 0 ? "proxy" : "direct";
+                addDomainRule(route, Collections.emptyList(), suffixes, target);
+                addDnsRule(dns, Collections.emptyList(), suffixes, target + "-dns");
+            }
+        }
+    }
+
+    private static List<List<String>> suffixesByDepth(List<String> suffixes) {
+        List<List<String>> groups = new ArrayList<>();
+        for (String suffix : suffixes) {
+            int depth = 1;
+            for (int i = 1; i < suffix.length(); i++) if (suffix.charAt(i) == '.') depth++;
+            while (groups.size() <= depth) groups.add(new ArrayList<>());
+            groups.get(depth).add(suffix);
+        }
+        return groups;
     }
 
     /** One route rule per destination; empty categories emit nothing at all. */
@@ -892,13 +953,14 @@ public final class ProxyConfig {
         return text.isEmpty() ? null : text;
     }
 
-    /** Only decode when the payload really is a base64 blob wrapping a proxy list. */
+    /** Only decode when the payload really wraps a proxy list or a supported configuration. */
     static String decodeBase64Text(String text) {
         String compact = text.replaceAll("\\s+", "");
         if (compact.length() < 16 || compact.indexOf(':') >= 0) return null;
         String decoded = decodeText(b64(compact));
         if (decoded == null) return null;
-        return decoded.indexOf("://") >= 0 ? decoded : null;
+        return decoded.indexOf("://") >= 0 || CONFIG_MARKER.matcher(decoded).find()
+                || decoded.startsWith("{") ? decoded : null;
     }
 
     private static String str(Object value) {

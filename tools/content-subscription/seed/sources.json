@@ -1,0 +1,397 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "c0",
+      "name": "番茄小说",
+      "kind": "novel",
+      "url": "https://fanqienovel.com",
+      "rule": {
+        "bookSourceName": "番茄小说",
+        "bookSourceGroup": "小说",
+        "bookSourceType": 0,
+        "bookSourceUrl": "https://fanqienovel.com",
+        "bookSourceComment": "免登录可读前10章完整正文(字体映射用 @js 还原);第10章后为付费片段,照实标注。",
+        "header": {
+          "User-Agent": "Mozilla/5.0 (Linux; Android 12; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
+          "Referer": "https://fanqienovel.com/"
+        },
+        "searchUrl": "https://novel.snssdk.com/api/novel/channel/homepage/search/search/v1/?device_platform=android&parent_enterfrom=novel_channel_search.tab.&aid=13&offset={{(page-1)*10}}&q={{key}}",
+        "ruleSearch": {
+          "bookList": "$.data.ret_data[*]",
+          "name": "$.title##</?em>",
+          "author": "$.author",
+          "intro": "$.abstract",
+          "kind": "$.category",
+          "coverUrl": "$.thumb_url",
+          "bookUrl": "@js:var a=String(result.item_schema_url||'');a.indexOf('detail/audio')>=0?'':'https://fanqienovel.com/api/reader/directory/detail?bookId='+result.book_id"
+        },
+        "ruleBookInfo": {
+          "name": "",
+          "author": "",
+          "intro": "",
+          "coverUrl": "",
+          "lastChapter": "",
+          "tocUrl": ""
+        },
+        "ruleToc": {
+          "chapterList": "$.data.chapterListWithVolume[*][*]",
+          "chapterName": "$.title",
+          "chapterUrl": "@js:'https://fanqienovel.com/reader/'+result.itemId"
+        },
+        "ruleContent": {
+          "content": "@js:fqContent(result)"
+        },
+        "jsLib": "var FQ_BASE = 0xE3E8;\nvar FQ_TC = \"D在主特家军然表场4要只v和#6别还g现儿岁##此象月3出战工相o男直失世F都平文什VO将真T那当#会立些u是十张学气大爱两命全后东性通被1它乐接而感车山公了常以何可话先pi叫轻M士w着变尔快l个说少色里安花远7难师放t报认面道S#克地度I好机U民写把万同水新没书电吃像斯5为y白几日教看但第加候作上拉住有法r事应位利你声身国问马女他Y比父xAHNsX边美对所金活回意到z从j知又内因点Q三定8Rb正或夫向德听更#得告并本q过记L让打f人就者去原满体做经K走如孩cG给使物#最笑部#员等受k行一条果动光门头见往自解成处天能于名其发总母的死手入路进心来h时力多开已许d至由很界n小与Z想代么分生口再妈望次西风种带J#实情才这#E我神格长觉间年眼无不亲关结0友信下却重己老2音字m呢明之前高PB目太e9起棱她也W用方子英每理便四数期中C外样a海们任\";\nvar FQ_TL = \"体y十现快便话却月物水的放知爱万#表风理O老也p常克平几最主她s将法情o光a我呢J员太每望受教w利军已U人如变得要少斯门电m男没AK国时中走么何口小向问轻Td神下间车fG度D又大面远就写j给通起实E#它去S到道数吃们加P是无把事西多界#发新外活解孩只作前Y尔经#u心告父等Q民全这9果安#i母8r说任先和地C张战场g像cq你使#样总目x性处音头#应乐关能花l当名手4重字声力友然生代内里本回真入师象#0点R亲V种动英命ZhX做特边高有B为期自年马认出接至H正方感所明者棱F住学还分意更其n但比觉以由死家让失士L2I金叫身报听W再原山海白很见5直位第工个开岁好用都于可同3次四#日信与女笑满并部什不从或机此#了记三e些bN夫会才儿眼两美被一公来立z长对己看k许因相色后往打结格过世气7子条在书之定v拉成进带着东上想天他妈1文而路那别德6Mt行候难\";\nfunction fqDec(s, t) {\n  if (s == null) return \"\";\n  s = String(s);\n  var out = [], i, c, ch;\n  for (i = 0; i < s.length; i++) {\n    c = s.charCodeAt(i);\n    if (c >= FQ_BASE && c < FQ_BASE + t.length) {\n      ch = t.charAt(c - FQ_BASE);\n      out.push(ch == \"#\" ? s.charAt(i) : ch);\n    } else out.push(s.charAt(i));\n  }\n  return out.join(\"\");\n}\nfunction fqDecC(s) { return fqDec(s, FQ_TC); }\nfunction fqDecL(s) { return fqDec(s, FQ_TL); }\nfunction fqHasPua(s) { return /[\\uE000-\\uF8FF]/.test(String(s)); }\nfunction fqFilter(info) {\n  var m = {};\n  try { if (info != null && String(info) != \"\") m = JSON.parse(String(info)) || {}; } catch (e) { m = {}; }\n  var a = String(m[\"状态\"] || \"\"), b = String(m[\"字数\"] || \"\").replace(/\\s/g, \"\"), c = String(m[\"排序\"] || \"\");\n  var st = /完/.test(a) ? 0 : (/连/.test(a) ? 1 : -1);\n  var wc = -1;\n  if (/^30(万)?(字)?以下/.test(b)) wc = 0;\n  else if (/^30[-~～至]50/.test(b)) wc = 1;\n  else if (/^50[-~～至]100/.test(b)) wc = 2;\n  else if (/^100[-~～至]200/.test(b)) wc = 3;\n  else if (/^200(万)?(字)?以上/.test(b)) wc = 4;\n  var so = /新/.test(c) ? 1 : (/字/.test(c) ? 2 : 0);\n  return \"&creation_status=\" + st + \"&word_count=\" + wc + \"&sort=\" + so;\n}\nfunction fqWan(n) { n = Number(n) || 0; return n >= 10000 ? (n / 10000).toFixed(1) + \"万字\" : n + \"字\"; }\nfunction fqContent(html) {\n  html = String(html);\n  var m = html.match(/__INITIAL_STATE__\\s*=\\s*(\\{[\\s\\S]*?\\});\\s*\\}\\s*\\)\\s*\\(\\s*\\)/);\n  if (!m) return \"【番茄】未找到章节数据（页面结构可能已变化）\";\n  var st = JSON.parse(m[1].replace(/:\\s*undefined/g, \":null\"));\n  var cd = (st.reader && st.reader.chapterData) || {};\n  var raw = String(cd.content || \"\");\n  var paras = [];\n  raw.replace(/<p[^>]*>([\\s\\S]*?)<\\/p>/g, function (a, b) { paras.push(b); return a; });\n  if (!paras.length) paras = raw.split(/<br\\s*\\/?>|\\n/);\n  var lines = [], i, t;\n  for (i = 0; i < paras.length; i++) {\n    t = fqDecC(paras[i]).replace(/<[^>]+>/g, \"\").replace(/&nbsp;/g, \" \").replace(/&lt;/g, \"<\").replace(/&gt;/g, \">\").replace(/&quot;/g, \"\\\"\").replace(/&#39;/g, \"'\").replace(/&amp;/g, \"&\").replace(/^\\s+|\\s+$/g, \"\");\n    if (t) lines.push(t);\n  }\n  var text = lines.join(\"\\n\");\n  var words = Number(cd.chapterWordNumber) || 0;\n  if ((cd.isChapterLock === true || String(cd.isChapterLock) == \"true\") && words > 0 && text.length < words * 0.6) {\n    text += \"\\n\\n【未登录：番茄网页端第10章以后只返回片段。请在书源「登录」界面点「网页登录」登录自己的番茄账号，然后刷新本章。】\";\n  }\n  if (fqHasPua(text)) text += \"\\n\\n【番茄字体映射可能已更新，部分文字无法解码，请反馈更新书源】\";\n  return text;\n}"
+      }
+    },
+    {
+      "id": "c1",
+      "name": "搬山人小说网",
+      "kind": "novel",
+      "url": "https://www.banshanren.com",
+      "rule": {
+        "bookSourceName": "搬山人小说网",
+        "bookSourceGroup": "小说",
+        "bookSourceType": 0,
+        "bookSourceUrl": "https://www.banshanren.com",
+        "bookSourceComment": "搜索为干净 JSON API;目录/正文为 HTML。正文 box 内的 h2 标题与 z* 广告 span 用正则剔除。",
+        "header": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        },
+        "searchUrl": "https://www.banshanren.com/api/search?keyword={{key}}&page={{page}}",
+        "ruleSearch": {
+          "bookList": "$.model.data[*]",
+          "name": "$.title",
+          "author": "$.authors",
+          "intro": "$.description",
+          "coverUrl": "$.coverUrl",
+          "bookUrl": "@js:'https://www.banshanren.com/novel/'+result.slug"
+        },
+        "ruleBookInfo": {
+          "name": "h1@text"
+        },
+        "ruleToc": {
+          "chapterList": "ul.chapter_list li a",
+          "chapterName": "text",
+          "chapterUrl": "href"
+        },
+        "ruleContent": {
+          "content": "div.chapter_content_box@html##<h2[^>]*>[\\s\\S]*?</h2>|<span[^>]*class=\"z[^\"]*\"[^>]*>[\\s\\S]*?</span>##"
+        }
+      }
+    },
+    {
+      "id": "c2",
+      "name": "无忧书城",
+      "kind": "novel",
+      "url": "https://www.51shucheng.net",
+      "rule": {
+        "bookSourceName": "无忧书城",
+        "bookSourceGroup": "小说",
+        "bookSourceType": 0,
+        "bookSourceUrl": "https://www.51shucheng.net",
+        "bookSourceComment": "HTML 源;目录在详情页 ul#toc-list,正文 #neirong。",
+        "header": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        },
+        "searchUrl": "https://www.51shucheng.net/search?q={{key}}",
+        "ruleSearch": {
+          "bookList": "div.search_result li",
+          "name": "h3@text",
+          "intro": "p@text",
+          "bookUrl": "a@href"
+        },
+        "ruleBookInfo": {
+          "name": "div.book-info h1@text"
+        },
+        "ruleToc": {
+          "chapterList": "ul#toc-list li a",
+          "chapterName": "text",
+          "chapterUrl": "href"
+        },
+        "ruleContent": {
+          "content": "#neirong"
+        }
+      }
+    },
+    {
+      "id": "c3",
+      "name": "笔趣阁",
+      "kind": "novel",
+      "url": "https://www.byqg.cc",
+      "rule": {
+        "bookSourceName": "笔趣阁",
+        "bookSourceGroup": "小说",
+        "bookSourceType": 0,
+        "bookSourceUrl": "https://www.byqg.cc",
+        "bookSourceComment": "详情页只列最近章节;ruleBookInfo.tocUrl 由 bookUrl 推导完整目录页 /chapter/{id}.html(约500章)。",
+        "header": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        },
+        "searchUrl": "https://www.byqg.cc/search/{{key}}.html",
+        "ruleSearch": {
+          "bookList": "div.bookbox",
+          "name": ".bookname a@text",
+          "bookUrl": ".bookname a@href"
+        },
+        "ruleBookInfo": {
+          "tocUrl": "@js:'https://www.byqg.cc/chapter/'+String(baseUrl).match(/\\/book\\/(.+?)\\.html/)[1]+'.html'"
+        },
+        "ruleToc": {
+          "chapterList": "div#allchapter dl dd a",
+          "chapterName": "text",
+          "chapterUrl": "href"
+        },
+        "ruleContent": {
+          "content": "div#content"
+        }
+      }
+    },
+    {
+      "id": "c4",
+      "name": "精华书阁",
+      "kind": "novel",
+      "url": "https://m.jhsssd.com",
+      "rule": {
+        "bookSourceName": "精华书阁",
+        "bookSourceGroup": "小说",
+        "bookSourceType": 0,
+        "bookSourceUrl": "https://m.jhsssd.com",
+        "bookSourceComment": "移动端 HTML;目录取第2个 ul.chapter(正序),正文 #nr1 需剔除“阅读提示”和(..)噪声。",
+        "header": {
+          "User-Agent": "Mozilla/5.0 (Linux; Android 12; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36"
+        },
+        "searchUrl": "https://m.jhsssd.com/search.html?word={{key}}",
+        "ruleSearch": {
+          "bookList": "div.searchbook",
+          "name": "h4.bookname a@text",
+          "bookUrl": "h4.bookname a@href"
+        },
+        "ruleBookInfo": {
+          "name": "h1@text"
+        },
+        "ruleToc": {
+          "chapterList": "ul.chapter li a",
+          "chapterName": "text",
+          "chapterUrl": "href"
+        },
+        "ruleContent": {
+          "content": "#nr1##阅读提示：为防止内容获取不全，请勿使用浏览器阅读模式。|\\(\\.\\.\\)##"
+        }
+      }
+    },
+    {
+      "id": "c5",
+      "name": "全本小说网",
+      "kind": "novel",
+      "url": "https://www.qbxs.net",
+      "rule": {
+        "bookSourceName": "全本小说网",
+        "bookSourceGroup": "小说",
+        "bookSourceType": 0,
+        "bookSourceUrl": "https://www.qbxs.net",
+        "bookSourceComment": "搜索表格用 td:nth-child 取书名/链接;正文 #articlecontent 需去全本小说水印。",
+        "header": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        },
+        "searchUrl": "https://www.qbxs.net/search/?searchkey={{key}}",
+        "ruleSearch": {
+          "bookList": "table#rankinglist tr",
+          "name": "td:nth-child(1) a@text",
+          "bookUrl": "td:nth-child(1) a@href"
+        },
+        "ruleToc": {
+          "chapterList": ".ml_list ul>li a",
+          "chapterName": "text",
+          "chapterUrl": "href"
+        },
+        "ruleContent": {
+          "content": "#articlecontent##\\[全本小说\\][：:]?[\\s\\S]{0,40}一秒记住！##"
+        }
+      }
+    },
+    {
+      "id": "c6",
+      "name": "得奇小说网",
+      "kind": "novel",
+      "url": "https://www.deqitxt.com",
+      "rule": {
+        "bookSourceName": "得奇小说网",
+        "bookSourceGroup": "小说",
+        "bookSourceType": 0,
+        "bookSourceUrl": "https://www.deqitxt.com",
+        "bookSourceComment": "搜索路径为 /so/{key}.html;目录 #list,正文 div.con p。站点标注 utf-8。",
+        "header": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        },
+        "searchUrl": "https://www.deqitxt.com/so/{{key}}.html",
+        "ruleSearch": {
+          "bookList": "div.itemtxt",
+          "name": "h3 a@text",
+          "bookUrl": "h3 a@href"
+        },
+        "ruleBookInfo": {
+          "name": "h1@text"
+        },
+        "ruleToc": {
+          "chapterList": "#list li a",
+          "chapterName": "text",
+          "chapterUrl": "href"
+        },
+        "ruleContent": {
+          "content": "div.con p"
+        }
+      }
+    },
+    {
+      "id": "c7",
+      "name": "筆趣閣",
+      "kind": "novel",
+      "url": "https://www.biquge.tw",
+      "rule": {
+        "bookSourceName": "筆趣閣",
+        "bookSourceGroup": "小说",
+        "bookSourceType": 0,
+        "bookSourceUrl": "https://www.biquge.tw",
+        "bookSourceComment": "繁体;搜索结果卡片 div.result-card;目录/正文在 /book/{id}/ 与 /book/{id}/{cid}.html。",
+        "header": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        },
+        "searchUrl": "https://www.biquge.tw/search.php?keyword={{key}}",
+        "ruleSearch": {
+          "bookList": "div.result-card",
+          "name": "a.book-title@text",
+          "author": "span.author@text",
+          "intro": "div.book-intro@text",
+          "coverUrl": "div.book-cover img@src",
+          "bookUrl": "a.book-title@href"
+        },
+        "ruleBookInfo": {
+          "name": "h1@text",
+          "tocUrl": "@js:var m=String(baseUrl).match(/\\/book\\/(\\d+)/);'https://www.biquge.tw/book/'+m[1]+'/'"
+        },
+        "ruleToc": {
+          "chapterList": "div.booklist ul li a",
+          "chapterName": "text",
+          "chapterUrl": "href"
+        },
+        "ruleContent": {
+          "content": "#chaptercontent"
+        }
+      }
+    },
+    {
+      "id": "c8",
+      "name": "拷贝漫画",
+      "kind": "manga",
+      "url": "https://www.mangacopy.com",
+      "rule": {
+        "bookSourceName": "拷贝漫画",
+        "bookSourceGroup": "漫画",
+        "bookSourceType": 2,
+        "bookSourceUrl": "https://www.mangacopy.com",
+        "bookSourceComment": "纯 JSON API(api.mangacopy.com);镜像 api.copy4000.com/api.copy2000.online 可用。长漫画目录按 results.total 分页(此处取前100)。",
+        "header": {
+          "platform": "1",
+          "version": "9.9.9",
+          "Accept-Language": "zh-CN,zh;q=0.9",
+          "Accept": "application/json",
+          "referer": "https://www.mangacopy.com/"
+        },
+        "searchUrl": "https://api.mangacopy.com/api/v3/search/comic?platform=1&q={{key}}&limit=20&offset={{(page-1)*20}}&q_type=&_update=true",
+        "ruleSearch": {
+          "bookList": "$.results.list[*]",
+          "name": "$.name",
+          "intro": "$.description",
+          "coverUrl": "$.cover",
+          "bookUrl": "@js:'https://api.mangacopy.com/api/v3/comic2/'+result.path_word+'?platform=1&_update=true'"
+        },
+        "ruleBookInfo": {
+          "name": "$.results.comic.name",
+          "intro": "$.results.comic.brief",
+          "tocUrl": "@js:'https://api.mangacopy.com/api/v3/comic/'+JSON.parse(result).results.comic.path_word+'/group/default/chapters?limit=100&offset=0'"
+        },
+        "ruleToc": {
+          "chapterList": "$.results.list[*]",
+          "chapterName": "$.name",
+          "chapterUrl": "@js:'https://api.mangacopy.com/api/v3/comic/'+result.comic_path_word+'/chapter2/'+result.uuid+'?in_mainland=true&platform=1'"
+        },
+        "ruleContent": {
+          "content": "$.results.chapter.contents[*].url"
+        }
+      }
+    },
+    {
+      "id": "c9",
+      "name": "G社漫画",
+      "kind": "manga",
+      "url": "https://manhuafree.com",
+      "rule": {
+        "bookSourceName": "G社漫画",
+        "bookSourceGroup": "漫画",
+        "bookSourceType": 2,
+        "bookSourceUrl": "https://manhuafree.com",
+        "bookSourceComment": "搜索/详情为 HTML(data-mid);目录走 api-get-v3.mgsearcher.com,章节走 v2.apikk.top 并纯 JS 解密(仅用 java.base64Decode,无需 Packages/jsLib)。",
+        "header": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+          "Referer": "https://manhuafree.com/"
+        },
+        "searchUrl": "https://manhuafree.com/s/{{key}}?page={{page}}",
+        "ruleSearch": {
+          "bookList": ".grid-cols-3 .pb-2",
+          "name": "h3@text",
+          "coverUrl": "img@src",
+          "bookUrl": "a@href"
+        },
+        "ruleBookInfo": {
+          "name": ".text-xl@textNodes",
+          "tocUrl": "@js:var m=String(result).match(/data-mid=\"(\\d+)\"/);java.put('mid',m[1]);'https://api-get-v3.mgsearcher.com/api/manga/get?mid='+m[1]+'&mode=all'"
+        },
+        "ruleToc": {
+          "chapterList": "$.data.chapters[*]",
+          "chapterName": "$.attributes.title",
+          "chapterUrl": "@js:'https://v2.apikk.top/api/v2/chapter/getinfo?m='+java.get('mid')+'&c='+result.id"
+        },
+        "ruleContent": {
+          "content": "<js>\nvar data=JSON.parse(result)\nvar encrypted=data.data.info.images.images;\nfunction decryptImages(encrypted){\n var prefix=\"J7r\",suffix=\"nQ\",kD=\"kD\",W4s=\"W4s\",STEP=7;\n var source=\"_-9876543210abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\";\n var target=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_\";\n if(!encrypted.startsWith(prefix)||!encrypted.endsWith(suffix)){throw new Error(\"x2\");}\n var body=encrypted.slice(prefix.length,encrypted.length-suffix.length);\n var L=body.length-kD.length-W4s.length;\n var cols=Math.floor(L/3),rem2=Math.floor((L-cols)/2),rest=L-cols-rem2;\n var a=body.slice(0,rem2),b=body.slice(rem2,rem2+2),c=body.slice(rem2+2,rem2+2+rest),d=body.slice(rem2+2+rest,rem2+2+rest+3),e=body.slice(rem2+2+rest+3);\n if(b!==kD||d!==W4s||e.length!==cols){throw new Error(\"x4\");}\n var input=e+a+c,swapped=\"\";\n for(var i=0,gi=0;i<input.length;i+=STEP,gi++){var part=input.slice(i,i+STEP);if(gi%2===1){part=part.split(\"\").reverse().join(\"\");}swapped+=part;}\n var mapped=\"\";\n for(var j=0;j<swapped.length;j++){var ch=swapped.charAt(j);var idx=source.indexOf(ch);mapped+=target.charAt(idx);}\n var b64=mapped.replace(/-/g,\"+\").replace(/_/g,\"/\");\n while(b64.length%4!==0){b64+=\"=\";}\n return JSON.parse(java.base64Decode(b64));\n}\nvar imageList=decryptImages(encrypted);\nvar imgTags=imageList.map(function(item){return '<img src=\"https://t-nd2-1.6wm.top'+item.url+'\">';}).join('\\n');\nreturn imgTags;\n</js>"
+        }
+      }
+    },
+    {
+      "id": "c10",
+      "name": "漫画团",
+      "kind": "manga",
+      "url": "https://www.manhuatuan.com",
+      "rule": {
+        "bookSourceName": "漫画团",
+        "bookSourceGroup": "漫画",
+        "bookSourceType": 2,
+        "bookSourceUrl": "https://www.manhuatuan.com",
+        "bookSourceComment": "章节页含 params(base64),纯 JS 实现 AES-128-CBC 解密(不依赖 Packages),取出 chapter_images。",
+        "header": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+          "Referer": "https://www.manhuatuan.com/"
+        },
+        "searchUrl": "https://www.manhuatuan.com/search?q={{key}}&page={{page}}",
+        "ruleSearch": {
+          "bookList": "ul.comic-list2 li",
+          "name": "span.tit@text",
+          "coverUrl": "img@src",
+          "bookUrl": "a.lazy@href"
+        },
+        "ruleBookInfo": {
+          "name": "h2.comic-name@text"
+        },
+        "ruleToc": {
+          "chapterList": "div.comic-chapter li a",
+          "chapterName": "text",
+          "chapterUrl": "href"
+        },
+        "ruleContent": {
+          "content": "<js>\nvar html=String(result);\nvar m=html.match(/params\\s*=\\s*'([^']+)'/);\nfunction b64ToBytes(b64){var map=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\";var s=String(b64).replace(/[^A-Za-z0-9+/]/g,\"\");var bytes=[];for(var i=0;i<s.length;i+=4){var e1=map.indexOf(s.charAt(i)),e2=map.indexOf(s.charAt(i+1));var e3=(i+2<s.length)?map.indexOf(s.charAt(i+2)):64;var e4=(i+3<s.length)?map.indexOf(s.charAt(i+3)):64;bytes.push((e1<<2)|(e2>>4));if(e3!==64)bytes.push(((e2&15)<<4)|(e3>>2));if(e4!==64)bytes.push(((e3&3)<<6)|e4);}return bytes;}\nvar SB=[0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76,0xca,0x82,0xc9,0x7d,0xfa,0x59,0x47,0xf0,0xad,0xd4,0xa2,0xaf,0x9c,0xa4,0x72,0xc0,0xb7,0xfd,0x93,0x26,0x36,0x3f,0xf7,0xcc,0x34,0xa5,0xe5,0xf1,0x71,0xd8,0x31,0x15,0x04,0xc7,0x23,0xc3,0x18,0x96,0x05,0x9a,0x07,0x12,0x80,0xe2,0xeb,0x27,0xb2,0x75,0x09,0x83,0x2c,0x1a,0x1b,0x6e,0x5a,0xa0,0x52,0x3b,0xd6,0xb3,0x29,0xe3,0x2f,0x84,0x53,0xd1,0x00,0xed,0x20,0xfc,0xb1,0x5b,0x6a,0xcb,0xbe,0x39,0x4a,0x4c,0x58,0xcf,0xd0,0xef,0xaa,0xfb,0x43,0x4d,0x33,0x85,0x45,0xf9,0x02,0x7f,0x50,0x3c,0x9f,0xa8,0x51,0xa3,0x40,0x8f,0x92,0x9d,0x38,0xf5,0xbc,0xb6,0xda,0x21,0x10,0xff,0xf3,0xd2,0xcd,0x0c,0x13,0xec,0x5f,0x97,0x44,0x17,0xc4,0xa7,0x7e,0x3d,0x64,0x5d,0x19,0x73,0x60,0x81,0x4f,0xdc,0x22,0x2a,0x90,0x88,0x46,0xee,0xb8,0x14,0xde,0x5e,0x0b,0xdb,0xe0,0x32,0x3a,0x0a,0x49,0x06,0x24,0x5c,0xc2,0xd3,0xac,0x62,0x91,0x95,0xe4,0x79,0xe7,0xc8,0x37,0x6d,0x8d,0xd5,0x4e,0xa9,0x6c,0x56,0xf4,0xea,0x65,0x7a,0xae,0x08,0xba,0x78,0x25,0x2e,0x1c,0xa6,0xb4,0xc6,0xe8,0xdd,0x74,0x1f,0x4b,0xbd,0x8b,0x8a,0x70,0x3e,0xb5,0x66,0x48,0x03,0xf6,0x0e,0x61,0x35,0x57,0xb9,0x86,0xc1,0x1d,0x9e,0xe1,0xf8,0x98,0x11,0x69,0xd9,0x8e,0x94,0x9b,0x1e,0x87,0xe9,0xce,0x55,0x28,0xdf,0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16];\nvar ISB=new Array(256);for(var i=0;i<256;i++)ISB[SB[i]]=i;\nvar RCON=[0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80,0x1b,0x36];\nfunction xtime(a){a<<=1;if(a&0x100)a^=0x11b;return a&0xff;}\nfunction mul(a,b){var r=0;while(b){if(b&1)r^=a;a=xtime(a);b>>=1;}return r;}\nfunction expandKey(key){var w=[];for(var i=0;i<4;i++)w[i]=[key[4*i],key[4*i+1],key[4*i+2],key[4*i+3]];for(var i=4;i<44;i++){var t=w[i-1].slice();if(i%4===0){t=[t[1],t[2],t[3],t[0]];t=[SB[t[0]],SB[t[1]],SB[t[2]],SB[t[3]]];t[0]^=RCON[i/4-1];}w[i]=[w[i-4][0]^t[0],w[i-4][1]^t[1],w[i-4][2]^t[2],w[i-4][3]^t[3]];}var flat=[];for(var k=0;k<44;k++){flat.push(w[k][0],w[k][1],w[k][2],w[k][3]);}return flat;}\nfunction addRK(s,w,r){for(var i=0;i<16;i++)s[i]^=w[r*16+i];}\nfunction invShift(s){var t=s.slice();s[1]=t[13];s[5]=t[1];s[9]=t[5];s[13]=t[9];s[2]=t[10];s[6]=t[14];s[10]=t[2];s[14]=t[6];s[3]=t[7];s[7]=t[11];s[11]=t[15];s[15]=t[3];}\nfunction invSub(s){for(var i=0;i<16;i++)s[i]=ISB[s[i]];}\nfunction invMix(s){for(var c=0;c<4;c++){var i=c*4;var a=[s[i],s[i+1],s[i+2],s[i+3]];s[i]=mul(a[0],14)^mul(a[1],11)^mul(a[2],13)^mul(a[3],9);s[i+1]=mul(a[0],9)^mul(a[1],14)^mul(a[2],11)^mul(a[3],13);s[i+2]=mul(a[0],13)^mul(a[1],9)^mul(a[2],14)^mul(a[3],11);s[i+3]=mul(a[0],11)^mul(a[1],13)^mul(a[2],9)^mul(a[3],14);}}\nfunction decBlock(block,w){var s=block.slice();addRK(s,w,10);for(var r=9;r>=1;r--){invShift(s);invSub(s);addRK(s,w,r);invMix(s);}invShift(s);invSub(s);addRK(s,w,0);return s;}\nfunction aesDec(b64,keyStr){var raw=b64ToBytes(b64);var iv=raw.slice(0,16),ct=raw.slice(16);var key=[];for(var i=0;i<keyStr.length;i++)key.push(keyStr.charCodeAt(i)&0xff);var w=expandKey(key);var out=[],prev=iv;for(var off=0;off<ct.length;off+=16){var blk=ct.slice(off,off+16);var dec=decBlock(blk,w);for(var i=0;i<16;i++)out.push(dec[i]^prev[i]);prev=blk;}var pad=out[out.length-1];if(pad>=1&&pad<=16)out=out.slice(0,out.length-pad);var s=\"\",k=0;while(k<out.length){var b=out[k];if(b<0x80){s+=String.fromCharCode(b);k++;}else if(b>=0xC0&&b<0xE0){s+=String.fromCharCode(((b&0x1f)<<6)|(out[k+1]&0x3f));k+=2;}else if(b>=0xE0&&b<0xF0){s+=String.fromCharCode(((b&0x0f)<<12)|((out[k+1]&0x3f)<<6)|(out[k+2]&0x3f));k+=3;}else{s+=String.fromCharCode(((b&0x07)<<18)|((out[k+1]&0x3f)<<12)|((out[k+2]&0x3f)<<6)|(out[k+3]&0x3f));k+=4;}}return s;}\nvar txt=aesDec(m[1],\"5V&RoR%Jf@pJPydF\");\nvar obj=JSON.parse(txt);\nvar arr=obj.chapter_images||[];\nvar out=[];\nfor(var i=0;i<arr.length;i++){out.push('<img src=\"'+String(arr[i])+'\"/>');}\nreturn out.join('\\n');\n</js>"
+        }
+      }
+    }
+  ]
+}

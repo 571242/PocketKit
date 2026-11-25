@@ -85,6 +85,14 @@
             android:launchMode="singleTask" android:taskAffinity="cn.xianhua.pocketkit.private_browser"
             android:excludeFromRecents="true" android:configChanges="orientation|screenSize|keyboardHidden|uiMode"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".LinkExtractActivity" android:label="拾用·全能提取" android:exported="true"
+            android:windowSoftInputMode="adjustResize" android:configChanges="orientation|screenSize|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
         <activity android:name=".PatchEditorActivity" android:label="拾用·图片修字" android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden|uiMode" />
         <activity android:name=".LanShareActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
